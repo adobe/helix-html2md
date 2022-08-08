@@ -2,8 +2,7 @@ version: 2.1
 executors:
   node16:
     docker:
-      - image: cimg/node:16.15
-    working_directory: ~/repo
+      - image: cimg/node:16.16
 
 orbs:
   helix-post-deploy: adobe/helix-post-deploy@3.0.0
@@ -13,19 +12,9 @@ commands:
   setup:
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v3-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
-      - run:
-          name: install latest npm
-          command: npm -g install npm
       - run:
           name: Installing Dependencies
           command: npm ci
-      - save_cache:
-          paths:
-            - node_modules
-          key: v3-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
       - run:
           name: prepare test git user
           command: git config --global user.email "circleci@example.com" && git config
@@ -57,7 +46,6 @@ jobs:
           name: revert changes to package-lock.json
           command: git checkout -- package-lock.json
       - helix-post-deploy/config-env
-      - helix-gcloud-setup/load-config
       - run:
           name: Semantic Release
           command: npm run semantic-release
@@ -79,7 +67,6 @@ jobs:
       - run:
           name: revert changes to package-lock.json
           command: git checkout -- package-lock.json
-      - helix-gcloud-setup/load-config
       - run:
           name: Branch Deployment
           command: npm run deploy-ci
