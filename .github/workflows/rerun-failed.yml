@@ -1,0 +1,16 @@
+on:
+  check_run:
+    types: [ completed ]
+    branches-ignore:
+      - 'main'
+
+jobs:
+  ci_trigger:
+    runs-on: ubuntu-latest
+    name: Rerun failed CircleCI
+    steps:
+      - name: Run
+        id: run
+        uses: adobe-rnd/github-rerun-circleci-action@main
+        with:
+          circleci-token: ${{ secrets.CIRCLECI_TOKEN }}

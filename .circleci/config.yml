@@ -1,0 +1,110 @@
+version: 2.1
+executors:
+  node16:
+    docker:
+      - image: cimg/node:16.15
+    working_directory: ~/repo
+
+orbs:
+  helix-post-deploy: adobe/helix-post-deploy@3.0.0
+  codecov: codecov/codecov@3.2.2
+
+commands:
+  setup:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v3-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+      - run:
+          name: install latest npm
+          command: npm -g install npm
+      - run:
+          name: Installing Dependencies
+          command: npm ci
+      - save_cache:
+          paths:
+            - node_modules
+          key: v3-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+      - run:
+          name: prepare test git user
+          command: git config --global user.email "circleci@example.com" && git config
+            --global user.name "CircleCi Build"
+
+jobs:
+  build:
+    executor: node16
+    steps:
+      - setup
+      - run: mkdir junit
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Getting Code Coverage
+          command: npm run test
+      - codecov/upload
+      - store_test_results:
+          path: junit
+      - store_artifacts:
+          path: junit
+
+  semantic-release:
+    executor: node16
+    steps:
+      - setup
+      - run:
+          name: revert changes to package-lock.json
+          command: git checkout -- package-lock.json
+      - helix-post-deploy/config-env
+      - helix-gcloud-setup/load-config
+      - run:
+          name: Semantic Release
+          command: npm run semantic-release
+      - store_test_results:
+          path: junit
+      # see https://circleci.com/orbs/registry/orb/adobe/helix-post-deploy
+      # for more available parameters
+      - helix-post-deploy/monitoring:
+          statuspage_name: Helix Html2MD
+          statuspage_group: Publishing
+          newrelic_group_policy: Publishing Repeated Failure
+          targets: aws
+          incubator: true # remove only when promoting service to production
+
+  branch-deploy:
+    executor: node16
+    steps:
+      - setup
+      - run:
+          name: revert changes to package-lock.json
+          command: git checkout -- package-lock.json
+      - helix-gcloud-setup/load-config
+      - run:
+          name: Branch Deployment
+          command: npm run deploy-ci
+      - run:
+          name: Post-Deployment Integration Test
+          command: npm run test-postdeploy
+      - store_test_results:
+          path: junit
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+      - branch-deploy:
+          context: Project Helix
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: main
+      - semantic-release:
+          context: Project Helix
+          requires:
+            - build
+          filters:
+            branches:
+              only: main

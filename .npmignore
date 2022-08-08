@@ -1,0 +1,7 @@
+coverage
+node_modules/
+junit
+build
+logs
+test-results.xml
+.*
