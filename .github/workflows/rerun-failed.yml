@@ -1,5 +1,5 @@
 on:
-  check_run:
+  check_suite:
     types: [ completed ]
     branches-ignore:
       - 'main'
@@ -14,3 +14,4 @@ jobs:
         uses: adobe-rnd/github-rerun-circleci-action@main
         with:
           circleci-token: ${{ secrets.CIRCLECI_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
