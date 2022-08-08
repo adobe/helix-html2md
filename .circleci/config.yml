@@ -6,7 +6,7 @@ executors:
 
 orbs:
   helix-post-deploy: adobe/helix-post-deploy@3.0.0
-  codecov: codecov/codecov@3.2.2
+  codecov: codecov/codecov@3.2.3
 
 commands:
   setup:
