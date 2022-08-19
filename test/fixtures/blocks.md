@@ -137,3 +137,10 @@ light
 Style
 
 highlight
+
+<table>
+  <tr><th colSpan="2">Metadata</th></tr>
+  <tr><td>title</td><td>Project Helix by Adobe</td></tr>
+  <tr><td>description</td><td>Frictionless experience management: Build blazing fast websites using tools content creators and developers already know.</td></tr>
+  <tr><td>robots</td><td>noindex, nofollow</td></tr>
+</table>

@@ -56,7 +56,7 @@ describe('Index Tests', () => {
   it('returns 200 for a simple html', async () => {
     nock('https://www.example.com')
       .get('/')
-      .reply(200, '<html><body>Hello, world.</body></html>');
+      .reply(200, '<html lang="en"><body><main>Hello, world.</main></body></html>');
 
     const result = await main(req(), {});
     assert.strictEqual(result.status, 200);
@@ -72,7 +72,7 @@ describe('Index Tests', () => {
   it('includes last-modified in response', async () => {
     nock('https://www.example.com')
       .get('/')
-      .reply(200, '<html lang="en"><body>Hello, world.</body></html>', {
+      .reply(200, '<html lang="en"><body><main>Hello, world.</main></body></html>', {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       });
 

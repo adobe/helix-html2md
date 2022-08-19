@@ -126,3 +126,11 @@ A good place to start is the blocks folder which is where most of the styling an
 Once you are are ready to push your changes, simply git add, commit and push and your code is on your preview (`https://<branch>--<repo>--<owner>.hlx.page/`) and production (`https://<branch>--<repo>--<owner>.hlx.live/`) site.
 
 **That’s it, you made it! Congrats, your first Helix site is up and running.**
+
+<table>
+  <tr><th colSpan="2">Metadata</th></tr>
+  <tr><td>title</td><td>Getting started with Helix - Developer Tutorial</td></tr>
+  <tr><td>description</td><td>This tutorial should have you up and running with your AEM Helix projects in 10 - 20 minutes to a place where you can create, ...</td></tr>
+  <tr><td>template</td><td>docs</td></tr>
+  <tr><td>robots</td><td>noindex, nofollow</td></tr>
+</table>

@@ -76,3 +76,9 @@ Use Project Helix's serverless architecture to meet any traffic need. Use Projec
 Style
 
 highlight
+
+<table>
+  <tr><th colSpan="2">Metadata</th></tr>
+  <tr><td>title</td><td>Home | Helix Project Boilerplate</td></tr>
+  <tr><td>description</td><td>Use this template repository as the starting point for new Helix projects.</td></tr>
+</table>

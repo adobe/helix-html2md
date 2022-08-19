@@ -12,8 +12,79 @@
 import { unified } from 'unified';
 import parse from 'rehype-parse';
 import { toMdast } from 'hast-util-to-mdast';
+import { toString } from 'hast-util-to-string';
 import { toMarkdown } from 'mdast-util-to-markdown';
 import { select } from 'hast-util-select';
+
+import {
+  TYPE_TABLE,
+  TYPE_HEADER,
+  TYPE_BODY,
+  TYPE_ROW,
+  TYPE_CELL, gridHandlers,
+} from './gridTableMock.js';
+
+function node(type, children, props = {}) {
+  return {
+    type,
+    children,
+    ...props,
+  };
+}
+function text(value) {
+  return {
+    type: 'text',
+    value,
+  };
+}
+
+const HELIX_META = new Set(Array.from([
+  'twitter:card',
+  'twitter:title',
+  'twitter:description',
+  'twitter:image',
+  'viewport',
+]));
+
+function toTable(title, data) {
+  return node(TYPE_TABLE, [
+    node(TYPE_HEADER, [
+      node(TYPE_ROW, [
+        node(TYPE_CELL, [
+          text(title),
+        ], { colSpan: data[0].length }),
+      ])]),
+    node(
+      TYPE_BODY,
+      data.map((row) => node(
+        TYPE_ROW,
+        row.map((cell) => node(TYPE_CELL, [
+          text(cell),
+        ])),
+      )),
+    ),
+  ]);
+}
+
+function addMetadata(hast, mdast) {
+  const meta = new Map();
+
+  const head = select('head', hast);
+  for (const child of head.children) {
+    if (child.tagName === 'title') {
+      meta.set('title', toString(child));
+    } else {
+      const { name, content } = child.properties ?? {};
+      if (name && !HELIX_META.has(name)) {
+        meta.set(name, content);
+      }
+    }
+  }
+
+  if (meta.size) {
+    mdast.children.push(toTable('Metadata', Array.from(meta.entries())));
+  }
+}
 
 export async function html2md(html, opts) {
   const { log, url } = opts;
@@ -29,7 +100,14 @@ export async function html2md(html, opts) {
   }
 
   const mdast = toMdast(main);
-  const md = toMarkdown(mdast);
+
+  addMetadata(hast, mdast);
+
+  const md = toMarkdown(mdast, {
+    handlers: {
+      ...gridHandlers,
+    },
+  });
   const t1 = Date.now();
   log.info(`converted ${url} in ${t1 - t0}ms`);
   return md;
