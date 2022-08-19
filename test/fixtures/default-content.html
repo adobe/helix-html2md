@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Getting started with Helix - Developer Tutorial</title>
+    <link rel="canonical" href="https://www.hlx.live/developer/tutorial">
+    <meta name="description" content="This tutorial should have you up and running with your AEM Helix projects in 10 - 20 minutes to a place where you can create, ...">
+    <meta property="og:title" content="Getting started with Helix - Developer Tutorial">
+    <meta property="og:description" content="This tutorial should have you up and running with your AEM Helix projects in 10 - 20 minutes to a place where you can create, ...">
+    <meta property="og:url" content="https://www.hlx.live/developer/tutorial">
+    <meta property="og:image" content="https://www.hlx.live/developer/media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=1200&#x26;format=pjpg&#x26;optimize=medium">
+    <meta property="og:image:secure_url" content="https://www.hlx.live/developer/media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=1200&#x26;format=pjpg&#x26;optimize=medium">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Getting started with Helix - Developer Tutorial">
+    <meta name="twitter:description" content="This tutorial should have you up and running with your AEM Helix projects in 10 - 20 minutes to a place where you can create, ...">
+    <meta name="twitter:image" content="https://www.hlx.live/developer/media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=1200&#x26;format=pjpg&#x26;optimize=medium">
+    <meta name="template" content="docs">
+    <meta name="robots" content="noindex, nofollow"><!-- v7 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/scripts/scripts.js" type="module" crossorigin="use-credentials"></script>
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+<header></header>
+<main>
+    <div>
+        <h1 id="getting-started-with-helix---developer-tutorial">Getting started with Helix - Developer Tutorial</h1>
+        <p>This tutorial should have you up and running with your AEM Helix projects in 10 - 20 minutes to a place where you can create, preview and publish your own content and create your styling and add new blocks.</p>
+        <p>Pre-requisites:</p>
+        <ol>
+            <li>You have a github account, and understand git basics</li>
+            <li>You have a google account</li>
+            <li>You understand the basic HTML, CSS and JavaScript</li>
+            <li>Have node/npm installed for local development</li>
+        </ol>
+        <p>This tutorial assumes that you are using MacOS, Chrome and Visual Studio Code as part of your development environment.<br>Of course you can use a different operating system, browser and code editor, but you will see that screenshots and default instructions are most compatible with that setup.</p>
+        <h2 id="get-started-with-the-helix-boilerplate-repository-template">Get started with the Helix Boilerplate Repository Template</h2>
+        <div class="video">
+            <div>
+                <div>
+                    <p></p>
+                    <p><a href="./media_1d6e3d8e0e465fb2c43cdcb4c6ba8123693c86117.mp4">https://main--helix-website--adobe.hlx.page/media_1d6e3d8e0e465fb2c43cdcb4c6ba8123693c86117.mp4</a></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <p>The fastest and easiest way to get started with all the best practices in AEM Helix is to create your repo using the helix boilerplate github repo as a template:</p>
+        <p><a href="https://github.com/adobe/helix-project-boilerplate">https://github.com/adobe/helix-project-boilerplate</a></p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="909">
+            </picture>
+        </p>
+        <p>Just click the <code>Use this Template</code> button, and select where you want to create this repo.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_15a342b8fddee4d58a6b5cdda64c13e785525a366.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_15a342b8fddee4d58a6b5cdda64c13e785525a366.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_15a342b8fddee4d58a6b5cdda64c13e785525a366.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_15a342b8fddee4d58a6b5cdda64c13e785525a366.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="909">
+            </picture>
+        </p>
+        <p>We recommend that the repo stays public by default.</p>
+        <p>The only step that’s left to get you all setup in github is to install the <a href="https://github.com/apps/helix-bot">Helix Bot</a> on your repo, by visiting this link: <a href="https://github.com/apps/helix-bot/installations/new">https://github.com/apps/helix-bot/installations/new</a></p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_15c1f25fc4f11bd34bb63ea9f0c99974be835b484.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_15c1f25fc4f11bd34bb63ea9f0c99974be835b484.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_15c1f25fc4f11bd34bb63ea9f0c99974be835b484.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_15c1f25fc4f11bd34bb63ea9f0c99974be835b484.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1285">
+            </picture>
+        </p>
+        <p>Make sure you select <code>Only select Repositories</code> (NOT<code> All Repositories</code>).<br>Select your newly created repo, and hit save.</p>
+        <p>Congrats you are done, and have a new website running on <code>https://&#x3C;branch>--&#x3C;repo>--&#x3C;owner>.hlx.page/</code> in the above example that’s <code>https://main--my-website--davidnuescheler.hlx.page/</code></p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_1ea0bbbcde0c84f710fa79b6a08a2f146935aaa45.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_1ea0bbbcde0c84f710fa79b6a08a2f146935aaa45.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_1ea0bbbcde0c84f710fa79b6a08a2f146935aaa45.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_1ea0bbbcde0c84f710fa79b6a08a2f146935aaa45.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1316">
+            </picture>
+        </p>
+        <h2 id="link-your-own-content-source-google-drive">Link your own content source (Google Drive)</h2>
+        <div class="video">
+            <div>
+                <div>
+                    <p></p>
+                    <p><a href="./media_1b16be8d758ce2d392315a7c306767a62516fa831.mp4">https://main--helix-website--adobe.hlx.page/media_1b16be8d758ce2d392315a7c306767a62516fa831.mp4</a></p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <p>In your fork the content points to an existing content source in gdrive, see <a href="https://drive.google.com/drive/folders/1MGzOt7ubUh3gu7zhZIPb7R7dyRzG371j">this folder</a> with some example content in it.</p>
+        <p>This content is read-only, but it can be copied into your google drive folder.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_1f81f632a43133455d59aa16af3b48cf1eee5a773.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_1f81f632a43133455d59aa16af3b48cf1eee5a773.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_1f81f632a43133455d59aa16af3b48cf1eee5a773.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_1f81f632a43133455d59aa16af3b48cf1eee5a773.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1316">
+            </picture>
+        </p>
+        <p>To get started creating your own content, create a folder in your gdrive and share the folder with the Helix Bot (<code>helix@adobe.com</code>).</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_1a25f536986e81a9ec28e8a67e30ea6dc145e79e0.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_1a25f536986e81a9ec28e8a67e30ea6dc145e79e0.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_1a25f536986e81a9ec28e8a67e30ea6dc145e79e0.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_1a25f536986e81a9ec28e8a67e30ea6dc145e79e0.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1316">
+            </picture>
+        </p>
+        <p>A good way to get started is to copy <code>index</code>, <code>nav</code> and <code>footer</code> from the sample content to familiarize yourself with the content structure. <code>nav</code> and <code>footer</code> are not changed frequently in a project and have a special structure, most of the files in a helix project look more similar to <code>index</code>.</p>
+        <p>A good way to copy those files and to familiarize yourself with the structure is to open the files and copy/paste the entire content into your corresponding file. You can also download the files via “Download All” or downloads of individual files, but be mindful to convert the downloaded <code>.docx</code> files back into native google docs, if you upload them to your folder in your google drive.</p>
+        <p>To complete hooking up your content the only thing left is to tell Helix, where to get the content for the site by changing the reference in <code>fstab.yaml</code> in your github repo to the folder you just shared.<br>Just copy/paste the folder URL from your google drive to <code>fstab.yaml</code>.</p>
+        <p>Be aware that after you make that change, you will see <code>404 not found </code>errors as your content has not been previewed yet. Please refer to the next section to see how to start authoring and preview your content. If you copied over <code>index</code>, <code>nav</code> and <code>footer</code> all three of those are separate documents, with their own preview and publish cycles, so make sure you preview (and publish) all of them if needed.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_1e7b9c243af2a857d0a431b20f07aadf2f9bfe562.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_1e7b9c243af2a857d0a431b20f07aadf2f9bfe562.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_1e7b9c243af2a857d0a431b20f07aadf2f9bfe562.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_1e7b9c243af2a857d0a431b20f07aadf2f9bfe562.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="824">
+            </picture>
+        </p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_19cdf2c1a7b5f93389828aa8de3660d85b7865a9f.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_19cdf2c1a7b5f93389828aa8de3660d85b7865a9f.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_19cdf2c1a7b5f93389828aa8de3660d85b7865a9f.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_19cdf2c1a7b5f93389828aa8de3660d85b7865a9f.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="927">
+            </picture>
+        </p>
+        <p>Commit your changes, and you have completed the steps needed to hook up your own content source.</p>
+        <h2 id="preview-and-publish-your-content">Preview and Publish your content</h2>
+        <div class="video">
+            <div>
+                <div>
+                    <p></p>
+                    <p><a href="./media_1d7b6d38cd4f0ad9b661887e3a24b44a72f7c945e.mp4">https://main--helix-website--adobe.hlx.page/media_1d7b6d38cd4f0ad9b661887e3a24b44a72f7c945e.mp4</a></p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <p>After completing your last step, your new content source is possibly not completely empty, but no content has been promoted to the <code>preview</code> or <code>live </code>stages, which means your website should serve blank 404s at this point.</p>
+        <p>To preview content any author has to install the helix chrome extension or bookmarklet. Find the <a href="https://chrome.google.com/webstore/detail/helix-sidekick-beta/ccfggkjabjahcjoljmgmklhpaccedipo">chrome extension here</a>.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_1b86a3e704dd233972cce318e83a6dda44a787c1f.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_1b86a3e704dd233972cce318e83a6dda44a787c1f.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_1b86a3e704dd233972cce318e83a6dda44a787c1f.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_1b86a3e704dd233972cce318e83a6dda44a787c1f.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1062">
+            </picture>
+        </p>
+        <p>After adding the extension to chrome, don’t forget to pin it.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_1d7c76f6d5d0e2a5df540a25b77a8aefabfcd2e11.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_1d7c76f6d5d0e2a5df540a25b77a8aefabfcd2e11.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_1d7c76f6d5d0e2a5df540a25b77a8aefabfcd2e11.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_1d7c76f6d5d0e2a5df540a25b77a8aefabfcd2e11.png?width=750&#x26;format=png&#x26;optimize=medium" width="696" height="498">
+            </picture>
+        </p>
+        <p>To setup the chrome extension the easiest path is to go to your github repo, and click “Add Project”</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_158e5a49d59d14ad8f8259665927f11ee18fcae09.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_158e5a49d59d14ad8f8259665927f11ee18fcae09.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_158e5a49d59d14ad8f8259665927f11ee18fcae09.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_158e5a49d59d14ad8f8259665927f11ee18fcae09.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1116">
+            </picture>
+        </p>
+        <p>As soon as the extension is installed you are now ready to preview and publish your content from your google drive. Open the <code>index</code> doc and activate the helix sidekick by clicking on your pinned extension and then click the <code>Preview</code> button which will trigger the preview operation and open a new tab with the preview rendition of the content.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_161153232e3285a7eae3c82b903746c36e49ef8cc.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_161153232e3285a7eae3c82b903746c36e49ef8cc.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_161153232e3285a7eae3c82b903746c36e49ef8cc.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_161153232e3285a7eae3c82b903746c36e49ef8cc.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1134">
+            </picture>
+        </p>
+        <p>Once on the preview page, you can just press the <code>Publish</code> button which will trigger the publication of the content to the live environment and redirect you to the corresponding URL.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_19b6d313a098d6d8540a745e9ba4a82b1a2f1b801.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_19b6d313a098d6d8540a745e9ba4a82b1a2f1b801.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_19b6d313a098d6d8540a745e9ba4a82b1a2f1b801.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_19b6d313a098d6d8540a745e9ba4a82b1a2f1b801.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1134">
+            </picture>
+        </p>
+        <p>That’s it, you just published your first page with Helix.</p>
+        <p>Let’s make some changes and republish.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_1f6d66a54054c71b66bc67421a131c30d7490114c.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_1f6d66a54054c71b66bc67421a131c30d7490114c.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_1f6d66a54054c71b66bc67421a131c30d7490114c.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_1f6d66a54054c71b66bc67421a131c30d7490114c.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1134">
+            </picture>
+        </p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_1eba5dc6a44e0bb0b869153ad2b79b1904d5bdc07.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_1eba5dc6a44e0bb0b869153ad2b79b1904d5bdc07.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_1eba5dc6a44e0bb0b869153ad2b79b1904d5bdc07.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_1eba5dc6a44e0bb0b869153ad2b79b1904d5bdc07.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1134">
+            </picture>
+        </p>
+        <p>To complete the content of your site go through the same process with the <code>nav</code> and <code>footer</code> documents. After these steps you should have a fully functional website with a header and a footer, with all the content being completely controlled out of your own gdrive.</p>
+        <p>
+            <picture>
+                <source type="image/webp" srcset="./media_172de918ec54e4a5f2267f64f63218b1ef0bf066b.png?width=2000&#x26;format=webply&#x26;optimize=medium" media="(min-width: 400px)">
+                <source type="image/webp" srcset="./media_172de918ec54e4a5f2267f64f63218b1ef0bf066b.png?width=750&#x26;format=webply&#x26;optimize=medium">
+                <source type="image/png" srcset="./media_172de918ec54e4a5f2267f64f63218b1ef0bf066b.png?width=2000&#x26;format=png&#x26;optimize=medium" media="(min-width: 400px)">
+                <img loading="lazy" alt="" type="image/png" src="./media_172de918ec54e4a5f2267f64f63218b1ef0bf066b.png?width=750&#x26;format=png&#x26;optimize=medium" width="1600" height="1074">
+            </picture>
+        </p>
+        <h2 id="start-developing-styling-and-functionality">Start Developing Styling and Functionality</h2>
+        <div class="video">
+            <div>
+                <div>
+                    <p><a href="./media_141a9484b704e5113383b6ee92e09dd0ac352944a.mp4">https://main--helix-website--adobe.hlx.page/media_141a9484b704e5113383b6ee92e09dd0ac352944a.mp4</a></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <p>To get started with development, it is easiest to install the helix-cli and clone your repo locally through via…</p>
+        <pre><code>npm install -g @adobe/helix-cli
+git clone https://github.com/&#x3C;owner>/&#x3C;repo>
+</code></pre>
+        <p>…from there change into your project folder via and start your local dev env via</p>
+        <pre><code>cd &#x3C;repo>
+hlx up
+</code></pre>
+        <p>which will open up <code>http://localhost:3000/ </code>and you are ready to make changes.<br>A good place to start is the blocks folder which is where most of the styling and code will live for you helix project. Simply make a change in a <code>.css</code> or <code>.js </code>and you should see the changes in your browser immediately.</p>
+        <p>Once you are are ready to push your changes, simply git add, commit and push and your code is on your preview (<code>https://&#x3C;branch>--&#x3C;repo>--&#x3C;owner>.hlx.page/</code>) and production (<code>https://&#x3C;branch>--&#x3C;repo>--&#x3C;owner>.hlx.live/</code>) site.</p>
+        <p><strong>That’s it, you made it! Congrats, your first Helix site is up and running.</strong></p>
+    </div>
+</main>
+<footer></footer>
+</body>
+</html>

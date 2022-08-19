@@ -13,6 +13,7 @@ import { unified } from 'unified';
 import parse from 'rehype-parse';
 import { toMdast } from 'hast-util-to-mdast';
 import { toMarkdown } from 'mdast-util-to-markdown';
+import { select } from 'hast-util-select';
 
 export async function html2md(html, opts) {
   const { log, url } = opts;
@@ -20,7 +21,14 @@ export async function html2md(html, opts) {
   const hast = unified()
     .use(parse)
     .parse(html);
-  const mdast = toMdast(hast);
+
+  const main = select('main', hast);
+  if (!main) {
+    log.info(`${url} contains no <main>`);
+    return '';
+  }
+
+  const mdast = toMdast(main);
   const md = toMarkdown(mdast);
   const t1 = Date.now();
   log.info(`converted ${url} in ${t1 - t0}ms`);
