@@ -1,8 +1,8 @@
-*Helix is a new and exciting feature of Adobe Experience Manager*
+_Helix is a new and exciting feature of Adobe Experience Manager_
 
 # Faster. Better. Period.
 
-AEM Helix is the fastest way to ***launch*** new sites and deliver the ***fastest pages*** on the web, as a bonus it is also the most intuitive and fastest way to ***create and publish*** content.
+AEM Helix is the fastest way to **_launch_** new sites and deliver the **_fastest pages_** on the web, as a bonus it is also the most intuitive and fastest way to **_create and publish_** content.
 
 [Seriously? Yes.](#but-how-fast)
 
@@ -38,21 +38,21 @@ dark
 
 ### It’s about time to lose patience with slow sites
 
-*   Half a second delay in page load time leads to 20% increase in bounce rate
-*   53% of all mobile visits end prematurely if a page takes more than 3 seconds to load
-*   2 seconds of load time or more drop conversion rates by 50%
+-   Half a second delay in page load time leads to 20% increase in bounce rate
+-   53% of all mobile visits end prematurely if a page takes more than 3 seconds to load
+-   2 seconds of load time or more drop conversion rates by 50%
 
 ### Don’t make your business wait for your content management system
 
-*   Authors spend more time with data entry than writing content
-*   Deadlines are frequently missed because content is hard to review
-*   Unit costs for content are increasing
+-   Authors spend more time with data entry than writing content
+-   Deadlines are frequently missed because content is hard to review
+-   Unit costs for content are increasing
 
 ### Stop wasting developer time on framework churn
 
-*   Heavyweight frameworks make it harder to find developers
-*   Slower to build sites
-*   Costly to implement changes
+-   Heavyweight frameworks make it harder to find developers
+-   Slower to build sites
+-   Costly to implement changes
 
 ![](./media_1748ef54e01ead0d3a8f5b24f7dc3ae3ab40de9e6.png?width=750\&format=png\&optimize=medium)
 
@@ -120,7 +120,7 @@ Style
 
 dark
 
-### What *is* Helix? (if you like tech jargon)
+### What _is_ Helix? (if you like tech jargon)
 
 Helix lets business users ingest and publish markdown documents and spreadsheets from Microsoft Office or Google Docs and Sheets into a scalable, distributed content repository and dynamically renders HTML (and JSON, webp, etc.) to produce fast websites and actively manages cache consistency with your existing CDN infrastructure.
 
@@ -138,9 +138,22 @@ Style
 
 highlight
 
+---
+
 <table>
-  <tr><th colSpan="2">Metadata</th></tr>
-  <tr><td>title</td><td>Project Helix by Adobe</td></tr>
-  <tr><td>description</td><td>Frictionless experience management: Build blazing fast websites using tools content creators and developers already know.</td></tr>
-  <tr><td>robots</td><td>noindex, nofollow</td></tr>
+  <tr>
+    <td colspan="2">Metadata</td>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td>Project Helix by Adobe</td>
+  </tr>
+  <tr>
+    <td>description</td>
+    <td>Frictionless experience management: Build blazing fast websites using tools content creators and developers already know.</td>
+  </tr>
+  <tr>
+    <td>robots</td>
+    <td>noindex, nofollow</td>
+  </tr>
 </table>

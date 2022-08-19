@@ -2,7 +2,7 @@
 
 # Congrats, you are ready to go!
 
-Your forked repo is setup as a helix project and you are ready to start developing.\
+Your forked repo is setup as a helix project and you are ready to start developing.  
 The content you are looking at is served from this [gdrive](https://drive.google.com/drive/folders/1MGzOt7ubUh3gu7zhZIPb7R7dyRzG371j?usp=sharing)
 
 Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your gdrive that you shared with helix. See the full tutorial here:
@@ -13,9 +13,9 @@ Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your g
 
 Columns block
 
-*   One
-*   Two
-*   Three
+-   One
+-   Two
+-   Three
 
 [Live](/)
 
@@ -25,7 +25,7 @@ Columns block
 
 Or you can just view the preview
 
-*[Preview](/)*
+_[Preview](/)_
 
 ## Boilerplate Highlights?
 
@@ -77,8 +77,18 @@ Style
 
 highlight
 
+---
+
 <table>
-  <tr><th colSpan="2">Metadata</th></tr>
-  <tr><td>title</td><td>Home | Helix Project Boilerplate</td></tr>
-  <tr><td>description</td><td>Use this template repository as the starting point for new Helix projects.</td></tr>
+  <tr>
+    <td colspan="2">Metadata</td>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td>Home | Helix Project Boilerplate</td>
+  </tr>
+  <tr>
+    <td>description</td>
+    <td>Use this template repository as the starting point for new Helix projects.</td>
+  </tr>
 </table>

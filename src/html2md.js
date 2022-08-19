@@ -10,19 +10,34 @@
  * governing permissions and limitations under the License.
  */
 import { unified } from 'unified';
+import stringify from 'remark-stringify';
 import parse from 'rehype-parse';
 import { toMdast } from 'hast-util-to-mdast';
 import { toString } from 'hast-util-to-string';
-import { toMarkdown } from 'mdast-util-to-markdown';
 import { select } from 'hast-util-select';
+import gfm from 'remark-gfm';
 
 import {
-  TYPE_TABLE,
-  TYPE_HEADER,
-  TYPE_BODY,
-  TYPE_ROW,
-  TYPE_CELL, gridHandlers,
-} from './gridTableMock.js';
+  robustTables,
+  remarkMatter,
+  breaksAsSpaces,
+} from '@adobe/helix-markdown-support';
+
+//
+// import {
+//   TYPE_TABLE,
+//   TYPE_HEADER,
+//   TYPE_BODY,
+//   TYPE_ROW,
+//   TYPE_CELL, gridHandlers,
+// } from './gridTableMock.js';
+
+export const TYPE_TABLE = 'table';
+export const TYPE_HEAD = 'tableHead';
+export const TYPE_HEADER = 'tableHeader';
+export const TYPE_BODY = 'tableBody';
+export const TYPE_ROW = 'tableRow';
+export const TYPE_CELL = 'tableCell';
 
 function node(type, children, props = {}) {
   return {
@@ -48,23 +63,39 @@ const HELIX_META = new Set(Array.from([
 
 function toTable(title, data) {
   return node(TYPE_TABLE, [
-    node(TYPE_HEADER, [
-      node(TYPE_ROW, [
-        node(TYPE_CELL, [
-          text(title),
-        ], { colSpan: data[0].length }),
-      ])]),
-    node(
-      TYPE_BODY,
-      data.map((row) => node(
-        TYPE_ROW,
-        row.map((cell) => node(TYPE_CELL, [
-          text(cell),
-        ])),
-      )),
-    ),
+    node(TYPE_ROW, [
+      node(TYPE_CELL, [
+        text(title),
+      ], { colSpan: data[0].length }),
+    ]),
+    ...data.map((row) => node(
+      TYPE_ROW,
+      row.map((cell) => node(TYPE_CELL, [
+        text(cell),
+      ])),
+    )),
   ]);
 }
+
+// function toTable2(title, data) {
+//   return node(TYPE_TABLE, [
+//     node(TYPE_HEAD, [
+//       node(TYPE_ROW, [
+//         node(TYPE_CELL, [
+//           text(title),
+//         ], { colSpan: data[0].length }),
+//       ])]),
+//     node(
+//       TYPE_BODY,
+//       data.map((row) => node(
+//         TYPE_ROW,
+//         row.map((cell) => node(TYPE_CELL, [
+//           text(cell),
+//         ])),
+//       )),
+//     ),
+//   ]);
+// }
 
 function addMetadata(hast, mdast) {
   const meta = new Map();
@@ -82,6 +113,7 @@ function addMetadata(hast, mdast) {
   }
 
   if (meta.size) {
+    mdast.children.push(node('thematicBreak'));
     mdast.children.push(toTable('Metadata', Array.from(meta.entries())));
   }
 }
@@ -103,11 +135,34 @@ export async function html2md(html, opts) {
 
   addMetadata(hast, mdast);
 
-  const md = toMarkdown(mdast, {
-    handlers: {
-      ...gridHandlers,
-    },
-  });
+  await robustTables(mdast);
+
+  // noinspection JSVoidFunctionReturnValueUsed
+  const md = unified()
+    .use(stringify, {
+      strong: '*',
+      emphasis: '_',
+      bullet: '-',
+      fence: '`',
+      fences: true,
+      incrementListMarker: true,
+      rule: '-',
+      ruleRepetition: 3,
+      ruleSpaces: false,
+    })
+    .use(gfm, {
+      // tableCellPadding: false,
+      // tablePipeAlign: false,
+    })
+    .use(breaksAsSpaces)
+    .use(remarkMatter)
+    // .use(orderedListPlugin)
+    .stringify(mdast);
+  // const md = toMarkdown(mdast, {
+  //   handlers: {
+  //     ...gridHandlers,
+  //   },
+  // });
   const t1 = Date.now();
   log.info(`converted ${url} in ${t1 - t0}ms`);
   return md;

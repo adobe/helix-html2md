@@ -9,7 +9,7 @@ Pre-requisites:
 3.  You understand the basic HTML, CSS and JavaScript
 4.  Have node/npm installed for local development
 
-This tutorial assumes that you are using MacOS, Chrome and Visual Studio Code as part of your development environment.\
+This tutorial assumes that you are using MacOS, Chrome and Visual Studio Code as part of your development environment.  
 Of course you can use a different operating system, browser and code editor, but you will see that screenshots and default instructions are most compatible with that setup.
 
 ## Get started with the Helix Boilerplate Repository Template
@@ -32,7 +32,7 @@ The only step that’s left to get you all setup in github is to install the [He
 
 ![](./media_15c1f25fc4f11bd34bb63ea9f0c99974be835b484.png?width=750\&format=png\&optimize=medium)
 
-Make sure you select `Only select Repositories` (NOT` All Repositories`).\
+Make sure you select `Only select Repositories` (NOT` All Repositories`).  
 Select your newly created repo, and hit save.
 
 Congrats you are done, and have a new website running on `https://<branch>--<repo>--<owner>.hlx.page/` in the above example that’s `https://main--my-website--davidnuescheler.hlx.page/`
@@ -57,7 +57,7 @@ A good way to get started is to copy `index`, `nav` and `footer` from the sample
 
 A good way to copy those files and to familiarize yourself with the structure is to open the files and copy/paste the entire content into your corresponding file. You can also download the files via “Download All” or downloads of individual files, but be mindful to convert the downloaded `.docx` files back into native google docs, if you upload them to your folder in your google drive.
 
-To complete hooking up your content the only thing left is to tell Helix, where to get the content for the site by changing the reference in `fstab.yaml` in your github repo to the folder you just shared.\
+To complete hooking up your content the only thing left is to tell Helix, where to get the content for the site by changing the reference in `fstab.yaml` in your github repo to the folder you just shared.  
 Just copy/paste the folder URL from your google drive to `fstab.yaml`.
 
 Be aware that after you make that change, you will see `404 not found `errors as your content has not been previewed yet. Please refer to the next section to see how to start authoring and preview your content. If you copied over `index`, `nav` and `footer` all three of those are separate documents, with their own preview and publish cycles, so make sure you preview (and publish) all of them if needed.
@@ -112,25 +112,45 @@ To complete the content of your site go through the same process with the `nav` 
 
 To get started with development, it is easiest to install the helix-cli and clone your repo locally through via…
 
-    npm install -g @adobe/helix-cli
-    git clone https://github.com/<owner>/<repo>
+```
+npm install -g @adobe/helix-cli
+git clone https://github.com/<owner>/<repo>
+```
 
 …from there change into your project folder via and start your local dev env via
 
-    cd <repo>
-    hlx up
+```
+cd <repo>
+hlx up
+```
 
-which will open up `http://localhost:3000/ `and you are ready to make changes.\
+which will open up `http://localhost:3000/ `and you are ready to make changes.  
 A good place to start is the blocks folder which is where most of the styling and code will live for you helix project. Simply make a change in a `.css` or `.js `and you should see the changes in your browser immediately.
 
 Once you are are ready to push your changes, simply git add, commit and push and your code is on your preview (`https://<branch>--<repo>--<owner>.hlx.page/`) and production (`https://<branch>--<repo>--<owner>.hlx.live/`) site.
 
 **That’s it, you made it! Congrats, your first Helix site is up and running.**
 
+---
+
 <table>
-  <tr><th colSpan="2">Metadata</th></tr>
-  <tr><td>title</td><td>Getting started with Helix - Developer Tutorial</td></tr>
-  <tr><td>description</td><td>This tutorial should have you up and running with your AEM Helix projects in 10 - 20 minutes to a place where you can create, ...</td></tr>
-  <tr><td>template</td><td>docs</td></tr>
-  <tr><td>robots</td><td>noindex, nofollow</td></tr>
+  <tr>
+    <td colspan="2">Metadata</td>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td>Getting started with Helix - Developer Tutorial</td>
+  </tr>
+  <tr>
+    <td>description</td>
+    <td>This tutorial should have you up and running with your AEM Helix projects in 10 - 20 minutes to a place where you can create, ...</td>
+  </tr>
+  <tr>
+    <td>template</td>
+    <td>docs</td>
+  </tr>
+  <tr>
+    <td>robots</td>
+    <td>noindex, nofollow</td>
+  </tr>
 </table>
