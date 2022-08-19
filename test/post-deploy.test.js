@@ -36,10 +36,21 @@ createTargets().forEach((target) => {
       });
     }).timeout(50000);
 
-    it('invokes the function', async () => {
-      const res = await fetch(`${target.host()}${target.urlPath()}`);
+    it('converts html from the helix site', async () => {
+      const url = new URL(`${target.host()}${target.urlPath()}`);
+      url.searchParams.append('url', ' https://main--helix-test-content-onedrive--adobe.hlx.page/');
+      url.searchParams.append('owner', 'owner');
+      url.searchParams.append('repo', 'repo');
+      url.searchParams.append('contentBusId', 'foo-id');
+      const res = await fetch(url);
       assert.strictEqual(res.status, 200);
-      assert.fail('not ready yet');
+      assert.strictEqual((await res.text()).trim(), '<!-- Content is: github-main-/head.html  -->\n'
+        + '\n'
+        + '# Helix Test Content\n'
+        + '\n'
+        + 'Content is: sharepoint-/main/index.docx\n'
+        + '\n'
+        + 'And more...newcontent');
     }).timeout(50000);
   });
 });

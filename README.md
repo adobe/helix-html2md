@@ -18,8 +18,6 @@
 curl https://helix-pages.anywhere.run/helix-services/html2md@v1
 ```
 
-For more, see the [API documentation](docs/API.md).
-
 ## Development
 
 ### Deploying Helix Html2MD
