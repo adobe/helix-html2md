@@ -39,7 +39,7 @@ export const TYPE_BODY = 'tableBody';
 export const TYPE_ROW = 'tableRow';
 export const TYPE_CELL = 'tableCell';
 
-function node(type, children, props = {}) {
+function h(type, children, props = {}) {
   return {
     type,
     children,
@@ -62,15 +62,15 @@ const HELIX_META = new Set(Array.from([
 ]));
 
 function toTable(title, data) {
-  return node(TYPE_TABLE, [
-    node(TYPE_ROW, [
-      node(TYPE_CELL, [
+  return h(TYPE_TABLE, [
+    h(TYPE_ROW, [
+      h(TYPE_CELL, [
         text(title),
       ], { colSpan: data[0].length }),
     ]),
-    ...data.map((row) => node(
+    ...data.map((row) => h(
       TYPE_ROW,
-      row.map((cell) => node(TYPE_CELL, [
+      row.map((cell) => h(TYPE_CELL, [
         text(cell),
       ])),
     )),
@@ -113,8 +113,32 @@ function addMetadata(hast, mdast) {
   }
 
   if (meta.size) {
-    mdast.children.push(node('thematicBreak'));
+    mdast.children.push(h('thematicBreak'));
     mdast.children.push(toTable('Metadata', Array.from(meta.entries())));
+  }
+}
+
+function createSections(main) {
+  // replace the 'toplevel' divs by <hr> and move the child nodes up
+  let first = true;
+  for (let i = 0; i < main.children.length; i += 1) {
+    const node = main.children[i];
+    if (node.tagName === 'div' && node.children.length) {
+      // skip first hr
+      if (first) {
+        first = false;
+        main.children.splice(i, 1, ...node.children);
+        i += node.children.length - 1;
+      } else {
+        node.tagName = 'hr';
+        main.children.splice(i + 1, 0, ...node.children);
+        i += node.children.length;
+      }
+    } else {
+      // remove all other nodes
+      main.children.splice(i, 1);
+      i -= 1;
+    }
   }
 }
 
@@ -130,6 +154,8 @@ export async function html2md(html, opts) {
     log.info(`${url} contains no <main>`);
     return '';
   }
+
+  createSections(main);
 
   const mdast = toMdast(main);
 

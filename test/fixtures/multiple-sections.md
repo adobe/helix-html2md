@@ -27,6 +27,8 @@ Or you can just view the preview
 
 _[Preview](/)_
 
+---
+
 ## Boilerplate Highlights?
 
 Find some of our favorite staff picks below:

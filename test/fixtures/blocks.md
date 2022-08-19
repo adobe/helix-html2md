@@ -12,6 +12,8 @@ Style
 
 highlight
 
+---
+
 ## But how fast?
 
 ![](./media_102865949ac0b99cb9d73fe618ef550baa6736c1c.png?width=750\&format=png\&optimize=medium)
@@ -36,6 +38,8 @@ Style
 
 dark
 
+---
+
 ### It’s about time to lose patience with slow sites
 
 -   Half a second delay in page load time leads to 20% increase in bounce rate
@@ -55,6 +59,8 @@ dark
 -   Costly to implement changes
 
 ![](./media_1748ef54e01ead0d3a8f5b24f7dc3ae3ab40de9e6.png?width=750\&format=png\&optimize=medium)
+
+---
 
 ## Helix Benefits
 
@@ -96,6 +102,8 @@ Style
 
 light
 
+---
+
 ## How it works
 
 ![](./media_1d880e70c58ce53f10feeddfa2ddb0df91c27f6ad.png?width=750\&format=png\&optimize=medium)
@@ -120,6 +128,8 @@ Style
 
 dark
 
+---
+
 ### What _is_ Helix? (if you like tech jargon)
 
 Helix lets business users ingest and publish markdown documents and spreadsheets from Microsoft Office or Google Docs and Sheets into a scalable, distributed content repository and dynamically renders HTML (and JSON, webp, etc.) to produce fast websites and actively manages cache consistency with your existing CDN infrastructure.
@@ -129,6 +139,8 @@ Helix lets frontend devs develop and deploy the design and functionality of thei
 Style
 
 light
+
+---
 
 ## Start with Helix today
 
