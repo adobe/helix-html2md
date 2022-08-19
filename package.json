@@ -41,6 +41,9 @@
   "homepage": "https://github.com/adobe/helix-html2md#readme",
   "dependencies": {
     "@adobe/helix-fetch": "3.1.2",
+    "@adobe/helix-mediahandler": "1.0.40",
+    "@adobe/helix-shared-body-data": "1.1.19",
+    "@adobe/helix-shared-utils": "2.0.11",
     "@adobe/helix-shared-wrap": "1.0.5",
     "@adobe/helix-status": "9.2.12",
     "@adobe/helix-universal-logger": "2.0.12"
@@ -64,6 +67,7 @@
     "lint-staged": "13.0.3",
     "mocha": "10.0.0",
     "mocha-multi-reporters": "1.5.1",
+    "nock": "13.2.9",
     "semantic-release": "19.0.3"
   },
   "lint-staged": {
