@@ -1,6 +1,6 @@
 {
   "name": "@adobe/helix-html2md",
-  "version": "1.4.9",
+  "version": "0.0.9",
   "private": true,
   "description": "Helix Html2MD",
   "main": "src/index.js",
@@ -20,7 +20,8 @@
     "target": "aws",
     "name": "helix-services/html2md@${version}",
     "testUrl": "/_status_check/healthcheck.json",
-    "memory": 256,
+    "memory": 512,
+    "awsRole!important": "arn:aws:iam::118435662149:role/helix-service-role-s3-rw",
     "fastlyServiceId!important": ""
   },
   "mocha": {
