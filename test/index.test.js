@@ -60,10 +60,10 @@ describe('Index Tests', () => {
 
     const result = await main(req(), {});
     assert.strictEqual(result.status, 200);
-    assert.strictEqual(await result.text(), '');
+    assert.strictEqual(await result.text(), 'Hello, world.\n');
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '0',
+      'content-length': '14',
       'content-type': 'text/markdown; charset=utf-8',
       'x-source-location': 'https://www.example.com',
     });
@@ -78,10 +78,10 @@ describe('Index Tests', () => {
 
     const result = await main(req(), {});
     assert.strictEqual(result.status, 200);
-    assert.strictEqual(await result.text(), '');
+    assert.strictEqual(await result.text(), 'Hello, world.\n');
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '0',
+      'content-length': '14',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       'x-source-location': 'https://www.example.com',

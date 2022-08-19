@@ -46,7 +46,11 @@
     "@adobe/helix-shared-utils": "2.0.11",
     "@adobe/helix-shared-wrap": "1.0.5",
     "@adobe/helix-status": "9.2.12",
-    "@adobe/helix-universal-logger": "2.0.12"
+    "@adobe/helix-universal-logger": "2.0.12",
+    "hast-util-to-mdast": "8.4.0",
+    "mdast-util-to-markdown": "1.3.0",
+    "rehype-parse": "8.0.4",
+    "unified": "10.1.2"
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "1.3.2",

@@ -9,6 +9,20 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import { unified } from 'unified';
+import parse from 'rehype-parse';
+import { toMdast } from 'hast-util-to-mdast';
+import { toMarkdown } from 'mdast-util-to-markdown';
+
 export async function html2md(html, opts) {
-  return '';
+  const { log, url } = opts;
+  const t0 = Date.now();
+  const hast = unified()
+    .use(parse)
+    .parse(html);
+  const mdast = toMdast(hast);
+  const md = toMarkdown(mdast);
+  const t1 = Date.now();
+  log.info(`converted ${url} in ${t1 - t0}ms`);
+  return md;
 }
