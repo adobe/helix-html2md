@@ -1,6 +1,6 @@
 {
   "name": "@adobe/helix-html2md",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "private": true,
   "description": "Helix Html2MD",
   "main": "src/index.js",
