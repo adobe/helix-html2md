@@ -89,6 +89,7 @@ describe('Index Tests', () => {
   });
 
   for (const status of [401, 403, 403]) {
+    // eslint-disable-next-line no-loop-func
     it(`returns ${status} for a ${status} response`, async () => {
       nock('https://www.example.com')
         .get('/')
