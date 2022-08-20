@@ -22,6 +22,7 @@ import {
   robustTables,
   remarkMatter,
   breaksAsSpaces,
+  remarkGridTable,
 } from '@adobe/helix-markdown-support';
 
 //
@@ -39,6 +40,13 @@ export const TYPE_HEADER = 'tableHeader';
 export const TYPE_BODY = 'tableBody';
 export const TYPE_ROW = 'tableRow';
 export const TYPE_CELL = 'tableCell';
+
+export const TYPE_GRID_TABLE = 'gridTable';
+export const TYPE_GT_HEADER = 'gtHeader';
+export const TYPE_GT_BODY = 'gtBody';
+export const TYPE_GT_FOOTER = 'gtFooter';
+export const TYPE_GT_ROW = 'gtRow';
+export const TYPE_GT_CELL = 'gtCell';
 
 function m(type, children, props = {}) {
   return {
@@ -78,27 +86,27 @@ function toTable(title, data) {
   ]);
 }
 
-// function toTable2(title, data) {
-//   return node(TYPE_TABLE, [
-//     node(TYPE_HEAD, [
-//       node(TYPE_ROW, [
-//         node(TYPE_CELL, [
-//           text(title),
-//         ], { colSpan: data[0].length }),
-//       ])]),
-//     node(
-//       TYPE_BODY,
-//       data.map((row) => node(
-//         TYPE_ROW,
-//         row.map((cell) => node(TYPE_CELL, [
-//           text(cell),
-//         ])),
-//       )),
-//     ),
-//   ]);
-// }
+function toGridTable(title, data) {
+  return m(TYPE_GRID_TABLE, [
+    m(TYPE_GT_HEADER, [
+      m(TYPE_GT_ROW, [
+        m(TYPE_GT_CELL, [
+          text(title),
+        ], { colSpan: data[0].length }),
+      ])]),
+    m(
+      TYPE_GT_BODY,
+      data.map((row) => m(
+        TYPE_GT_ROW,
+        row.map((cell) => m(TYPE_GT_CELL, [
+          text(cell),
+        ])),
+      )),
+    ),
+  ]);
+}
 
-function addMetadata(hast, mdast) {
+function addMetadata(hast, mdast, gridTables) {
   const meta = new Map();
 
   const head = select('head', hast);
@@ -115,7 +123,11 @@ function addMetadata(hast, mdast) {
 
   if (meta.size) {
     mdast.children.push(m('thematicBreak'));
-    mdast.children.push(toTable('Metadata', Array.from(meta.entries())));
+    if (gridTables) {
+      mdast.children.push(toGridTable('Metadata', Array.from(meta.entries())));
+    } else {
+      mdast.children.push(toTable('Metadata', Array.from(meta.entries())));
+    }
   }
 }
 
@@ -231,13 +243,34 @@ function handleBlock(h, node) {
   return h(node, TYPE_TABLE, rows);
 }
 
-// function handleBlockRow(h, node) {
-//   const cells = all(h, node);
-//   return h(node, TYPE_ROW, cells);
-// }
+function handleBlockAsGridTable(h, node) {
+  const rows = all(h, node);
+
+  for (const row of rows) {
+    row.type = TYPE_GT_ROW;
+    for (const cell of row.children) {
+      cell.type = TYPE_GT_CELL;
+    }
+  }
+
+  // add header row
+  const { type, numCols } = node.data;
+  const th = m(TYPE_GT_CELL, [text(type)]);
+  if (numCols > 1) {
+    th.colSpan = numCols;
+  }
+
+  // create table header and body
+  const children = [
+    m(TYPE_GT_HEADER, [m(TYPE_ROW, [th])]),
+    m(TYPE_GT_BODY, rows),
+  ];
+
+  return h(node, TYPE_GRID_TABLE, children);
+}
 
 export async function html2md(html, opts) {
-  const { log, url } = opts;
+  const { log, url, gridTables } = opts;
   const t0 = Date.now();
   const hast = unified()
     .use(parse)
@@ -254,12 +287,13 @@ export async function html2md(html, opts) {
 
   const mdast = toMdast(main, {
     handlers: {
-      block: handleBlock,
-      // blockRow: handleBlockRow,
+      block: gridTables
+        ? handleBlockAsGridTable
+        : handleBlock,
     },
   });
 
-  addMetadata(hast, mdast);
+  addMetadata(hast, mdast, gridTables);
 
   robustTables(mdast);
 
@@ -282,6 +316,7 @@ export async function html2md(html, opts) {
     })
     .use(breaksAsSpaces)
     .use(remarkMatter)
+    .use(remarkGridTable)
     // .use(orderedListPlugin)
     .stringify(mdast);
   // const md = toMarkdown(mdast, {

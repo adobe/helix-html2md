@@ -20,10 +20,24 @@ import { Nock } from './utils.js';
 async function test(spec) {
   const html = await readFile(resolve(__testdir, 'fixtures', `${spec}.html`), 'utf-8');
   const expected = await readFile(resolve(__testdir, 'fixtures', `${spec}.md`), 'utf-8');
+  let expectedGT;
+  try {
+    expectedGT = await readFile(resolve(__testdir, 'fixtures', `${spec}-gt.md`), 'utf-8');
+  } catch (e) {
+    // ignore
+  }
   const actual = await html2md(html, {
     log: console,
   });
   assert.strictEqual(actual.trim(), expected.trim());
+
+  if (expectedGT) {
+    const actualGT = await html2md(html, {
+      log: console,
+      gridTables: true,
+    });
+    assert.strictEqual(actualGT.trim(), expectedGT.trim());
+  }
 }
 
 describe('html2md Tests', () => {
