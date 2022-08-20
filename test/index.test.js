@@ -12,6 +12,7 @@
 
 /* eslint-env mocha */
 import assert from 'assert';
+import { resolve } from 'path';
 import { Request } from '@adobe/helix-fetch';
 import { main } from '../src/index.js';
 import { Nock } from './utils.js';
@@ -56,14 +57,14 @@ describe('Index Tests', () => {
   it('returns 200 for a simple html', async () => {
     nock('https://www.example.com')
       .get('/')
-      .reply(200, '<html><body>Hello, world.</body></html>');
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'));
 
     const result = await main(req(), {});
     assert.strictEqual(result.status, 200);
-    assert.strictEqual(await result.text(), 'Hello, world.\n');
+    assert.strictEqual(await result.text(), '# Hello, World.\n');
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '14',
+      'content-length': '16',
       'content-type': 'text/markdown; charset=utf-8',
       'x-source-location': 'https://www.example.com',
     });
@@ -72,16 +73,16 @@ describe('Index Tests', () => {
   it('includes last-modified in response', async () => {
     nock('https://www.example.com')
       .get('/')
-      .reply(200, '<html lang="en"><body>Hello, world.</body></html>', {
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       });
 
     const result = await main(req(), {});
     assert.strictEqual(result.status, 200);
-    assert.strictEqual(await result.text(), 'Hello, world.\n');
+    assert.strictEqual(await result.text(), '# Hello, World.\n');
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '14',
+      'content-length': '16',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       'x-source-location': 'https://www.example.com',
