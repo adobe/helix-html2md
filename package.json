@@ -43,7 +43,7 @@
   "dependencies": {
     "@adobe/helix-fetch": "3.1.2",
     "@adobe/helix-markdown-support": "3.1.8",
-    "@adobe/helix-mediahandler": "1.0.40",
+    "@adobe/helix-mediahandler": "1.0.41",
     "@adobe/helix-shared-body-data": "1.1.19",
     "@adobe/helix-shared-utils": "2.0.11",
     "@adobe/helix-shared-wrap": "1.0.5",
