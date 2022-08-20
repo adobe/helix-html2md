@@ -9,10 +9,11 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+/* eslint-disable no-continue */
 import { unified } from 'unified';
 import stringify from 'remark-stringify';
 import parse from 'rehype-parse';
-import { toMdast } from 'hast-util-to-mdast';
+import { all, toMdast } from 'hast-util-to-mdast';
 import { toString } from 'hast-util-to-string';
 import { select } from 'hast-util-select';
 import gfm from 'remark-gfm';
@@ -39,7 +40,7 @@ export const TYPE_BODY = 'tableBody';
 export const TYPE_ROW = 'tableRow';
 export const TYPE_CELL = 'tableCell';
 
-function h(type, children, props = {}) {
+function m(type, children, props = {}) {
   return {
     type,
     children,
@@ -62,15 +63,15 @@ const HELIX_META = new Set(Array.from([
 ]));
 
 function toTable(title, data) {
-  return h(TYPE_TABLE, [
-    h(TYPE_ROW, [
-      h(TYPE_CELL, [
+  return m(TYPE_TABLE, [
+    m(TYPE_ROW, [
+      m(TYPE_CELL, [
         text(title),
       ], { colSpan: data[0].length }),
     ]),
-    ...data.map((row) => h(
+    ...data.map((row) => m(
       TYPE_ROW,
-      row.map((cell) => h(TYPE_CELL, [
+      row.map((cell) => m(TYPE_CELL, [
         text(cell),
       ])),
     )),
@@ -113,7 +114,7 @@ function addMetadata(hast, mdast) {
   }
 
   if (meta.size) {
-    mdast.children.push(h('thematicBreak'));
+    mdast.children.push(m('thematicBreak'));
     mdast.children.push(toTable('Metadata', Array.from(meta.entries())));
   }
 }
@@ -142,6 +143,99 @@ function createSections(main) {
   }
 }
 
+export function classNameToBlockType(className) {
+  let blockType = className.shift();
+  if (className.length) {
+    const options = className.map((cls) => cls.split('-').join(' '));
+    blockType += ` (${options.join(', ')})`;
+  }
+  return blockType;
+}
+
+/**
+ * Detects blocks and converts the divs to `block` tags, which are later converted to tables.
+ * @param main
+ */
+function createBlocks(main) {
+  // a block must start with a `<div classname="...">` and have at least 1 _row_.
+  for (const block of main.children) {
+    if (block.tagName !== 'div') {
+      continue;
+    }
+    const { className = [] } = block.properties;
+    if (!className.length) {
+      continue;
+    }
+    // validate 'table structure'
+    const rows = [];
+    let maxCols = 0;
+    for (const row of block.children) {
+      if (row.tagName === 'div') {
+        const tableRow = {
+          type: 'element',
+          tagName: 'tr',
+          children: [],
+        };
+        rows.push(tableRow);
+        let numCols = 0;
+        for (const cell of row.children) {
+          if (cell.tagName === 'div') {
+            cell.tagName = 'td';
+            numCols += 1;
+            tableRow.children.push(cell);
+          }
+        }
+        maxCols = Math.max(maxCols, numCols);
+      }
+    }
+    if (!rows.length || !maxCols) {
+      continue;
+    }
+
+    // convert block to table
+    block.tagName = 'block';
+    delete block.properties;
+    block.children = rows;
+    block.data = {
+      type: classNameToBlockType(className),
+      numCols: maxCols,
+    };
+
+    // // add header
+    // const th = {
+    //   type: 'element',
+    //   tagName: 'th',
+    //   children: [text(classNameToBlockType(className))],
+    // };
+    // if (maxCols > 1) {
+    //   th.properties = { colSpan: maxCols };
+    // }
+    // rows.unshift({
+    //   type: 'element',
+    //   tagName: 'tr',
+    //   children: [th],
+    // });
+  }
+}
+
+function handleBlock(h, node) {
+  const rows = all(h, node);
+
+  // add header row
+  const { type, numCols } = node.data;
+  const th = m(TYPE_CELL, [text(type)]);
+  if (numCols > 1) {
+    th.colSpan = numCols;
+  }
+  rows.unshift(m(TYPE_ROW, [th]));
+  return h(node, TYPE_TABLE, rows);
+}
+
+// function handleBlockRow(h, node) {
+//   const cells = all(h, node);
+//   return h(node, TYPE_ROW, cells);
+// }
+
 export async function html2md(html, opts) {
   const { log, url } = opts;
   const t0 = Date.now();
@@ -156,12 +250,18 @@ export async function html2md(html, opts) {
   }
 
   createSections(main);
+  createBlocks(main);
 
-  const mdast = toMdast(main);
+  const mdast = toMdast(main, {
+    handlers: {
+      block: handleBlock,
+      // blockRow: handleBlockRow,
+    },
+  });
 
   addMetadata(hast, mdast);
 
-  await robustTables(mdast);
+  robustTables(mdast);
 
   // noinspection JSVoidFunctionReturnValueUsed
   const md = unified()

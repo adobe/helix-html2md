@@ -14,7 +14,7 @@
 import assert from 'assert';
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
-import { html2md } from '../src/html2md.js';
+import { classNameToBlockType, html2md } from '../src/html2md.js';
 import { Nock } from './utils.js';
 
 async function test(spec) {
@@ -44,6 +44,10 @@ describe('html2md Tests', () => {
     await test('no-main');
   });
 
+  it('ignores non-block divs', async () => {
+    await test('no-blocks');
+  });
+
   it('converts a document with default-content', async () => {
     await test('default-content');
   });
@@ -54,5 +58,23 @@ describe('html2md Tests', () => {
 
   it('converts a document with multiple sections', async () => {
     await test('multiple-sections');
+  });
+});
+
+describe('className to block type tests', () => {
+  it('simple', () => {
+    assert.strictEqual(classNameToBlockType(['foo']), 'foo');
+  });
+
+  it('single option', () => {
+    assert.strictEqual(classNameToBlockType(['foo', 'bar']), 'foo (bar)');
+  });
+
+  it('multiple options', () => {
+    assert.strictEqual(classNameToBlockType(['foo', 'bar', 'green']), 'foo (bar, green)');
+  });
+
+  it('multiple wide options', () => {
+    assert.strictEqual(classNameToBlockType(['foo', 'super-wide', 'dark-green']), 'foo (super wide, dark green)');
   });
 });
