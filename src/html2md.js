@@ -23,6 +23,7 @@ import {
   remarkMatter,
   breaksAsSpaces,
   remarkGridTable,
+  imageReferences,
 } from '@adobe/helix-markdown-support';
 
 //
@@ -295,6 +296,7 @@ export async function html2md(html, opts) {
 
   addMetadata(hast, mdast, gridTables);
 
+  imageReferences(mdast);
   robustTables(mdast);
 
   // noinspection JSVoidFunctionReturnValueUsed

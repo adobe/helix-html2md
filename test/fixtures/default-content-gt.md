@@ -22,24 +22,24 @@ The fastest and easiest way to get started with all the best practices in AEM He
 
 <https://github.com/adobe/helix-project-boilerplate>
 
-![](./media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=750\&format=png\&optimize=medium)
+![][image0]
 
 Just click the `Use this Template` button, and select where you want to create this repo.
 
-![](./media_15a342b8fddee4d58a6b5cdda64c13e785525a366.png?width=750\&format=png\&optimize=medium)
+![][image1]
 
 We recommend that the repo stays public by default.
 
 The only step that’s left to get you all setup in github is to install the [Helix Bot](https://github.com/apps/helix-bot) on your repo, by visiting this link: <https://github.com/apps/helix-bot/installations/new>
 
-![](./media_15c1f25fc4f11bd34bb63ea9f0c99974be835b484.png?width=750\&format=png\&optimize=medium)
+![][image2]
 
 Make sure you select `Only select Repositories` (NOT` All Repositories`).  
 Select your newly created repo, and hit save.
 
 Congrats you are done, and have a new website running on `https://<branch>--<repo>--<owner>.hlx.page/` in the above example that’s `https://main--my-website--davidnuescheler.hlx.page/`
 
-![](./media_1ea0bbbcde0c84f710fa79b6a08a2f146935aaa45.png?width=750\&format=png\&optimize=medium)
+![][image3]
 
 ## Link your own content source (Google Drive)
 
@@ -51,11 +51,11 @@ In your fork the content points to an existing content source in gdrive, see [th
 
 This content is read-only, but it can be copied into your google drive folder.
 
-![](./media_1f81f632a43133455d59aa16af3b48cf1eee5a773.png?width=750\&format=png\&optimize=medium)
+![][image4]
 
 To get started creating your own content, create a folder in your gdrive and share the folder with the Helix Bot (`helix@adobe.com`).
 
-![](./media_1a25f536986e81a9ec28e8a67e30ea6dc145e79e0.png?width=750\&format=png\&optimize=medium)
+![][image5]
 
 A good way to get started is to copy `index`, `nav` and `footer` from the sample content to familiarize yourself with the content structure. `nav` and `footer` are not changed frequently in a project and have a special structure, most of the files in a helix project look more similar to `index`.
 
@@ -66,9 +66,9 @@ Just copy/paste the folder URL from your google drive to `fstab.yaml`.
 
 Be aware that after you make that change, you will see `404 not found `errors as your content has not been previewed yet. Please refer to the next section to see how to start authoring and preview your content. If you copied over `index`, `nav` and `footer` all three of those are separate documents, with their own preview and publish cycles, so make sure you preview (and publish) all of them if needed.
 
-![](./media_1e7b9c243af2a857d0a431b20f07aadf2f9bfe562.png?width=750\&format=png\&optimize=medium)
+![][image6]
 
-![](./media_19cdf2c1a7b5f93389828aa8de3660d85b7865a9f.png?width=750\&format=png\&optimize=medium)
+![][image7]
 
 Commit your changes, and you have completed the steps needed to hook up your own content source.
 
@@ -82,35 +82,35 @@ After completing your last step, your new content source is possibly not complet
 
 To preview content any author has to install the helix chrome extension or bookmarklet. Find the [chrome extension here](https://chrome.google.com/webstore/detail/helix-sidekick-beta/ccfggkjabjahcjoljmgmklhpaccedipo).
 
-![](./media_1b86a3e704dd233972cce318e83a6dda44a787c1f.png?width=750\&format=png\&optimize=medium)
+![][image8]
 
 After adding the extension to chrome, don’t forget to pin it.
 
-![](./media_1d7c76f6d5d0e2a5df540a25b77a8aefabfcd2e11.png?width=750\&format=png\&optimize=medium)
+![][image9]
 
 To setup the chrome extension the easiest path is to go to your github repo, and click “Add Project”
 
-![](./media_158e5a49d59d14ad8f8259665927f11ee18fcae09.png?width=750\&format=png\&optimize=medium)
+![][image10]
 
 As soon as the extension is installed you are now ready to preview and publish your content from your google drive. Open the `index` doc and activate the helix sidekick by clicking on your pinned extension and then click the `Preview` button which will trigger the preview operation and open a new tab with the preview rendition of the content.
 
-![](./media_161153232e3285a7eae3c82b903746c36e49ef8cc.png?width=750\&format=png\&optimize=medium)
+![][image11]
 
 Once on the preview page, you can just press the `Publish` button which will trigger the publication of the content to the live environment and redirect you to the corresponding URL.
 
-![](./media_19b6d313a098d6d8540a745e9ba4a82b1a2f1b801.png?width=750\&format=png\&optimize=medium)
+![][image12]
 
 That’s it, you just published your first page with Helix.
 
 Let’s make some changes and republish.
 
-![](./media_1f6d66a54054c71b66bc67421a131c30d7490114c.png?width=750\&format=png\&optimize=medium)
+![][image13]
 
-![](./media_1eba5dc6a44e0bb0b869153ad2b79b1904d5bdc07.png?width=750\&format=png\&optimize=medium)
+![][image14]
 
 To complete the content of your site go through the same process with the `nav` and `footer` documents. After these steps you should have a fully functional website with a header and a footer, with all the content being completely controlled out of your own gdrive.
 
-![](./media_172de918ec54e4a5f2267f64f63218b1ef0bf066b.png?width=750\&format=png\&optimize=medium)
+![][image15]
 
 ## Start Developing Styling and Functionality
 
@@ -154,3 +154,35 @@ Once you are are ready to push your changes, simply git add, commit and push and
 +-------------+--------------------------------------------------------+
 | robots      | noindex, nofollow                                      |
 +-------------+--------------------------------------------------------+
+
+[image0]: ./media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=750&format=png&optimize=medium
+
+[image1]: ./media_15a342b8fddee4d58a6b5cdda64c13e785525a366.png?width=750&format=png&optimize=medium
+
+[image2]: ./media_15c1f25fc4f11bd34bb63ea9f0c99974be835b484.png?width=750&format=png&optimize=medium
+
+[image3]: ./media_1ea0bbbcde0c84f710fa79b6a08a2f146935aaa45.png?width=750&format=png&optimize=medium
+
+[image4]: ./media_1f81f632a43133455d59aa16af3b48cf1eee5a773.png?width=750&format=png&optimize=medium
+
+[image5]: ./media_1a25f536986e81a9ec28e8a67e30ea6dc145e79e0.png?width=750&format=png&optimize=medium
+
+[image6]: ./media_1e7b9c243af2a857d0a431b20f07aadf2f9bfe562.png?width=750&format=png&optimize=medium
+
+[image7]: ./media_19cdf2c1a7b5f93389828aa8de3660d85b7865a9f.png?width=750&format=png&optimize=medium
+
+[image8]: ./media_1b86a3e704dd233972cce318e83a6dda44a787c1f.png?width=750&format=png&optimize=medium
+
+[image9]: ./media_1d7c76f6d5d0e2a5df540a25b77a8aefabfcd2e11.png?width=750&format=png&optimize=medium
+
+[image10]: ./media_158e5a49d59d14ad8f8259665927f11ee18fcae09.png?width=750&format=png&optimize=medium
+
+[image11]: ./media_161153232e3285a7eae3c82b903746c36e49ef8cc.png?width=750&format=png&optimize=medium
+
+[image12]: ./media_19b6d313a098d6d8540a745e9ba4a82b1a2f1b801.png?width=750&format=png&optimize=medium
+
+[image13]: ./media_1f6d66a54054c71b66bc67421a131c30d7490114c.png?width=750&format=png&optimize=medium
+
+[image14]: ./media_1eba5dc6a44e0bb0b869153ad2b79b1904d5bdc07.png?width=750&format=png&optimize=medium
+
+[image15]: ./media_172de918ec54e4a5f2267f64f63218b1ef0bf066b.png?width=750&format=png&optimize=medium
