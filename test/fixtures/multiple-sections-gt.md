@@ -11,7 +11,9 @@ Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your g
 
 ## This is another headline here for more content
 
-+--------------------------------+----------------------------------+
++-------------------------------------------------------------------+
+| columns                                                           |
++================================+==================================+
 | Columns block                  | ![green double Helix][image1]    |
 |                                |                                  |
 | -   One                        |                                  |
@@ -31,7 +33,9 @@ Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your g
 
 Find some of our favorite staff picks below:
 
-+---------------------------------------------+-----------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------+
+| cards                                                                                                   |
++=============================================+===========================================================+
 | ![A fast-moving Tunnel ][image3]            | **Unmatched speed**                                       |
 |                                             |                                                           |
 |                                             | Helix is the fastest way to publish, create, and serve    |
@@ -72,9 +76,11 @@ Find some of our favorite staff picks below:
 |                                             | Lighthouse Score.                                         |
 +---------------------------------------------+-----------------------------------------------------------+
 
-+-------+-----------+
-| Style | highlight |
-+-------+-----------+
++---------------------+
+| section-metadata    |
++=========+===========+
+| Style   | highlight |
++---------+-----------+
 
 ---
 

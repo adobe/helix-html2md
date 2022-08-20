@@ -263,7 +263,7 @@ function handleBlockAsGridTable(h, node) {
 
   // create table header and body
   const children = [
-    m(TYPE_GT_HEADER, [m(TYPE_ROW, [th])]),
+    m(TYPE_GT_HEADER, [m(TYPE_GT_ROW, [th])]),
     m(TYPE_GT_BODY, rows),
   ];
 
