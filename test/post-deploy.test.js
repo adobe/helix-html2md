@@ -15,6 +15,30 @@ import assert from 'assert';
 import { noCache } from '@adobe/helix-fetch';
 import { createTargets } from './post-deploy-utils.js';
 
+const TEST_MD = `
+# Helix Test Content
+
+Content is: sharepoint-/main/index.docx
+
+And more...newcontent
+
+---
+
+<table>
+  <tr>
+    <td colspan="2">Metadata</td>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td>Helix Test Content</td>
+  </tr>
+  <tr>
+    <td>description</td>
+    <td>Content is: sharepoint-/main/index.docx</td>
+  </tr>
+</table>
+`;
+
 createTargets().forEach((target) => {
   describe(`Post-Deploy Tests (${target.title()})`, () => {
     const fetchContext = noCache();
@@ -24,18 +48,6 @@ createTargets().forEach((target) => {
       fetchContext.reset();
     });
 
-    it('returns the status of the function', async () => {
-      const res = await fetch(`${target.host()}${target.urlPath()}/_status_check/healthcheck.json`);
-      assert.strictEqual(res.status, 200);
-      const json = await res.json();
-      delete json.process;
-      delete json.response_time;
-      assert.deepStrictEqual(json, {
-        status: 'OK',
-        version: target.version,
-      });
-    }).timeout(50000);
-
     it('converts html from the helix site', async () => {
       const url = new URL(`${target.host()}${target.urlPath()}`);
       url.searchParams.append('url', ' https://main--helix-test-content-onedrive--adobe.hlx.page/');
@@ -44,13 +56,7 @@ createTargets().forEach((target) => {
       url.searchParams.append('contentBusId', 'foo-id');
       const res = await fetch(url);
       assert.strictEqual(res.status, 200);
-      assert.strictEqual((await res.text()).trim(), '<!-- Content is: github-main-/head.html  -->\n'
-        + '\n'
-        + '# Helix Test Content\n'
-        + '\n'
-        + 'Content is: sharepoint-/main/index.docx\n'
-        + '\n'
-        + 'And more...newcontent');
+      assert.strictEqual((await res.text()).trim(), TEST_MD.trim());
     }).timeout(50000);
   });
 });
