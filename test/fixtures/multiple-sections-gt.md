@@ -36,7 +36,7 @@ Find some of our favorite staff picks below:
 +---------------------------------------------------------------------------------------------------------+
 | cards                                                                                                   |
 +=============================================+===========================================================+
-| ![A fast-moving Tunnel ][image3]            | **Unmatched speed**                                       |
+| ![A fast-moving Tunnel][image3]             | **Unmatched speed**                                       |
 |                                             |                                                           |
 |                                             | Helix is the fastest way to publish, create, and serve    |
 |                                             | websites                                                  |

@@ -36,7 +36,7 @@ Find some of our favorite staff picks below:
     <td colspan="2">cards</td>
   </tr>
   <tr>
-    <td>![A fast-moving Tunnel ][image3]</td>
+    <td>![A fast-moving Tunnel][image3]</td>
     <td><p><strong>Unmatched speed</strong></p><p>Helix is the fastest way to publish, create, and serve websites</p></td>
   </tr>
   <tr>
