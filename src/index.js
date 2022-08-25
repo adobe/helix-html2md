@@ -51,6 +51,7 @@ async function run(request, context) {
   const {
     url,
     owner, repo, contentBusId,
+    gridTables,
   } = context.data;
 
   if (!url) {
@@ -85,6 +86,7 @@ async function run(request, context) {
     mediaHandler,
     log,
     url,
+    gridTables,
   });
 
   const headers = {

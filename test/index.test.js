@@ -11,18 +11,22 @@
  */
 
 /* eslint-env mocha */
+import { readFile } from 'fs/promises';
 import assert from 'assert';
 import { resolve } from 'path';
 import { Request } from '@adobe/helix-fetch';
 import { main } from '../src/index.js';
 import { Nock } from './utils.js';
 
-function req() {
+function req(gt) {
   const url = new URL('https://localhost');
   url.searchParams.append('url', 'https://www.example.com');
   url.searchParams.append('owner', 'owner');
   url.searchParams.append('repo', 'repo');
   url.searchParams.append('contentBusId', 'foo-id');
+  if (gt) {
+    url.searchParams.append('gridTables', 'true');
+  }
   return new Request(url.href);
 }
 
@@ -57,34 +61,34 @@ describe('Index Tests', () => {
   it('returns 200 for a simple html', async () => {
     nock('https://www.example.com')
       .get('/')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'));
-
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
+        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      });
+    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
     const result = await main(req(), {});
     assert.strictEqual(result.status, 200);
-    assert.strictEqual(await result.text(), '# Hello, World.\n');
+    assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '16',
+      'content-length': '151',
       'content-type': 'text/markdown; charset=utf-8',
+      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       'x-source-location': 'https://www.example.com',
     });
   });
 
-  it('includes last-modified in response', async () => {
+  it('passes gridTables param along', async () => {
     nock('https://www.example.com')
       .get('/')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
-        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      });
-
-    const result = await main(req(), {});
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'));
+    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple-gt.md'), 'utf-8');
+    const result = await main(req(true), {});
     assert.strictEqual(result.status, 200);
-    assert.strictEqual(await result.text(), '# Hello, World.\n');
+    assert.strictEqual(await result.text(), expected);
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '16',
+      'content-length': '162',
       'content-type': 'text/markdown; charset=utf-8',
-      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       'x-source-location': 'https://www.example.com',
     });
   });
