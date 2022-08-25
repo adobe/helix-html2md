@@ -16,6 +16,7 @@ import bodyData from '@adobe/helix-shared-body-data';
 import { Response, context as fetchContext, h1 } from '@adobe/helix-fetch';
 import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
 import { MediaHandler } from '@adobe/helix-mediahandler';
+import { fetchFstab, getContentBusId } from '@adobe/helix-admin-support';
 import pkgJson from './package.cjs';
 import { html2md } from './html2md.js';
 
@@ -43,22 +44,31 @@ export function error(message, statusCode = 500) {
 /**
  * This is the main function
  * @param {Request} request the request object (see fetch api)
- * @param {UniversalContext} context the context of the universal serverless function
+ * @param {UniversalContext} ctx the context of the universal serverless function
  * @returns {Response} a response
  */
-async function run(request, context) {
-  const { log } = context;
+async function run(request, ctx) {
+  const { log } = ctx;
   const {
-    url,
-    owner, repo, contentBusId,
+    owner, repo,
     gridTables,
-  } = context.data;
+    path,
+  } = ctx.data;
+  let { url, contentBusId } = ctx.data;
+  ctx.attributes = {};
 
-  if (!url) {
-    return error('url parameter is required.', 400);
-  }
-  if (!contentBusId || !owner || !repo) {
-    return error('owner, repo and contentBusId parameters are required.', 400);
+  if (path) {
+    // resolve url via fstab
+    if (!owner || !repo) {
+      return error('owner and repo parameters are required in path-mode.', 400);
+    }
+
+    const fstab = await fetchFstab(ctx, ctx.data);
+    const mp = fstab.match(path);
+    url = new URL(mp.relPath, mp.url).href;
+    contentBusId = await getContentBusId(ctx, ctx.data);
+  } else if (!url) {
+    return error('url or path parameter is required.', 400);
   }
 
   const res = await fetch(url);
@@ -72,15 +82,19 @@ async function run(request, context) {
   }
   const html = await res.text();
 
-  const mediaHandler = new MediaHandler({
-    owner,
-    repo,
-    ref: 'main',
-    contentBusId,
-    log,
-    filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
-    blobAgent: `html2md-${pkgJson.version}`,
-  });
+  // only use media handler when loaded via fstab. otherwise images are not processed.
+  let mediaHandler;
+  if (contentBusId) {
+    mediaHandler = new MediaHandler({
+      owner,
+      repo,
+      ref: 'main',
+      contentBusId,
+      log,
+      filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
+      blobAgent: `html2md-${pkgJson.version}`,
+    });
+  }
 
   const md = await html2md(html, {
     mediaHandler,
