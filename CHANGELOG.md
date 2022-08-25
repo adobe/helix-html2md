@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/adobe/helix-html2md/compare/v1.1.0...v1.2.0) (2022-08-25)
+
+
+### Features
+
+* add path-based fetch ([53fa0f9](https://github.com/adobe/helix-html2md/commit/53fa0f9f52d3667cac2bade6ceee96ca5def7c21))
+
 # [1.1.0](https://github.com/adobe/helix-html2md/compare/v1.0.2...v1.1.0) (2022-08-25)
 
 
