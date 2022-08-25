@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/adobe/helix-html2md/compare/v1.0.2...v1.1.0) (2022-08-25)
+
+
+### Features
+
+* add gridtables support ([#13](https://github.com/adobe/helix-html2md/issues/13)) ([efa64eb](https://github.com/adobe/helix-html2md/commit/efa64eb361e2178cf597a18f05f149365564f0ac))
+
 ## [1.0.2](https://github.com/adobe/helix-html2md/compare/v1.0.1...v1.0.2) (2022-08-20)
 
 
