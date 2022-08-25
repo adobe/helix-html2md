@@ -13,6 +13,14 @@ import assert from 'assert';
 import nock from 'nock';
 import { Scope } from 'nock/lib/scope.js';
 
+const FSTAB = `
+mountpoints:
+  /: 
+    url: https://www.example.com/
+    type: markup
+    suffix: '.semantic.html'
+`;
+
 function extractMeta(hdrs) {
   return Object
     .keys(hdrs)
@@ -43,10 +51,10 @@ export function Nock() {
     unmatched.push(req);
   }
 
-  function nocker(url) {
+  function nocker(url, opts) {
     let scope = scopes[url];
     if (!scope) {
-      scope = nock(url);
+      scope = nock(url, opts);
       scopes[url] = scope;
     }
     if (!unmatched) {
@@ -82,6 +90,10 @@ export function Nock() {
       nock.emitter.off('no match', noMatchHandler);
     }
   };
+
+  nocker.fstab = (fstab = FSTAB, owner = 'owner', repo = 'repo') => nocker('https://helix-code-bus.s3.us-east-1.amazonaws.com')
+    .get(`/${owner}/${repo}/main/fstab.yaml?x-id=GetObject`)
+    .reply(fstab ? 200 : 404, fstab);
 
   return nocker;
 }
