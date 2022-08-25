@@ -30,14 +30,6 @@ function reqUrl(gt) {
   return new Request(url.href);
 }
 
-function reqPath() {
-  const url = new URL('https://localhost');
-  url.searchParams.append('path', '/index.html');
-  url.searchParams.append('owner', 'owner');
-  url.searchParams.append('repo', 'repo');
-  return new Request(url.href);
-}
-
 describe('Index Tests', () => {
   let nock;
   beforeEach(() => {
@@ -97,13 +89,28 @@ describe('Index Tests', () => {
 
   it('returns 200 for a simple html via path', async () => {
     nock.fstab();
-    nock('https://www.example.com')
+    nock('https://www.example.com', {
+      reqheaders: {
+        authorization: 'Bearer 1234',
+      },
+    })
       .get('/index.html')
       .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       });
     const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-    const result = await main(reqPath(), {});
+
+    const url = new URL('https://localhost');
+    url.searchParams.append('path', '/index.html');
+    url.searchParams.append('owner', 'owner');
+    url.searchParams.append('repo', 'repo');
+    const req = new Request(url.href, {
+      headers: {
+        authorization: 'Bearer 1234',
+      },
+    });
+
+    const result = await main(req, {});
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {

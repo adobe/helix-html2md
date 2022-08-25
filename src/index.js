@@ -71,7 +71,15 @@ async function run(request, ctx) {
     return error('url or path parameter is required.', 400);
   }
 
-  const res = await fetch(url);
+  const reqHeaders = {};
+  const auth = request.headers.get('authorization');
+  if (auth) {
+    reqHeaders.authorization = auth;
+  }
+
+  const res = await fetch(url, {
+    headers: reqHeaders,
+  });
   if (!res.ok) {
     if (res.status === 404 || res.status === 403 || res.status === 401) {
       // only propagate 404, 401 and 403

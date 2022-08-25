@@ -51,10 +51,10 @@ export function Nock() {
     unmatched.push(req);
   }
 
-  function nocker(url) {
+  function nocker(url, opts) {
     let scope = scopes[url];
     if (!scope) {
-      scope = nock(url);
+      scope = nock(url, opts);
       scopes[url] = scope;
     }
     if (!unmatched) {
