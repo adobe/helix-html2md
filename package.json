@@ -41,10 +41,10 @@
   },
   "homepage": "https://github.com/adobe/helix-html2md#readme",
   "dependencies": {
-    "@adobe/helix-admin-support": "1.3.2",
+    "@adobe/helix-admin-support": "1.3.3",
     "@adobe/helix-fetch": "3.1.2",
-    "@adobe/helix-markdown-support": "https://github.com/adobe/helix-markdown-support.git#cb878c89618a99a7d0482f647359f58395b9598b",
-    "@adobe/helix-mediahandler": "1.0.41",
+    "@adobe/helix-markdown-support": "https://github.com/adobe/helix-markdown-support.git#365a900088e890e55b85fa6ab6166dd33b0f7f3a",
+    "@adobe/helix-mediahandler": "1.0.42",
     "@adobe/helix-shared-body-data": "1.1.19",
     "@adobe/helix-shared-utils": "2.0.11",
     "@adobe/helix-shared-wrap": "1.0.5",
@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "1.3.2",
-    "@adobe/helix-deploy": "7.0.4",
+    "@adobe/helix-deploy": "7.0.5",
     "@adobe/helix-universal": "3.1.2",
     "@adobe/semantic-release-coralogix": "1.1.7",
     "@semantic-release/changelog": "6.0.1",
