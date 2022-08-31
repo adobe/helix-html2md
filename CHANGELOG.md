@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/adobe/helix-html2md/compare/v1.2.0...v1.2.1) (2022-08-31)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#15](https://github.com/adobe/helix-html2md/issues/15)) ([eac703e](https://github.com/adobe/helix-html2md/commit/eac703eb84254814f15a4cf503f3cced3e172012))
+* **deps:** update dependency @adobe/helix-mediahandler to v1.1.0 ([#18](https://github.com/adobe/helix-html2md/issues/18)) ([2bc3264](https://github.com/adobe/helix-html2md/commit/2bc326473f5d53e8b4808b47d59ceb4ebf090271))
+* use latest grid-tables ([#19](https://github.com/adobe/helix-html2md/issues/19)) ([60f9e2d](https://github.com/adobe/helix-html2md/commit/60f9e2d6b0d8b958a78ba72d44416121bbbd39ab))
+
 # [1.2.0](https://github.com/adobe/helix-html2md/compare/v1.1.0...v1.2.0) (2022-08-25)
 
 
