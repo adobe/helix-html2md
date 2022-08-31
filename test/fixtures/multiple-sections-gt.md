@@ -87,7 +87,7 @@ Find some of our favorite staff picks below:
 +----------------------------------------------------------------------+
 | Metadata                                                             |
 +=============+========================================================+
-| title       | Home | Helix Project Boilerplate                       |
+| title       | Home \| Helix Project Boilerplate                      |
 +-------------+--------------------------------------------------------+
 | description | Use this template repository as the starting point for |
 |             | new Helix projects.                                    |
