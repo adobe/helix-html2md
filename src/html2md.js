@@ -18,22 +18,9 @@ import { toString } from 'hast-util-to-string';
 import { select } from 'hast-util-select';
 import gfm from 'remark-gfm';
 
-import {
-  robustTables,
-  remarkMatter,
-  breaksAsSpaces,
-  remarkGridTable,
-  imageReferences,
-} from '@adobe/helix-markdown-support';
-
-//
-// import {
-//   TYPE_TABLE,
-//   TYPE_HEADER,
-//   TYPE_BODY,
-//   TYPE_ROW,
-//   TYPE_CELL, gridHandlers,
-// } from './gridTableMock.js';
+import { robustTables, breaksAsSpaces, imageReferences } from '@adobe/helix-markdown-support';
+import { remarkMatter } from '@adobe/helix-markdown-support/matter';
+import { remarkGridTable } from '@adobe/helix-markdown-support/gridtable';
 
 export const TYPE_TABLE = 'table';
 export const TYPE_HEAD = 'tableHead';
