@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/adobe/helix-html2md/compare/v1.2.4...v1.2.5) (2022-09-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-markdown-support to v4.0.4 ([39f3d33](https://github.com/adobe/helix-html2md/commit/39f3d3384e31234d40629787fc977885b8319af4))
+
 ## [1.2.4](https://github.com/adobe/helix-html2md/compare/v1.2.3...v1.2.4) (2022-09-05)
 
 
