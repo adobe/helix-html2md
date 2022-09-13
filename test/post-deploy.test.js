@@ -38,8 +38,8 @@ createTargets({ _version: 'ci' }).forEach((target) => {
     const fetchContext = noCache();
     const { fetch } = fetchContext;
 
-    afterEach(() => {
-      fetchContext.reset();
+    afterEach(async () => {
+      await fetchContext.reset();
     });
 
     it('converts html from the helix site', async () => {
