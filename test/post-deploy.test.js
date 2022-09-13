@@ -33,7 +33,7 @@ And more...newcontent
 +-------------+-----------------------------------------+
 `;
 
-createTargets({ version: '' }).forEach((target) => {
+createTargets({ _version: 'ci' }).forEach((target) => {
   describe(`Post-Deploy Tests (${target.title()})`, () => {
     const fetchContext = noCache();
     const { fetch } = fetchContext;
@@ -44,10 +44,7 @@ createTargets({ version: '' }).forEach((target) => {
 
     it('converts html from the helix site', async () => {
       const url = new URL(`${target.host()}${target.urlPath()}`);
-      url.searchParams.append('url', ' https://main--helix-test-content-onedrive--adobe.hlx.page/');
-      url.searchParams.append('owner', 'owner');
-      url.searchParams.append('repo', 'repo');
-      url.searchParams.append('contentBusId', 'foo-id');
+      url.searchParams.append('url', 'https://main--helix-test-content-onedrive--adobe.hlx.page/');
       const res = await fetch(url);
       assert.strictEqual(res.status, 200);
       assert.strictEqual((await res.text()).trim(), TEST_MD.trim());
