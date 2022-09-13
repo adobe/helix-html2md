@@ -80,7 +80,7 @@ describe('Index Tests', () => {
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '151',
+      'content-length': '162',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       'x-source-location': 'https://www.example.com',
@@ -115,26 +115,10 @@ describe('Index Tests', () => {
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '151',
+      'content-length': '162',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       'x-source-location': 'https://www.example.com/index.html',
-    });
-  });
-
-  it('passes gridTables param along', async () => {
-    nock('https://www.example.com')
-      .get('/')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'));
-    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple-gt.md'), 'utf-8');
-    const result = await main(reqUrl(true), {});
-    assert.strictEqual(result.status, 200);
-    assert.strictEqual(await result.text(), expected);
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '162',
-      'content-type': 'text/markdown; charset=utf-8',
-      'x-source-location': 'https://www.example.com',
     });
   });
 

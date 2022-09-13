@@ -49,11 +49,7 @@ export function error(message, statusCode = 500) {
  */
 async function run(request, ctx) {
   const { log } = ctx;
-  const {
-    owner, repo,
-    gridTables,
-    path,
-  } = ctx.data;
+  const { owner, repo, path } = ctx.data;
   let { url, contentBusId } = ctx.data;
   ctx.attributes = {};
 
@@ -108,7 +104,6 @@ async function run(request, ctx) {
     mediaHandler,
     log,
     url,
-    gridTables,
   });
 
   const headers = {
