@@ -46,7 +46,7 @@
     "@adobe/helix-markdown-support": "5.0.7",
     "@adobe/helix-mediahandler": "1.2.2",
     "@adobe/helix-shared-body-data": "1.1.19",
-    "@adobe/helix-shared-utils": "2.0.11",
+    "@adobe/helix-shared-utils": "2.1.0",
     "@adobe/helix-shared-wrap": "1.0.5",
     "@adobe/helix-status": "9.2.13",
     "@adobe/helix-universal-logger": "2.0.12",
