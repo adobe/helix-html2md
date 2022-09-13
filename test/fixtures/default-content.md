@@ -9,19 +9,16 @@ Pre-requisites:
 3.  You understand the basic HTML, CSS and JavaScript
 4.  Have node/npm installed for local development
 
-This tutorial assumes that you are using MacOS, Chrome and Visual Studio Code as part of your development environment.  
+This tutorial assumes that you are using MacOS, Chrome and Visual Studio Code as part of your development environment.\
 Of course you can use a different operating system, browser and code editor, but you will see that screenshots and default instructions are most compatible with that setup.
 
 ## Get started with the Helix Boilerplate Repository Template
 
-<table>
-  <tr>
-    <td>video</td>
-  </tr>
-  <tr>
-    <td><a href="./media_1d6e3d8e0e465fb2c43cdcb4c6ba8123693c86117.mp4">https://main--helix-website--adobe.hlx.page/media_1d6e3d8e0e465fb2c43cdcb4c6ba8123693c86117.mp4</a></td>
-  </tr>
-</table>
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| video                                                                                                                                                     |
++===========================================================================================================================================================+
+| [https://main--helix-website--adobe.hlx.page/media\_1d6e3d8e0e465fb2c43cdcb4c6ba8123693c86117.mp4](./media_1d6e3d8e0e465fb2c43cdcb4c6ba8123693c86117.mp4) |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 The fastest and easiest way to get started with all the best practices in AEM Helix is to create your repo using the helix boilerplate github repo as a template:
 
@@ -39,7 +36,7 @@ The only step that’s left to get you all setup in github is to install the [He
 
 ![][image2]
 
-Make sure you select `Only select Repositories` (NOT` All Repositories`).  
+Make sure you select `Only select Repositories` (NOT` All Repositories`).\
 Select your newly created repo, and hit save.
 
 Congrats you are done, and have a new website running on `https://<branch>--<repo>--<owner>.hlx.page/` in the above example that’s `https://main--my-website--davidnuescheler.hlx.page/`
@@ -48,14 +45,11 @@ Congrats you are done, and have a new website running on `https://<branch>--<rep
 
 ## Link your own content source (Google Drive)
 
-<table>
-  <tr>
-    <td>video</td>
-  </tr>
-  <tr>
-    <td><a href="./media_1b16be8d758ce2d392315a7c306767a62516fa831.mp4">https://main--helix-website--adobe.hlx.page/media_1b16be8d758ce2d392315a7c306767a62516fa831.mp4</a></td>
-  </tr>
-</table>
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| video                                                                                                                                                     |
++===========================================================================================================================================================+
+| [https://main--helix-website--adobe.hlx.page/media\_1b16be8d758ce2d392315a7c306767a62516fa831.mp4](./media_1b16be8d758ce2d392315a7c306767a62516fa831.mp4) |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 In your fork the content points to an existing content source in gdrive, see [this folder](https://drive.google.com/drive/folders/1MGzOt7ubUh3gu7zhZIPb7R7dyRzG371j) with some example content in it.
 
@@ -71,7 +65,7 @@ A good way to get started is to copy `index`, `nav` and `footer` from the sample
 
 A good way to copy those files and to familiarize yourself with the structure is to open the files and copy/paste the entire content into your corresponding file. You can also download the files via “Download All” or downloads of individual files, but be mindful to convert the downloaded `.docx` files back into native google docs, if you upload them to your folder in your google drive.
 
-To complete hooking up your content the only thing left is to tell Helix, where to get the content for the site by changing the reference in `fstab.yaml` in your github repo to the folder you just shared.  
+To complete hooking up your content the only thing left is to tell Helix, where to get the content for the site by changing the reference in `fstab.yaml` in your github repo to the folder you just shared.\
 Just copy/paste the folder URL from your google drive to `fstab.yaml`.
 
 Be aware that after you make that change, you will see `404 not found `errors as your content has not been previewed yet. Please refer to the next section to see how to start authoring and preview your content. If you copied over `index`, `nav` and `footer` all three of those are separate documents, with their own preview and publish cycles, so make sure you preview (and publish) all of them if needed.
@@ -84,14 +78,11 @@ Commit your changes, and you have completed the steps needed to hook up your own
 
 ## Preview and Publish your content
 
-<table>
-  <tr>
-    <td>video</td>
-  </tr>
-  <tr>
-    <td><a href="./media_1d7b6d38cd4f0ad9b661887e3a24b44a72f7c945e.mp4">https://main--helix-website--adobe.hlx.page/media_1d7b6d38cd4f0ad9b661887e3a24b44a72f7c945e.mp4</a></td>
-  </tr>
-</table>
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| video                                                                                                                                                     |
++===========================================================================================================================================================+
+| [https://main--helix-website--adobe.hlx.page/media\_1d7b6d38cd4f0ad9b661887e3a24b44a72f7c945e.mp4](./media_1d7b6d38cd4f0ad9b661887e3a24b44a72f7c945e.mp4) |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 After completing your last step, your new content source is possibly not completely empty, but no content has been promoted to the `preview` or `live `stages, which means your website should serve blank 404s at this point.
 
@@ -129,14 +120,11 @@ To complete the content of your site go through the same process with the `nav` 
 
 ## Start Developing Styling and Functionality
 
-<table>
-  <tr>
-    <td>video</td>
-  </tr>
-  <tr>
-    <td><a href="./media_141a9484b704e5113383b6ee92e09dd0ac352944a.mp4">https://main--helix-website--adobe.hlx.page/media_141a9484b704e5113383b6ee92e09dd0ac352944a.mp4</a></td>
-  </tr>
-</table>
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| video                                                                                                                                                     |
++===========================================================================================================================================================+
+| [https://main--helix-website--adobe.hlx.page/media\_141a9484b704e5113383b6ee92e09dd0ac352944a.mp4](./media_141a9484b704e5113383b6ee92e09dd0ac352944a.mp4) |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 To get started with development, it is easiest to install the helix-cli and clone your repo locally through via…
 
@@ -152,7 +140,7 @@ cd <repo>
 hlx up
 ```
 
-which will open up `http://localhost:3000/ `and you are ready to make changes.  
+which will open up `http://localhost:3000/ `and you are ready to make changes.\
 A good place to start is the blocks folder which is where most of the styling and code will live for you helix project. Simply make a change in a `.css` or `.js `and you should see the changes in your browser immediately.
 
 Once you are are ready to push your changes, simply git add, commit and push and your code is on your preview (`https://<branch>--<repo>--<owner>.hlx.page/`) and production (`https://<branch>--<repo>--<owner>.hlx.live/`) site.
@@ -161,27 +149,19 @@ Once you are are ready to push your changes, simply git add, commit and push and
 
 ---
 
-<table>
-  <tr>
-    <td colspan="2">Metadata</td>
-  </tr>
-  <tr>
-    <td>title</td>
-    <td>Getting started with Helix - Developer Tutorial</td>
-  </tr>
-  <tr>
-    <td>description</td>
-    <td>This tutorial should have you up and running with your AEM Helix projects in 10 - 20 minutes to a place where you can create, ...</td>
-  </tr>
-  <tr>
-    <td>template</td>
-    <td>docs</td>
-  </tr>
-  <tr>
-    <td>robots</td>
-    <td>noindex, nofollow</td>
-  </tr>
-</table>
++----------------------------------------------------------------------+
+| Metadata                                                             |
++=============+========================================================+
+| title       | Getting started with Helix - Developer Tutorial        |
++-------------+--------------------------------------------------------+
+| description | This tutorial should have you up and running with your |
+|             | AEM Helix projects in 10 - 20 minutes to a place where |
+|             | you can create, ...                                    |
++-------------+--------------------------------------------------------+
+| template    | docs                                                   |
++-------------+--------------------------------------------------------+
+| robots      | noindex, nofollow                                      |
++-------------+--------------------------------------------------------+
 
 [image0]: ./media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=750&format=png&optimize=medium
 

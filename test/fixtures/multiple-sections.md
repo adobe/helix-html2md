@@ -2,7 +2,7 @@
 
 # Congrats, you are ready to go!
 
-Your forked repo is setup as a helix project and you are ready to start developing.  
+Your forked repo is setup as a helix project and you are ready to start developing.\
 The content you are looking at is served from this [gdrive](https://drive.google.com/drive/folders/1MGzOt7ubUh3gu7zhZIPb7R7dyRzG371j?usp=sharing)
 
 Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your gdrive that you shared with helix. See the full tutorial here:
@@ -11,19 +11,21 @@ Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your g
 
 ## This is another headline here for more content
 
-<table>
-  <tr>
-    <td colspan="2">columns</td>
-  </tr>
-  <tr>
-    <td><p>Columns block</p><ul> <li>One</li> <li>Two</li> <li>Three</li> </ul><p><a href="/">Live</a></p></td>
-    <td>![green double Helix][image1]</td>
-  </tr>
-  <tr>
-    <td>![Yellow Double Helix][image2]</td>
-    <td><p>Or you can just view the preview</p><p><em><a href="/">Preview</a></em></p></td>
-  </tr>
-</table>
++-------------------------------------------------------------------+
+| columns                                                           |
++================================+==================================+
+| Columns block                  | ![green double Helix][image1]    |
+|                                |                                  |
+| -   One                        |                                  |
+| -   Two                        |                                  |
+| -   Three                      |                                  |
+|                                |                                  |
+| [Live](/)                      |                                  |
++--------------------------------+----------------------------------+
+| ![Yellow Double Helix][image2] | Or you can just view the preview |
+|                                |                                  |
+|                                | _[Preview](/)_                   |
++--------------------------------+----------------------------------+
 
 ---
 
@@ -31,65 +33,65 @@ Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your g
 
 Find some of our favorite staff picks below:
 
-<table>
-  <tr>
-    <td colspan="2">cards</td>
-  </tr>
-  <tr>
-    <td>![A fast-moving Tunnel][image3]</td>
-    <td><p><strong>Unmatched speed</strong></p><p>Helix is the fastest way to publish, create, and serve websites</p></td>
-  </tr>
-  <tr>
-    <td>![An iceberg][image4]</td>
-    <td><p><strong>Content at scale</strong></p><p>Helix allows you to publish more content in shorter time with smaller teams</p></td>
-  </tr>
-  <tr>
-    <td>![Doors with light in the dark][image5]</td>
-    <td><p><strong>Uncertainty eliminated</strong></p><p>Preview content at 100% fidelity, get predictable content velocity, and shorten project durations</p></td>
-  </tr>
-  <tr>
-    <td>![A group of people around a Table][image6]</td>
-    <td><p><strong>Widen the talent pool</strong></p><p>Authors on Helix use Microsoft Word, Excel or Google Docs and need no training</p></td>
-  </tr>
-  <tr>
-    <td>![HTML code in a code editor][image7]</td>
-    <td><p><strong>The low-code way to developer productivity</strong></p><p>Say goodbye to complex APIs spanning multiple languages. Anyone with a little bit of HTML, CSS, and JS can build a site on Project Helix.</p></td>
-  </tr>
-  <tr>
-    <td>![A rocket and a headless suit][image8]</td>
-    <td><p><strong>Headless is here</strong></p><p>Go directly from Microsoft Excel or Google Sheets to the web in mere seconds. Sanitize and collect form data at extreme scale with Project Helix Forms.</p></td>
-  </tr>
-  <tr>
-    <td>![A dial with a hand on it][image9]</td>
-    <td><p><strong>Peak performance</strong></p><p>Use Project Helix's serverless architecture to meet any traffic need. Use Project Helix's PageSpeed Insights Github action to evaluate every Pull-Request for Lighthouse Score.</p></td>
-  </tr>
-</table>
++---------------------------------------------------------------------------------------------------------+
+| cards                                                                                                   |
++=============================================+===========================================================+
+| ![A fast-moving Tunnel][image3]             | **Unmatched speed**                                       |
+|                                             |                                                           |
+|                                             | Helix is the fastest way to publish, create, and serve    |
+|                                             | websites                                                  |
++---------------------------------------------+-----------------------------------------------------------+
+| ![An iceberg][image4]                       | **Content at scale**                                      |
+|                                             |                                                           |
+|                                             | Helix allows you to publish more content in shorter time  |
+|                                             | with smaller teams                                        |
++---------------------------------------------+-----------------------------------------------------------+
+| ![Doors with light in the dark][image5]     | **Uncertainty eliminated**                                |
+|                                             |                                                           |
+|                                             | Preview content at 100% fidelity, get predictable content |
+|                                             | velocity, and shorten project durations                   |
++---------------------------------------------+-----------------------------------------------------------+
+| ![A group of people around a Table][image6] | **Widen the talent pool**                                 |
+|                                             |                                                           |
+|                                             | Authors on Helix use Microsoft Word, Excel or Google Docs |
+|                                             | and need no training                                      |
++---------------------------------------------+-----------------------------------------------------------+
+| ![HTML code in a code editor][image7]       | **The low-code way to developer productivity**            |
+|                                             |                                                           |
+|                                             | Say goodbye to complex APIs spanning multiple languages.  |
+|                                             | Anyone with a little bit of HTML, CSS, and JS can build a |
+|                                             | site on Project Helix.                                    |
++---------------------------------------------+-----------------------------------------------------------+
+| ![A rocket and a headless suit][image8]     | **Headless is here**                                      |
+|                                             |                                                           |
+|                                             | Go directly from Microsoft Excel or Google Sheets to the  |
+|                                             | web in mere seconds. Sanitize and collect form data at    |
+|                                             | extreme scale with Project Helix Forms.                   |
++---------------------------------------------+-----------------------------------------------------------+
+| ![A dial with a hand on it][image9]         | **Peak performance**                                      |
+|                                             |                                                           |
+|                                             | Use Project Helix's serverless architecture to meet any   |
+|                                             | traffic need. Use Project Helix's PageSpeed Insights      |
+|                                             | Github action to evaluate every Pull-Request for          |
+|                                             | Lighthouse Score.                                         |
++---------------------------------------------+-----------------------------------------------------------+
 
-<table>
-  <tr>
-    <td colspan="2">section-metadata</td>
-  </tr>
-  <tr>
-    <td>Style</td>
-    <td>highlight</td>
-  </tr>
-</table>
++---------------------+
+| section-metadata    |
++=========+===========+
+| Style   | highlight |
++---------+-----------+
 
 ---
 
-<table>
-  <tr>
-    <td colspan="2">Metadata</td>
-  </tr>
-  <tr>
-    <td>title</td>
-    <td>Home | Helix Project Boilerplate</td>
-  </tr>
-  <tr>
-    <td>description</td>
-    <td>Use this template repository as the starting point for new Helix projects.</td>
-  </tr>
-</table>
++----------------------------------------------------------------------+
+| Metadata                                                             |
++=============+========================================================+
+| title       | Home \| Helix Project Boilerplate                      |
++-------------+--------------------------------------------------------+
+| description | Use this template repository as the starting point for |
+|             | new Helix projects.                                    |
++-------------+--------------------------------------------------------+
 
 [image0]: ./media_12637fbb67cddc5d293b20975e89028d919270ac0.jpeg?width=750&format=jpeg&optimize=medium
 

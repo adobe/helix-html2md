@@ -1,123 +1,133 @@
-<table>
-  <tr>
-    <td colspan="2">columns (bleed)</td>
-  </tr>
-  <tr>
-    <td><p><em>Helix is a new and exciting feature of Adobe Experience Manager</em></p><h1>Faster. Better. Period.</h1><p>AEM Helix is the fastest way to <strong><em>launch</em></strong> new sites and deliver the <strong><em>fastest pages</em></strong> on the web, as a bonus it is also the most intuitive and fastest way to <strong><em>create and publish</em></strong> content.</p><p><a href="#but-how-fast">Seriously? Yes.</a></p></td>
-    <td>![][image0]</td>
-  </tr>
-</table>
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| columns (bleed)                                                                                                                                                                                                    |
++======================================================================================================================================================================================================+=============+
+| _Helix is a new and exciting feature of Adobe Experience Manager_                                                                                                                                    | ![][image0] |
+|                                                                                                                                                                                                      |             |
+| # Faster. Better. Period.                                                                                                                                                                            |             |
+|                                                                                                                                                                                                      |             |
+| AEM Helix is the fastest way to **_launch_** new sites and deliver the **_fastest pages_** on the web, as a bonus it is also the most intuitive and fastest way to **_create and publish_** content. |             |
+|                                                                                                                                                                                                      |             |
+| [Seriously? Yes.](#but-how-fast)                                                                                                                                                                     |             |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
 
-<table>
-  <tr>
-    <td colspan="2">section-metadata</td>
-  </tr>
-  <tr>
-    <td>Style</td>
-    <td>highlight</td>
-  </tr>
-</table>
++---------------------+
+| section-metadata    |
++=========+===========+
+| Style   | highlight |
++---------+-----------+
 
 ---
 
 ## But how fast?
 
-<table>
-  <tr>
-    <td colspan="3">cards</td>
-  </tr>
-  <tr>
-    <td><p><p>![][image1]</p></p><h3>Launch faster</h3><p>There is no reason launching a new site should take months. Use Helix to shave off the cruft of legacy platforms and launch new sites in days or weeks, not months.</p></td>
-    <td><p><p>![][image2]</p></p><h3>Fastest Pages on the Web</h3><p>There are millions of slow sites on the web. Yours does not have to be one of them. Helix delivers every page at lightning speed, to every customer, on any device, anywhere in the world.</p></td>
-    <td><p><p>![][image3]</p></p><h3>Faster Publishing</h3><p>Unshackle your authors from the burden of slow and complex content management system user interfaces. Let them create and publish content in seconds using tools they already know and love.</p></td>
-  </tr>
-</table>
++--------------------------------------------------------------------------------------------------------------------+
+| cards                                                                                                              |
++=======================================+======================================+=====================================+
+| ![][image1]                           | ![][image2]                          | ![][image3]                         |
+|                                       |                                      |                                     |
+| ### Launch faster                     | ### Fastest Pages on the Web         | ### Faster Publishing               |
+|                                       |                                      |                                     |
+| There is no reason launching a new    | There are millions of slow sites on  | Unshackle your authors from the     |
+| site should take months. Use Helix to | the web. Yours does not have to be   | burden of slow and complex content  |
+| shave off the cruft of legacy         | one of them. Helix delivers every    | management system user interfaces.  |
+| platforms and launch new sites in     | page at lightning speed, to every    | Let them create and publish content |
+| days or weeks, not months.            | customer, on any device, anywhere in | in seconds using tools they already |
+|                                       | the world.                           | know and love.                      |
++---------------------------------------+--------------------------------------+-------------------------------------+
 
-<table>
-  <tr>
-    <td colspan="2">section-metadata</td>
-  </tr>
-  <tr>
-    <td>Style</td>
-    <td>dark</td>
-  </tr>
-</table>
++------------------+
+| section-metadata |
++=========+========+
+| Style   | dark   |
++---------+--------+
 
 ---
 
-<table>
-  <tr>
-    <td colspan="2">columns (bleed)</td>
-  </tr>
-  <tr>
-    <td><h3>It’s about time to lose patience with slow sites</h3><ul> <li>Half a second delay in page load time leads to 20% increase in bounce rate</li> <li>53% of all mobile visits end prematurely if a page takes more than 3 seconds to load</li> <li>2 seconds of load time or more drop conversion rates by 50%</li> </ul><h3>Don’t make your business wait for your content management system</h3><ul> <li>Authors spend more time with data entry than writing content</li> <li>Deadlines are frequently missed because content is hard to review</li> <li>Unit costs for content are increasing</li> </ul><h3>Stop wasting developer time on framework churn</h3><ul> <li>Heavyweight frameworks make it harder to find developers</li> <li>Slower to build sites</li> <li>Costly to implement changes</li> </ul></td>
-    <td>![][image4]</td>
-  </tr>
-</table>
++-------------------------------------------------------------------------------------+
+| columns (bleed)                                                                     |
++=======================================================================+=============+
+| ### It’s about time to lose patience with slow sites                  | ![][image4] |
+|                                                                       |             |
+| -   Half a second delay in page load time leads to 20% increase in    |             |
+|     bounce rate                                                       |             |
+| -   53% of all mobile visits end prematurely if a page takes more     |             |
+|     than 3 seconds to load                                            |             |
+| -   2 seconds of load time or more drop conversion rates by 50%       |             |
+|                                                                       |             |
+| ### Don’t make your business wait for your content management system  |             |
+|                                                                       |             |
+| -   Authors spend more time with data entry than writing content      |             |
+| -   Deadlines are frequently missed because content is hard to review |             |
+| -   Unit costs for content are increasing                             |             |
+|                                                                       |             |
+| ### Stop wasting developer time on framework churn                    |             |
+|                                                                       |             |
+| -   Heavyweight frameworks make it harder to find developers          |             |
+| -   Slower to build sites                                             |             |
+| -   Costly to implement changes                                       |             |
++-----------------------------------------------------------------------+-------------+
 
 ---
 
 ## Helix Benefits
 
-<table>
-  <tr>
-    <td colspan="4">cards</td>
-  </tr>
-  <tr>
-    <td><p><strong>Unmatched speed</strong></p><p>Helix is the fastest way to publish, create, and serve websites</p></td>
-    <td><p><strong>Content at scale</strong></p><p>Helix allows you to publish more content in shorter time with smaller teams</p></td>
-    <td><p><strong>Uncertainty eliminated</strong></p><p>Preview content at 100% fidelity, get predictable content velocity, and shorten project durations</p></td>
-    <td><p><strong>Widen the talent pool</strong></p><p>Authors on Helix use Microsoft Word, Excel or Google Docs and need no training.</p></td>
-  </tr>
-  <tr>
-    <td><p><strong>The low-code way to developer productivity</strong></p><p>Say goodbye to complex APIs spanning multiple languages. Anyone with a little bit of HTML, CSS, and JS can build a site on Project Helix.</p></td>
-    <td><p><strong>Headless is here</strong></p><p>Go directly from Microsoft Excel or Google Sheets to the web in mere seconds. Sanitize and collect form data at extreme scale with Project Helix Forms.</p></td>
-    <td><p><strong>Structured and Unstructured</strong></p><p>Create both structured and unstructured content in a single cohesive system.</p><p>Combine rich semantic markup with JSON data and consume your content across channels.</p></td>
-    <td><p><strong>Peak performance</strong></p><p>Use Project Helix's serverless architecture to meet any traffic need. Use Project Helix's PageSpeed Insights Github action to evaluate every Pull-Request for Lighthouse Score.</p></td>
-  </tr>
-</table>
++---------------------------------------------------------------------------------------------------------------------------+
+| cards                                                                                                                     |
++=============================+=============================+=================================+=============================+
+| **Unmatched speed**         | **Content at scale**        | **Uncertainty eliminated**      | **Widen the talent pool**   |
+|                             |                             |                                 |                             |
+| Helix is the fastest way to | Helix allows you to publish | Preview content at 100%         | Authors on Helix use        |
+| publish, create, and serve  | more content in shorter     | fidelity, get predictable       | Microsoft Word, Excel or    |
+| websites                    | time with smaller teams     | content velocity, and shorten   | Google Docs and need no     |
+|                             |                             | project durations               | training.                   |
++-----------------------------+-----------------------------+---------------------------------+-----------------------------+
+| **The low-code way to       | **Headless is here**        | **Structured and Unstructured** | **Peak performance**        |
+| developer productivity**    |                             |                                 |                             |
+|                             | Go directly from Microsoft  | Create both structured and      | Use Project Helix's         |
+| Say goodbye to complex APIs | Excel or Google Sheets to   | unstructured content in a       | serverless architecture to  |
+| spanning multiple           | the web in mere seconds.    | single cohesive system.         | meet any traffic need. Use  |
+| languages. Anyone with a    | Sanitize and collect form   |                                 | Project Helix's PageSpeed   |
+| little bit of HTML, CSS,    | data at extreme scale with  | Combine rich semantic markup    | Insights Github action to   |
+| and JS can build a site on  | Project Helix Forms.        | with JSON data and consume your | evaluate every Pull-Request |
+| Project Helix.              |                             | content across channels.        | for Lighthouse Score.       |
++-----------------------------+-----------------------------+---------------------------------+-----------------------------+
 
-<table>
-  <tr>
-    <td colspan="2">section-metadata</td>
-  </tr>
-  <tr>
-    <td>Style</td>
-    <td>light</td>
-  </tr>
-</table>
++------------------+
+| section-metadata |
++=========+========+
+| Style   | light  |
++---------+--------+
 
 ---
 
 ## How it works
 
-<table>
-  <tr>
-    <td colspan="2">columns (bleed)</td>
-  </tr>
-  <tr>
-    <td>![][image5]</td>
-    <td><h3>Create content in Microsoft Word or Google Docs.</h3><p>Create a new folder in Google Drive or Microsoft SharePoint. Then create a new document and put some content in it.</p></td>
-  </tr>
-  <tr>
-    <td><h3>Share your folder with Project Helix.</h3><p>After you create a page, head back to your folder and share it with Helix.</p></td>
-    <td>![][image6]</td>
-  </tr>
-  <tr>
-    <td>![][image7]</td>
-    <td><h3>See your site in action.</h3><p>After you have added some content, shared with Project Helix, built a repo, and tied your repo to your content, you can see your site in action.</p></td>
-  </tr>
-</table>
++------------------------------------------------------------------------------------------------------------------+
+| columns (bleed)                                                                                                  |
++=======================================================+==========================================================+
+| ![][image5]                                           | ### Create content in Microsoft Word or Google Docs.     |
+|                                                       |                                                          |
+|                                                       | Create a new folder in Google Drive or Microsoft         |
+|                                                       | SharePoint. Then create a new document and put some      |
+|                                                       | content in it.                                           |
++-------------------------------------------------------+----------------------------------------------------------+
+| ### Share your folder with Project Helix.             | ![][image6]                                              |
+|                                                       |                                                          |
+| After you create a page, head back to your folder and |                                                          |
+| share it with Helix.                                  |                                                          |
++-------------------------------------------------------+----------------------------------------------------------+
+| ![][image7]                                           | ### See your site in action.                             |
+|                                                       |                                                          |
+|                                                       | After you have added some content, shared with Project   |
+|                                                       | Helix, built a repo, and tied your repo to your content, |
+|                                                       | you can see your site in action.                         |
++-------------------------------------------------------+----------------------------------------------------------+
 
-<table>
-  <tr>
-    <td colspan="2">section-metadata</td>
-  </tr>
-  <tr>
-    <td>Style</td>
-    <td>dark</td>
-  </tr>
-</table>
++------------------+
+| section-metadata |
++=========+========+
+| Style   | dark   |
++---------+--------+
 
 ---
 
@@ -127,15 +137,11 @@ Helix lets business users ingest and publish markdown documents and spreadsheets
 
 Helix lets frontend devs develop and deploy the design and functionality of their website with CSS and JavaScript directly in their GitHub repos.
 
-<table>
-  <tr>
-    <td colspan="2">section-metadata</td>
-  </tr>
-  <tr>
-    <td>Style</td>
-    <td>light</td>
-  </tr>
-</table>
++------------------+
+| section-metadata |
++=========+========+
+| Style   | light  |
++---------+--------+
 
 ---
 
@@ -143,35 +149,25 @@ Helix lets frontend devs develop and deploy the design and functionality of thei
 
 [Get a demo](/business/demo)
 
-<table>
-  <tr>
-    <td colspan="2">section-metadata</td>
-  </tr>
-  <tr>
-    <td>Style</td>
-    <td>highlight</td>
-  </tr>
-</table>
++---------------------+
+| section-metadata    |
++=========+===========+
+| Style   | highlight |
++---------+-----------+
 
 ---
 
-<table>
-  <tr>
-    <td colspan="2">Metadata</td>
-  </tr>
-  <tr>
-    <td>title</td>
-    <td>Project Helix by Adobe</td>
-  </tr>
-  <tr>
-    <td>description</td>
-    <td>Frictionless experience management: Build blazing fast websites using tools content creators and developers already know.</td>
-  </tr>
-  <tr>
-    <td>robots</td>
-    <td>noindex, nofollow</td>
-  </tr>
-</table>
++----------------------------------------------------------------------+
+| Metadata                                                             |
++=============+========================================================+
+| title       | Project Helix by Adobe                                 |
++-------------+--------------------------------------------------------+
+| description | Frictionless experience management: Build blazing fast |
+|             | websites using tools content creators and developers   |
+|             | already know.                                          |
++-------------+--------------------------------------------------------+
+| robots      | noindex, nofollow                                      |
++-------------+--------------------------------------------------------+
 
 [image0]: ./media_11150c400cabf67c6baeb1d92d2adf99ab8941fb7.png?width=750&format=png&optimize=medium
 

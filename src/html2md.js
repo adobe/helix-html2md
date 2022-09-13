@@ -18,21 +18,13 @@ import { toString } from 'hast-util-to-string';
 import { select } from 'hast-util-select';
 import gfm from 'remark-gfm';
 
-import { robustTables, breaksAsSpaces, imageReferences } from '@adobe/helix-markdown-support';
+import { imageReferences } from '@adobe/helix-markdown-support';
 import { remarkMatter } from '@adobe/helix-markdown-support/matter';
 import { remarkGridTable } from '@adobe/helix-markdown-support/gridtable';
-
-export const TYPE_TABLE = 'table';
-export const TYPE_HEAD = 'tableHead';
-export const TYPE_HEADER = 'tableHeader';
-export const TYPE_BODY = 'tableBody';
-export const TYPE_ROW = 'tableRow';
-export const TYPE_CELL = 'tableCell';
 
 export const TYPE_GRID_TABLE = 'gridTable';
 export const TYPE_GT_HEADER = 'gtHeader';
 export const TYPE_GT_BODY = 'gtBody';
-export const TYPE_GT_FOOTER = 'gtFooter';
 export const TYPE_GT_ROW = 'gtRow';
 export const TYPE_GT_CELL = 'gtCell';
 
@@ -51,28 +43,8 @@ function text(value) {
 }
 
 const HELIX_META = new Set(Array.from([
-  'twitter:card',
-  'twitter:title',
-  'twitter:description',
-  'twitter:image',
   'viewport',
 ]));
-
-function toTable(title, data) {
-  return m(TYPE_TABLE, [
-    m(TYPE_ROW, [
-      m(TYPE_CELL, [
-        text(title),
-      ], { colSpan: data[0].length }),
-    ]),
-    ...data.map((row) => m(
-      TYPE_ROW,
-      row.map((cell) => m(TYPE_CELL, [
-        text(cell),
-      ])),
-    )),
-  ]);
-}
 
 function toGridTable(title, data) {
   return m(TYPE_GRID_TABLE, [
@@ -94,16 +66,16 @@ function toGridTable(title, data) {
   ]);
 }
 
-function addMetadata(hast, mdast, gridTables) {
+function addMetadata(hast, mdast) {
   const meta = new Map();
 
   const head = select('head', hast);
   for (const child of head.children) {
     if (child.tagName === 'title') {
       meta.set('title', toString(child));
-    } else {
-      const { name, content } = child.properties ?? {};
-      if (name && !HELIX_META.has(name)) {
+    } else if (child.tagName === 'meta') {
+      const { name, content } = child.properties;
+      if (name && !HELIX_META.has(name) && !name.startsWith('twitter:')) {
         meta.set(name, content);
       }
     }
@@ -111,11 +83,7 @@ function addMetadata(hast, mdast, gridTables) {
 
   if (meta.size) {
     mdast.children.push(m('thematicBreak'));
-    if (gridTables) {
-      mdast.children.push(toGridTable('Metadata', Array.from(meta.entries())));
-    } else {
-      mdast.children.push(toTable('Metadata', Array.from(meta.entries())));
-    }
+    mdast.children.push(toGridTable('Metadata', Array.from(meta.entries())));
   }
 }
 
@@ -200,35 +168,7 @@ function createBlocks(main) {
       type: classNameToBlockType(className),
       numCols: maxCols,
     };
-
-    // // add header
-    // const th = {
-    //   type: 'element',
-    //   tagName: 'th',
-    //   children: [text(classNameToBlockType(className))],
-    // };
-    // if (maxCols > 1) {
-    //   th.properties = { colSpan: maxCols };
-    // }
-    // rows.unshift({
-    //   type: 'element',
-    //   tagName: 'tr',
-    //   children: [th],
-    // });
   }
-}
-
-function handleBlock(h, node) {
-  const rows = all(h, node);
-
-  // add header row
-  const { type, numCols } = node.data;
-  const th = m(TYPE_CELL, [text(type)]);
-  if (numCols > 1) {
-    th.colSpan = numCols;
-  }
-  rows.unshift(m(TYPE_ROW, [th]));
-  return h(node, TYPE_TABLE, rows);
 }
 
 function handleBlockAsGridTable(h, node) {
@@ -258,7 +198,7 @@ function handleBlockAsGridTable(h, node) {
 }
 
 export async function html2md(html, opts) {
-  const { log, url, gridTables } = opts;
+  const { log, url } = opts;
   const t0 = Date.now();
   const hast = unified()
     .use(parse)
@@ -275,16 +215,13 @@ export async function html2md(html, opts) {
 
   const mdast = toMdast(main, {
     handlers: {
-      block: gridTables
-        ? handleBlockAsGridTable
-        : handleBlock,
+      block: handleBlockAsGridTable,
     },
   });
 
-  addMetadata(hast, mdast, gridTables);
+  addMetadata(hast, mdast);
 
   imageReferences(mdast);
-  robustTables(mdast);
 
   // noinspection JSVoidFunctionReturnValueUsed
   const md = unified()
@@ -299,20 +236,12 @@ export async function html2md(html, opts) {
       ruleRepetition: 3,
       ruleSpaces: false,
     })
-    .use(gfm, {
-      // tableCellPadding: false,
-      // tablePipeAlign: false,
-    })
-    .use(breaksAsSpaces)
+    .use(gfm)
     .use(remarkMatter)
     .use(remarkGridTable)
     // .use(orderedListPlugin)
     .stringify(mdast);
-  // const md = toMarkdown(mdast, {
-  //   handlers: {
-  //     ...gridHandlers,
-  //   },
-  // });
+
   const t1 = Date.now();
   log.info(`converted ${url} in ${t1 - t0}ms`);
   return md;
