@@ -1,3 +1,10 @@
+## [1.2.11](https://github.com/adobe/helix-html2md/compare/v1.2.10...v1.2.11) (2022-09-13)
+
+
+### Bug Fixes
+
+* handle trailing slash correctly ([cf15413](https://github.com/adobe/helix-html2md/commit/cf154134b5b0bfcd4232651984817df02ce95fb3))
+
 ## [1.2.10](https://github.com/adobe/helix-html2md/compare/v1.2.9...v1.2.10) (2022-09-13)
 
 
