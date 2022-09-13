@@ -1,3 +1,10 @@
+## [1.2.12](https://github.com/adobe/helix-html2md/compare/v1.2.11...v1.2.12) (2022-09-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-shared-utils to v2.1.0 ([#35](https://github.com/adobe/helix-html2md/issues/35)) ([d8e24a7](https://github.com/adobe/helix-html2md/commit/d8e24a72e8ec35ee67135f5d366fc13c20f9df01))
+
 ## [1.2.11](https://github.com/adobe/helix-html2md/compare/v1.2.10...v1.2.11) (2022-09-13)
 
 
