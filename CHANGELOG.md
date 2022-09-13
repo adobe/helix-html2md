@@ -1,3 +1,10 @@
+## [1.2.13](https://github.com/adobe/helix-html2md/compare/v1.2.12...v1.2.13) (2022-09-13)
+
+
+### Bug Fixes
+
+* translate .md files ([4963cf9](https://github.com/adobe/helix-html2md/commit/4963cf99c9ce3a57579c434148825e1b7d558699))
+
 ## [1.2.12](https://github.com/adobe/helix-html2md/compare/v1.2.11...v1.2.12) (2022-09-13)
 
 
