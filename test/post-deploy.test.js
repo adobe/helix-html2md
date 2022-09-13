@@ -24,22 +24,16 @@ And more...newcontent
 
 ---
 
-<table>
-  <tr>
-    <td colspan="2">Metadata</td>
-  </tr>
-  <tr>
-    <td>title</td>
-    <td>Helix Test Content</td>
-  </tr>
-  <tr>
-    <td>description</td>
-    <td>Content is: sharepoint-/main/index.docx</td>
-  </tr>
-</table>
++-------------------------------------------------------+
+| Metadata                                              |
++=============+=========================================+
+| title       | Helix Test Content                      |
++-------------+-----------------------------------------+
+| description | Content is: sharepoint-/main/index.docx |
++-------------+-----------------------------------------+
 `;
 
-createTargets().forEach((target) => {
+createTargets({ version: '' }).forEach((target) => {
   describe(`Post-Deploy Tests (${target.title()})`, () => {
     const fetchContext = noCache();
     const { fetch } = fetchContext;
