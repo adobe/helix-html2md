@@ -157,6 +157,76 @@ describe('Index Tests', () => {
     });
   });
 
+  it('returns 200 for md file', async () => {
+    nock.fstab();
+    nock('https://www.example.com', {
+      reqheaders: {
+        authorization: 'Bearer 1234',
+      },
+    })
+      .get('/blog')
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
+        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      });
+    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
+
+    const url = new URL('https://localhost');
+    url.searchParams.append('path', '/blog.md');
+    url.searchParams.append('owner', 'owner');
+    url.searchParams.append('repo', 'repo');
+    const req = new Request(url.href, {
+      headers: {
+        authorization: 'Bearer 1234',
+      },
+    });
+
+    const result = await main(req, {});
+    assert.strictEqual(result.status, 200);
+    assert.strictEqual((await result.text()).trim(), expected.trim());
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-length': '162',
+      'content-type': 'text/markdown; charset=utf-8',
+      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      'x-source-location': 'https://www.example.com/blog',
+    });
+  });
+
+  it('returns 200 for md index', async () => {
+    nock.fstab();
+    nock('https://www.example.com', {
+      reqheaders: {
+        authorization: 'Bearer 1234',
+      },
+    })
+      .get('/blog/')
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
+        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      });
+    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
+
+    const url = new URL('https://localhost');
+    url.searchParams.append('path', '/blog/index.md');
+    url.searchParams.append('owner', 'owner');
+    url.searchParams.append('repo', 'repo');
+    const req = new Request(url.href, {
+      headers: {
+        authorization: 'Bearer 1234',
+      },
+    });
+
+    const result = await main(req, {});
+    assert.strictEqual(result.status, 200);
+    assert.strictEqual((await result.text()).trim(), expected.trim());
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-length': '162',
+      'content-type': 'text/markdown; charset=utf-8',
+      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      'x-source-location': 'https://www.example.com/blog/',
+    });
+  });
+
   for (const status of [401, 403, 403]) {
     // eslint-disable-next-line no-loop-func
     it(`returns ${status} for a ${status} response`, async () => {

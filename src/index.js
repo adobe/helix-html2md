@@ -61,7 +61,13 @@ async function run(request, ctx) {
 
     const fstab = await fetchFstab(ctx, ctx.data);
     const mp = fstab.match(path);
-    url = new URL(mp.relPath, mp.url).href;
+    let { relPath } = mp;
+    if (relPath.endsWith('/index.md')) {
+      relPath = relPath.substring(0, relPath.length - 8);
+    } else if (relPath.endsWith('.md')) {
+      relPath = relPath.substring(0, relPath.length - 3);
+    }
+    url = new URL(relPath, mp.url).href;
     contentBusId = await getContentBusId(ctx, ctx.data);
   } else if (!url) {
     return error('url or path parameter is required.', 400);
