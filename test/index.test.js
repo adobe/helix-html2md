@@ -18,13 +18,13 @@ import { Request } from '@adobe/helix-fetch';
 import { main } from '../src/index.js';
 import { Nock } from './utils.js';
 
-function reqUrl(path = '') {
+function reqUrl(path = '', init = {}) {
   const url = new URL('https://localhost');
   url.searchParams.append('url', `https://www.example.com${path}`);
   url.searchParams.append('owner', 'owner');
   url.searchParams.append('repo', 'repo');
   url.searchParams.append('contentBusId', 'foo-id');
-  return new Request(url.href);
+  return new Request(url.href, init);
 }
 
 describe('Index Tests', () => {
@@ -97,6 +97,7 @@ describe('Index Tests', () => {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       })
       .get('/absolute.png')
+      .basicAuth({ user: 'john', pass: 'doe' })
       .replyWithFile(200, testImagePath, {
         'content-type': 'image/png',
       })
@@ -118,7 +119,7 @@ describe('Index Tests', () => {
       .reply(201);
 
     const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
-    const result = await main(reqUrl('/blog/article'), {});
+    const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), {});
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
