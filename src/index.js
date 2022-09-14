@@ -101,6 +101,7 @@ async function run(request, ctx) {
       ref: 'main',
       contentBusId,
       log,
+      auth,
       filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
       blobAgent: `html2md-${pkgJson.version}`,
     });
