@@ -19,6 +19,7 @@ process.env.HELIX_FETCH_FORCE_HTTP1 = 'true';
 process.env.HELIX_ONEDRIVE_LOCAL_AUTH_CACHE = 'true';
 process.env.HELIX_ONEDRIVE_NO_SHARE_LINK_CACHE = 'true';
 process.env.HELIX_ONEDRIVE_NO_TENANT_CACHE = 'true';
+process.env.HELIX_MEDIA_HANDLER_DISABLE_R2 = 'true';
 
 // eslint-disable-next-line no-underscore-dangle
 global.__rootdir = resolve(fileURLToPath(import.meta.url), '..', '..');

@@ -18,15 +18,12 @@ import { Request } from '@adobe/helix-fetch';
 import { main } from '../src/index.js';
 import { Nock } from './utils.js';
 
-function reqUrl(gt) {
+function reqUrl(path = '') {
   const url = new URL('https://localhost');
-  url.searchParams.append('url', 'https://www.example.com');
+  url.searchParams.append('url', `https://www.example.com${path}`);
   url.searchParams.append('owner', 'owner');
   url.searchParams.append('repo', 'repo');
   url.searchParams.append('contentBusId', 'foo-id');
-  if (gt) {
-    url.searchParams.append('gridTables', 'true');
-  }
   return new Request(url.href);
 }
 
@@ -34,6 +31,11 @@ describe('Index Tests', () => {
   let nock;
   beforeEach(() => {
     nock = new Nock().env();
+    Object.assign(process.env, {
+      AWS_S3_REGION: 'us-east-1',
+      AWS_S3_ACCESS_KEY_ID: 'dummy',
+      AWS_S3_SECRET_ACCESS_KEY: 'dummy',
+    });
   });
 
   afterEach(() => {
@@ -84,6 +86,47 @@ describe('Index Tests', () => {
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       'x-source-location': 'https://www.example.com',
+    });
+  });
+
+  it('uploads images to media-bus', async () => {
+    const testImagePath = resolve(__testdir, 'fixtures', '300.png');
+    nock('https://www.example.com')
+      .get('/blog/article')
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
+        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      })
+      .get('/absolute.png')
+      .replyWithFile(200, testImagePath, {
+        'content-type': 'image/png',
+      })
+      .get('/blog/relative.png')
+      .replyWithFile(200, testImagePath, {
+        'content-type': 'image/png',
+      });
+    nock('https://dummyimage.com')
+      .get('/300.png')
+      .replyWithFile(200, testImagePath, {
+        'content-type': 'image/png',
+      });
+    nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
+      .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
+      .times(3)
+      .reply(404)
+      .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
+      .times(3)
+      .reply(201);
+
+    const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
+    const result = await main(reqUrl('/blog/article'), {});
+    assert.strictEqual(result.status, 200);
+    assert.strictEqual((await result.text()).trim(), expected.trim());
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-length': '452',
+      'content-type': 'text/markdown; charset=utf-8',
+      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      'x-source-location': 'https://www.example.com/blog/article',
     });
   });
 
