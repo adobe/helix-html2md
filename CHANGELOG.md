@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/adobe/helix-html2md/compare/v1.3.0...v1.3.1) (2022-09-14)
+
+
+### Bug Fixes
+
+* pass authorization header to mediahandler ([#39](https://github.com/adobe/helix-html2md/issues/39)) ([bb063cf](https://github.com/adobe/helix-html2md/commit/bb063cf18fe240fbe7f8acad972f6985c28b2000))
+
 # [1.3.0](https://github.com/adobe/helix-html2md/compare/v1.2.13...v1.3.0) (2022-09-14)
 
 
