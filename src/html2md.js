@@ -21,6 +21,7 @@ import gfm from 'remark-gfm';
 import { imageReferences } from '@adobe/helix-markdown-support';
 import { remarkMatter } from '@adobe/helix-markdown-support/matter';
 import { remarkGridTable } from '@adobe/helix-markdown-support/gridtable';
+import { processImages } from './mdast-process-images.js';
 
 export const TYPE_GRID_TABLE = 'gridTable';
 export const TYPE_GT_HEADER = 'gtHeader';
@@ -198,7 +199,9 @@ function handleBlockAsGridTable(h, node) {
 }
 
 export async function html2md(html, opts) {
-  const { log, url } = opts;
+  const {
+    log, url, mediaHandler,
+  } = opts;
   const t0 = Date.now();
   const hast = unified()
     .use(parse)
@@ -221,6 +224,7 @@ export async function html2md(html, opts) {
 
   addMetadata(hast, mdast);
 
+  await processImages(log, mdast, mediaHandler, url);
   imageReferences(mdast);
 
   // noinspection JSVoidFunctionReturnValueUsed

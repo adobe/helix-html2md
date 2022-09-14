@@ -46,6 +46,7 @@
     "@adobe/helix-markdown-support": "5.0.7",
     "@adobe/helix-mediahandler": "1.2.2",
     "@adobe/helix-shared-body-data": "1.1.19",
+    "@adobe/helix-shared-process-queue": "1.1.5",
     "@adobe/helix-shared-utils": "2.1.0",
     "@adobe/helix-shared-wrap": "1.0.5",
     "@adobe/helix-status": "9.2.13",
@@ -57,7 +58,8 @@
     "rehype-parse": "8.0.4",
     "remark-gfm": "3.0.1",
     "remark-stringify": "10.0.2",
-    "unified": "10.1.2"
+    "unified": "10.1.2",
+    "unist-util-visit": "4.1.1"
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "1.3.2",
