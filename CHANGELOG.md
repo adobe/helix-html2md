@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/adobe/helix-html2md/compare/v1.2.13...v1.3.0) (2022-09-14)
+
+
+### Features
+
+* process images and upload to mediabus ([#38](https://github.com/adobe/helix-html2md/issues/38)) ([084464a](https://github.com/adobe/helix-html2md/commit/084464aa6490d3a58f0f94af3b2e61e4c835e346)), closes [#37](https://github.com/adobe/helix-html2md/issues/37)
+
 ## [1.2.13](https://github.com/adobe/helix-html2md/compare/v1.2.12...v1.2.13) (2022-09-13)
 
 
