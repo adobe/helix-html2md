@@ -1,3 +1,10 @@
+## [1.3.7](https://github.com/adobe/helix-html2md/compare/v1.3.6...v1.3.7) (2022-09-25)
+
+
+### Bug Fixes
+
+* @adobe/helix-fetch -> @adobe/fetch ([ec6d9a7](https://github.com/adobe/helix-html2md/commit/ec6d9a76614b8bfa6aa624b2b9268c5f96e4a51b))
+
 ## [1.3.6](https://github.com/adobe/helix-html2md/compare/v1.3.5...v1.3.6) (2022-09-24)
 
 
