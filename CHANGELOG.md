@@ -1,3 +1,24 @@
+## [1.3.6](https://github.com/adobe/helix-html2md/compare/v1.3.5...v1.3.6) (2022-09-24)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([42d7e9c](https://github.com/adobe/helix-html2md/commit/42d7e9cbdeefc9b4cd8bb7779cbf63d00183c5d0))
+
+## [1.3.5](https://github.com/adobe/helix-html2md/compare/v1.3.4...v1.3.5) (2022-09-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-admin-support to v1.3.10 ([38a7ce4](https://github.com/adobe/helix-html2md/commit/38a7ce449d09df8015cce65ffb763c3a60a22f4e))
+
+## [1.3.4](https://github.com/adobe/helix-html2md/compare/v1.3.3...v1.3.4) (2022-09-23)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([ac767a3](https://github.com/adobe/helix-html2md/commit/ac767a3ad5874534f29290ff55813e4334d9b47f))
+
 ## [1.3.3](https://github.com/adobe/helix-html2md/compare/v1.3.2...v1.3.3) (2022-09-22)
 
 
