@@ -12,7 +12,7 @@
 
 /* eslint-env mocha */
 import assert from 'assert';
-import { noCache } from '@adobe/helix-fetch';
+import { noCache } from '@adobe/fetch';
 import { createTargets } from './post-deploy-utils.js';
 
 const TEST_MD = `

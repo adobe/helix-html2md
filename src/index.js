@@ -13,7 +13,7 @@ import wrap from '@adobe/helix-shared-wrap';
 import { logger } from '@adobe/helix-universal-logger';
 import { wrap as status } from '@adobe/helix-status';
 import bodyData from '@adobe/helix-shared-body-data';
-import { Response, context as fetchContext, h1 } from '@adobe/helix-fetch';
+import { Response, context as fetchContext, h1 } from '@adobe/fetch';
 import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
 import { MediaHandler } from '@adobe/helix-mediahandler';
 import { fetchFstab, getContentBusId } from '@adobe/helix-admin-support';

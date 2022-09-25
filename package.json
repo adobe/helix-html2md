@@ -41,8 +41,8 @@
   },
   "homepage": "https://github.com/adobe/helix-html2md#readme",
   "dependencies": {
+    "@adobe/fetch": "3.1.4",
     "@adobe/helix-admin-support": "1.3.11",
-    "@adobe/helix-fetch": "3.1.2",
     "@adobe/helix-markdown-support": "5.0.7",
     "@adobe/helix-mediahandler": "1.2.5",
     "@adobe/helix-shared-body-data": "1.1.20",

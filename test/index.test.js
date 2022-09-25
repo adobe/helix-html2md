@@ -14,7 +14,7 @@
 import { readFile } from 'fs/promises';
 import assert from 'assert';
 import { resolve } from 'path';
-import { Request } from '@adobe/helix-fetch';
+import { Request } from '@adobe/fetch';
 import { main } from '../src/index.js';
 import { Nock } from './utils.js';
 
