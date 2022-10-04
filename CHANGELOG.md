@@ -1,3 +1,10 @@
+## [1.3.11](https://github.com/adobe/helix-html2md/compare/v1.3.10...v1.3.11) (2022-10-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-status to v9.2.15 ([eb6a936](https://github.com/adobe/helix-html2md/commit/eb6a936e2eb0ee0d2d1bbf0c408b0d0cfb5c3b52))
+
 ## [1.3.10](https://github.com/adobe/helix-html2md/compare/v1.3.9...v1.3.10) (2022-10-01)
 
 
