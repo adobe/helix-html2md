@@ -42,9 +42,9 @@
   "homepage": "https://github.com/adobe/helix-html2md#readme",
   "dependencies": {
     "@adobe/fetch": "3.1.4",
-    "@adobe/helix-admin-support": "1.3.14",
+    "@adobe/helix-admin-support": "1.3.15",
     "@adobe/helix-markdown-support": "5.0.10",
-    "@adobe/helix-mediahandler": "1.2.7",
+    "@adobe/helix-mediahandler": "1.2.8",
     "@adobe/helix-shared-body-data": "1.1.20",
     "@adobe/helix-shared-process-queue": "1.1.5",
     "@adobe/helix-shared-utils": "2.1.0",
