@@ -51,6 +51,7 @@
     "@adobe/helix-shared-wrap": "1.0.5",
     "@adobe/helix-status": "9.2.18",
     "@adobe/helix-universal-logger": "2.0.16",
+    "@adobe/remark-gridtables": "1.0.0",
     "hast-util-select": "5.0.2",
     "hast-util-to-mdast": "8.4.1",
     "hast-util-to-string": "2.0.0",
