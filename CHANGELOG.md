@@ -1,3 +1,10 @@
+## [1.3.22](https://github.com/adobe/helix-html2md/compare/v1.3.21...v1.3.22) (2022-11-03)
+
+
+### Bug Fixes
+
+* use adobe gridtables ([#73](https://github.com/adobe/helix-html2md/issues/73)) ([8cfc0f1](https://github.com/adobe/helix-html2md/commit/8cfc0f115cd04a59410d93fcde1a97b1cbc2e0ba))
+
 ## [1.3.21](https://github.com/adobe/helix-html2md/compare/v1.3.20...v1.3.21) (2022-10-29)
 
 
