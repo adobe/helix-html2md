@@ -1,3 +1,10 @@
+## [1.3.24](https://github.com/adobe/helix-html2md/compare/v1.3.23...v1.3.24) (2022-11-05)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([adecfa7](https://github.com/adobe/helix-html2md/commit/adecfa72feab7cbae86bd848c8259eb8fedbe631))
+
 ## [1.3.23](https://github.com/adobe/helix-html2md/compare/v1.3.22...v1.3.23) (2022-11-03)
 
 
