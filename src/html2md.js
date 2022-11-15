@@ -116,7 +116,7 @@ export function classNameToBlockType(className) {
   let blockType = className.shift();
   blockType = blockType.split('-').map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join(' ');
   if (className.length) {
-    blockType += ` (${className.join(', ')})`;
+    blockType += ` (${className.map((s) => s.split('-').join(' ')).join(', ')})`;
   }
   return blockType;
 }

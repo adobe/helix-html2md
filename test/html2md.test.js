@@ -61,7 +61,7 @@ describe('html2md Tests', () => {
   });
 });
 
-describe('className to block type tests', () => {
+describe.only('className to block type tests', () => {
   it('simple', () => {
     assert.strictEqual(classNameToBlockType(['foo']), 'Foo');
   });
@@ -75,10 +75,14 @@ describe('className to block type tests', () => {
   });
 
   it('multiple wide options', () => {
-    assert.strictEqual(classNameToBlockType(['foo', 'super-wide', 'dark-green']), 'Foo (super-wide, dark-green)');
+    assert.strictEqual(classNameToBlockType(['foo', 'super-wide', 'dark-green']), 'Foo (super wide, dark green)');
   });
 
   it('several words', () => {
     assert.strictEqual(classNameToBlockType(['section-metadata']), 'Section Metadata');
+  });
+
+  it('several words and options', () => {
+    assert.strictEqual(classNameToBlockType(['foo-bar', 'super-wide', 'dark-green']), 'Foo Bar (super wide, dark green)');
   });
 });
