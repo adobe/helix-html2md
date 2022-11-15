@@ -61,7 +61,7 @@ describe('html2md Tests', () => {
   });
 });
 
-describe.only('className to block type tests', () => {
+describe('className to block type tests', () => {
   it('simple', () => {
     assert.strictEqual(classNameToBlockType(['foo']), 'Foo');
   });
