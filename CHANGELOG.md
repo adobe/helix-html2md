@@ -1,3 +1,10 @@
+## [1.3.26](https://github.com/adobe/helix-html2md/compare/v1.3.25...v1.3.26) (2022-11-16)
+
+
+### Bug Fixes
+
+* sharpen classNameToBlockType ([#80](https://github.com/adobe/helix-html2md/issues/80)) ([280d8f5](https://github.com/adobe/helix-html2md/commit/280d8f5a344c536e8b2b6f82a53323021f4079ea))
+
 ## [1.3.25](https://github.com/adobe/helix-html2md/compare/v1.3.24...v1.3.25) (2022-11-12)
 
 
