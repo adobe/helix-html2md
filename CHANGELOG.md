@@ -1,3 +1,10 @@
+## [1.3.27](https://github.com/adobe/helix-html2md/compare/v1.3.26...v1.3.27) (2022-11-18)
+
+
+### Bug Fixes
+
+* **deps:** remove @adobe/helix-universal-logger ([fb1d38c](https://github.com/adobe/helix-html2md/commit/fb1d38c69c53e748c2d3a8daebca33a764b2deee))
+
 ## [1.3.26](https://github.com/adobe/helix-html2md/compare/v1.3.25...v1.3.26) (2022-11-16)
 
 
