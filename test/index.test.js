@@ -60,7 +60,7 @@ describe('Index Tests', () => {
       url.searchParams.append('owner', 'owner');
       url.searchParams.append('repo', 'repo');
       url.searchParams.delete(param);
-      const result = await main(new Request(url.href), {});
+      const result = await main(new Request(url.href), { log: console });
       assert.strictEqual(result.status, 400);
       assert.deepStrictEqual(result.headers.plain(), {
         'cache-control': 'no-store, private, must-revalidate',
@@ -77,7 +77,7 @@ describe('Index Tests', () => {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       });
     const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-    const result = await main(reqUrl(), {});
+    const result = await main(reqUrl(), { log: console });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -119,7 +119,7 @@ describe('Index Tests', () => {
       .reply(201);
 
     const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
-    const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), {});
+    const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -154,7 +154,7 @@ describe('Index Tests', () => {
       },
     });
 
-    const result = await main(req, {});
+    const result = await main(req, { log: console });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -189,7 +189,7 @@ describe('Index Tests', () => {
       },
     });
 
-    const result = await main(req, {});
+    const result = await main(req, { log: console });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -224,7 +224,7 @@ describe('Index Tests', () => {
       },
     });
 
-    const result = await main(req, {});
+    const result = await main(req, { log: console });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -259,7 +259,7 @@ describe('Index Tests', () => {
       },
     });
 
-    const result = await main(req, {});
+    const result = await main(req, { log: console });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -278,7 +278,7 @@ describe('Index Tests', () => {
         .get('/')
         .reply(status);
 
-      const result = await main(reqUrl(), {});
+      const result = await main(reqUrl(), { log: console });
       assert.strictEqual(result.status, status);
       assert.strictEqual(await result.text(), '');
       assert.deepStrictEqual(result.headers.plain(), {
@@ -294,7 +294,7 @@ describe('Index Tests', () => {
       .get('/')
       .reply(500);
 
-    const result = await main(reqUrl(), {});
+    const result = await main(reqUrl(), { log: console });
     assert.strictEqual(result.status, 502);
     assert.strictEqual(await result.text(), '');
     assert.deepStrictEqual(result.headers.plain(), {
