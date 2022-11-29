@@ -166,6 +166,50 @@ describe('Index Tests', () => {
     });
   });
 
+  [
+    'https://www.example.com/content/mysite',
+    'https://www.example.com/content/mysite/',
+  ].forEach((mpUrl) => it(`returns 200 for a simple html via path and preserves mountpoint pathname: ${mpUrl}`, async () => {
+    nock.fstab(`
+mountpoints:
+  /: 
+    url: ${mpUrl}
+    type: markup
+    suffix: '.semantic.html');
+`);
+    nock('https://www.example.com', {
+      reqheaders: {
+        authorization: 'Bearer 1234',
+      },
+    })
+      .get('/content/mysite/index.html')
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
+        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      });
+    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
+
+    const url = new URL('https://localhost');
+    url.searchParams.append('path', '/index.html');
+    url.searchParams.append('owner', 'owner');
+    url.searchParams.append('repo', 'repo');
+    const req = new Request(url.href, {
+      headers: {
+        authorization: 'Bearer 1234',
+      },
+    });
+
+    const result = await main(req, { log: console });
+    assert.strictEqual(result.status, 200);
+    assert.strictEqual((await result.text()).trim(), expected.trim());
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-length': '162',
+      'content-type': 'text/markdown; charset=utf-8',
+      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      'x-source-location': 'https://www.example.com/content/mysite/index.html',
+    });
+  }));
+
   it('returns 200 for deep index page', async () => {
     nock.fstab();
     nock('https://www.example.com', {

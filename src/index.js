@@ -66,7 +66,11 @@ async function run(request, ctx) {
     } else if (relPath.endsWith('.md')) {
       relPath = relPath.substring(0, relPath.length - 3);
     }
-    url = new URL(relPath, mp.url).href;
+    const mpUrl = new URL(mp.url);
+    const mpPathname = mpUrl.pathname.endsWith('/')
+      ? mpUrl.pathname.substring(0, mpUrl.pathname.length - 1)
+      : mpUrl.pathname;
+    url = new URL(mpPathname + relPath, mp.url).href;
     contentBusId = await getContentBusId(ctx, ctx.data);
   } else if (!url) {
     return error('url or path parameter is required.', 400);
