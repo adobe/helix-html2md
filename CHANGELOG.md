@@ -1,3 +1,10 @@
+## [1.3.32](https://github.com/adobe/helix-html2md/compare/v1.3.31...v1.3.32) (2022-11-29)
+
+
+### Bug Fixes
+
+* preserve mountpoint pathname on content source req ([#91](https://github.com/adobe/helix-html2md/issues/91)) ([1229ec6](https://github.com/adobe/helix-html2md/commit/1229ec6ac3d568babae04662e2b7d3c6658f21e5))
+
 ## [1.3.31](https://github.com/adobe/helix-html2md/compare/v1.3.30...v1.3.31) (2022-11-27)
 
 
