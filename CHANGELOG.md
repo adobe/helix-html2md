@@ -1,3 +1,10 @@
+## [1.3.36](https://github.com/adobe/helix-html2md/compare/v1.3.35...v1.3.36) (2022-12-17)
+
+
+### Bug Fixes
+
+* add round-trip conversion tests ([#93](https://github.com/adobe/helix-html2md/issues/93)) ([61552f1](https://github.com/adobe/helix-html2md/commit/61552f15b596a1327afc31fdf984f25363054c56))
+
 ## [1.3.35](https://github.com/adobe/helix-html2md/compare/v1.3.34...v1.3.35) (2022-12-10)
 
 
