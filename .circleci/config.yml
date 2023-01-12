@@ -1,8 +1,8 @@
 version: 2.1
 executors:
-  node16:
+  node18:
     docker:
-      - image: cimg/node:16.16
+      - image: cimg/node:18.2
 
 orbs:
   helix-post-deploy: adobe/helix-post-deploy@3.0.0
@@ -17,12 +17,11 @@ commands:
           command: npm ci
       - run:
           name: prepare test git user
-          command: git config --global user.email "circleci@example.com" && git config
-            --global user.name "CircleCi Build"
+          command: git config --global user.email "circleci@example.com" && git config --global user.name "CircleCi Build"
 
 jobs:
   build:
-    executor: node16
+    executor: node18
     steps:
       - setup
       - run: mkdir junit
@@ -39,7 +38,7 @@ jobs:
           path: junit
 
   semantic-release:
-    executor: node16
+    executor: node18
     steps:
       - setup
       - run:
@@ -61,7 +60,7 @@ jobs:
           incubator: true # remove only when promoting service to production
 
   branch-deploy:
-    executor: node16
+    executor: node18
     steps:
       - setup
       - run:
