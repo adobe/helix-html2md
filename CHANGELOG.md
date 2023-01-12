@@ -1,3 +1,10 @@
+## [1.3.41](https://github.com/adobe/helix-html2md/compare/v1.3.40...v1.3.41) (2023-01-12)
+
+
+### Bug Fixes
+
+* Use node 18 for circleci and AWS ([#110](https://github.com/adobe/helix-html2md/issues/110)) ([d11ca67](https://github.com/adobe/helix-html2md/commit/d11ca67b5c5bc8350ef4928f47f8753e4531f2cf))
+
 ## [1.3.40](https://github.com/adobe/helix-html2md/compare/v1.3.39...v1.3.40) (2023-01-12)
 
 
