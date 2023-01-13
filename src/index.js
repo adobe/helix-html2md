@@ -98,7 +98,15 @@ async function run(request, ctx) {
   // only use media handler when loaded via fstab. otherwise images are not processed.
   let mediaHandler;
   if (contentBusId) {
+    const {
+      CLOUDFLARE_ACCOUNT_ID: r2AccountId,
+      CLOUDFLARE_R2_ACCESS_KEY_ID: r2AccessKeyId,
+      CLOUDFLARE_R2_SECRET_ACCESS_KEY: r2SecretAccessKey,
+    } = ctx.env;
     mediaHandler = new MediaHandler({
+      r2AccountId,
+      r2AccessKeyId,
+      r2SecretAccessKey,
       owner,
       repo,
       ref: 'main',
