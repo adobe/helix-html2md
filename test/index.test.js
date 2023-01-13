@@ -27,6 +27,15 @@ function reqUrl(path = '', init = {}) {
   return new Request(url.href, init);
 }
 
+const DUMMY_ENV = {
+  AWS_REGION: 'dummy',
+  AWS_ACCESS_KEY_ID: 'dummy',
+  AWS_SECRET_ACCESS_KEY: 'dummy',
+  CLOUDFLARE_ACCOUNT_ID: 'dummy',
+  CLOUDFLARE_R2_ACCESS_KEY_ID: 'dummy',
+  CLOUDFLARE_R2_SECRET_ACCESS_KEY: 'dummy',
+};
+
 describe('Index Tests', () => {
   let nock;
   beforeEach(() => {
@@ -77,7 +86,7 @@ describe('Index Tests', () => {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       });
     const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-    const result = await main(reqUrl(), { log: console });
+    const result = await main(reqUrl(), { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -119,7 +128,7 @@ describe('Index Tests', () => {
       .reply(201);
 
     const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
-    const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console });
+    const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -154,7 +163,7 @@ describe('Index Tests', () => {
       },
     });
 
-    const result = await main(req, { log: console });
+    const result = await main(req, { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -172,7 +181,7 @@ describe('Index Tests', () => {
   ].forEach((mpUrl) => it(`returns 200 for a simple html via path and preserves mountpoint pathname: ${mpUrl}`, async () => {
     nock.fstab(`
 mountpoints:
-  /: 
+  /:
     url: ${mpUrl}
     type: markup
     suffix: '.semantic.html');
@@ -198,7 +207,7 @@ mountpoints:
       },
     });
 
-    const result = await main(req, { log: console });
+    const result = await main(req, { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -233,7 +242,7 @@ mountpoints:
       },
     });
 
-    const result = await main(req, { log: console });
+    const result = await main(req, { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -268,7 +277,7 @@ mountpoints:
       },
     });
 
-    const result = await main(req, { log: console });
+    const result = await main(req, { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -303,7 +312,7 @@ mountpoints:
       },
     });
 
-    const result = await main(req, { log: console });
+    const result = await main(req, { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
