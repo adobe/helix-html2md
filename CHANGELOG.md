@@ -1,3 +1,10 @@
+## [1.3.43](https://github.com/adobe/helix-html2md/compare/v1.3.42...v1.3.43) (2023-01-13)
+
+
+### Bug Fixes
+
+* pass R2 credentials from env ([#112](https://github.com/adobe/helix-html2md/issues/112)) ([b538678](https://github.com/adobe/helix-html2md/commit/b538678896b666184a45a0f74270a83440af56c3))
+
 ## [1.3.42](https://github.com/adobe/helix-html2md/compare/v1.3.41...v1.3.42) (2023-01-13)
 
 
