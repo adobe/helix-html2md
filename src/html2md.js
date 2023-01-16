@@ -13,7 +13,7 @@
 import { unified } from 'unified';
 import stringify from 'remark-stringify';
 import parse from 'rehype-parse';
-import { all, toMdast } from 'hast-util-to-mdast';
+import { toMdast } from 'hast-util-to-mdast';
 import { toString } from 'hast-util-to-string';
 import { select } from 'hast-util-select';
 import gfm from 'remark-gfm';
@@ -172,8 +172,8 @@ function createBlocks(main) {
   }
 }
 
-function handleBlockAsGridTable(h, node) {
-  const rows = all(h, node);
+function handleBlockAsGridTable(state, node) {
+  const rows = state.all(node);
 
   for (const row of rows) {
     row.type = TYPE_GT_ROW;
@@ -194,8 +194,7 @@ function handleBlockAsGridTable(h, node) {
     m(TYPE_GT_HEADER, [m(TYPE_GT_ROW, [th])]),
     m(TYPE_GT_BODY, rows),
   ];
-
-  return h(node, TYPE_GRID_TABLE, children);
+  return m(TYPE_GRID_TABLE, children);
 }
 
 export async function html2md(html, opts) {
