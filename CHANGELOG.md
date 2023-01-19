@@ -1,3 +1,10 @@
+## [1.3.46](https://github.com/adobe/helix-html2md/compare/v1.3.45...v1.3.46) (2023-01-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-markdown-support to v6.0.1 ([ff3f788](https://github.com/adobe/helix-html2md/commit/ff3f788258c8163aa8c8c35ca1afdfb2bbf4e3e2))
+
 ## [1.3.45](https://github.com/adobe/helix-html2md/compare/v1.3.44...v1.3.45) (2023-01-18)
 
 
