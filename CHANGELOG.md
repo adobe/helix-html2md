@@ -1,3 +1,10 @@
+## [1.3.49](https://github.com/adobe/helix-html2md/compare/v1.3.48...v1.3.49) (2023-01-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-shared-process-queue to v2.1.0 ([0c9673c](https://github.com/adobe/helix-html2md/commit/0c9673c290eec808e9d4775a5542539f0106df8f))
+
 ## [1.3.48](https://github.com/adobe/helix-html2md/compare/v1.3.47...v1.3.48) (2023-01-23)
 
 
