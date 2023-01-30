@@ -13,8 +13,8 @@ module.exports = {
       publishCmd: 'npm run deploy-routes'
     }],
     ['@adobe/semantic-release-coralogix', {
-      iconUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/325/ship_1f6a2.png',
-      applications: ['helix-rum-collector']
+      iconUrl: 'https://main--helix-website--adobe.hlx.page/media_13916754ab1f54a7a0b88dcb62cf6902d58148b1c.png',
+      applications: ['helix-services']
     }],
     ['@semantic-release/git', {
       assets: ['package.json', 'package-lock.json', 'CHANGELOG.md'],
