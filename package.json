@@ -67,7 +67,7 @@
     "@adobe/helix-html-pipeline": "^3.7.6",
     "@adobe/helix-deploy": "9.0.3",
     "@adobe/helix-universal": "4.1.1",
-    "@adobe/semantic-release-coralogix": "1.1.15",
+    "@adobe/semantic-release-coralogix": "1.1.16",
     "@semantic-release/changelog": "6.0.2",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
