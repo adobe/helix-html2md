@@ -5,7 +5,7 @@ executors:
       - image: cimg/node:18.14
 
 orbs:
-  helix-post-deploy: adobe/helix-post-deploy@3.0.0
+  helix-post-deploy: adobe/helix-post-deploy@3.0.1
   codecov: codecov/codecov@3.2.4
 
 commands:
