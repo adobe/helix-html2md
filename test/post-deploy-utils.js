@@ -27,6 +27,7 @@ export class OpenwhiskTarget {
     if (process.env.CI && process.env.CIRCLE_BUILD_NUM && process.env.CIRCLE_BRANCH !== 'main' && !opts.version) {
       this.version = `ci${process.env.CIRCLE_BUILD_NUM}`;
     }
+    this.headers = process.env.HLX_TEST_HEADERS ? JSON.parse(process.env.HLX_TEST_HEADERS) : {};
   }
 
   // eslint-disable-next-line class-methods-use-this
