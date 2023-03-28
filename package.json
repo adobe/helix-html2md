@@ -1,6 +1,6 @@
 {
   "name": "@adobe/helix-html2md",
-  "version": "1.3.63-test",
+  "version": "1.3.65",
   "private": true,
   "description": "Helix Html2MD",
   "main": "src/index.js",
@@ -44,9 +44,9 @@
   "homepage": "https://github.com/adobe/helix-html2md#readme",
   "dependencies": {
     "@adobe/fetch": "4.0.6",
-    "@adobe/helix-admin-support": "1.6.34",
+    "@adobe/helix-admin-support": "1.6.36",
     "@adobe/helix-markdown-support": "6.1.1",
-    "@adobe/helix-mediahandler": "2.0.16",
+    "@adobe/helix-mediahandler": "2.0.17",
     "@adobe/helix-shared-body-data": "2.0.1",
     "@adobe/helix-shared-process-queue": "3.0.0",
     "@adobe/helix-shared-utils": "3.0.0",
@@ -66,10 +66,10 @@
   "devDependencies": {
     "@adobe/eslint-config-helix": "2.0.2",
     "@adobe/helix-html-pipeline": "^3.7.6",
-    "@adobe/helix-deploy": "9.0.17",
+    "@adobe/helix-deploy": "9.0.18",
     "@adobe/helix-universal": "4.1.6",
     "@adobe/semantic-release-coralogix": "1.1.20",
-    "@semantic-release/changelog": "6.0.2",
+    "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
     "c8": "7.13.0",
@@ -82,7 +82,7 @@
     "mocha": "10.2.0",
     "mocha-multi-reporters": "1.5.1",
     "nock": "13.3.0",
-    "semantic-release": "20.1.3"
+    "semantic-release": "21.0.0"
   },
   "lint-staged": {
     "*.js": "eslint"
