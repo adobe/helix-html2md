@@ -18,10 +18,11 @@
   },
   "wsk": {
     "target": "aws",
-    "name": "helix-services/html2md@${version}",
+    "name": "helix3/html2md@${version}",
     "testUrl": "/_status_check/healthcheck.json",
     "memory": 512,
     "awsRole!important": "arn:aws:iam::118435662149:role/helix-service-role-s3-rw",
+    "awsAttachAuthorizer": "helix-token-authorizer_v2",
     "fastlyServiceId!important": "",
     "nodeVersion": 18
   },
@@ -75,9 +76,6 @@
     "codecov": "3.8.3",
     "dotenv": "16.0.3",
     "eslint": "8.36.0",
-    "eslint-import-resolver-exports": "1.0.0-beta.5",
-    "eslint-plugin-header": "3.1.1",
-    "eslint-plugin-import": "2.27.5",
     "husky": "8.0.3",
     "junit-report-builder": "3.0.1",
     "lint-staged": "13.2.0",
