@@ -44,7 +44,9 @@ createTargets({ _version: 'ci' }).forEach((target) => {
 
     it('converts html from the helix site', async () => {
       const url = new URL(`${target.host()}${target.urlPath()}`);
-      url.searchParams.append('url', 'https://main--helix-test-content-onedrive--adobe.hlx.page/');
+      url.searchParams.append('owner', 'tripodsan');
+      url.searchParams.append('repo', 'helix-test-content-onedrive-html');
+      url.searchParams.append('path', '/');
       const res = await fetch(url, {
         headers: target.headers,
       });
