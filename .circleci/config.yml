@@ -57,6 +57,7 @@ jobs:
           statuspage_group: Publishing
           newrelic_group_policy: Publishing Repeated Failure
           targets: aws
+          action_package: helix3
           incubator: true # remove only when promoting service to production
 
   branch-deploy:

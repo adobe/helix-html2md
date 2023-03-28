@@ -12,7 +12,7 @@
 import wrap from '@adobe/helix-shared-wrap';
 import { helixStatus } from '@adobe/helix-status';
 import bodyData from '@adobe/helix-shared-body-data';
-import { Response, context as fetchContext, h1 } from '@adobe/fetch';
+import { Response, h1NoCache } from '@adobe/fetch';
 import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
 import { MediaHandler } from '@adobe/helix-mediahandler';
 import { fetchFstab, getContentBusId } from '@adobe/helix-admin-support';
@@ -20,9 +20,7 @@ import pkgJson from './package.cjs';
 import { html2md } from './html2md.js';
 
 /* c8 ignore next 7 */
-export const { fetch } = process.env.HELIX_FETCH_FORCE_HTTP1
-  ? h1()
-  : fetchContext();
+export const { fetch } = h1NoCache();
 
 /**
  * Generates an error response
@@ -49,32 +47,27 @@ export function error(message, statusCode = 500) {
 async function run(request, ctx) {
   const { log } = ctx;
   const { owner, repo, path } = ctx.data;
-  let { url, contentBusId } = ctx.data;
   ctx.attributes = {};
 
-  if (path) {
-    // resolve url via fstab
-    if (!owner || !repo) {
-      return error('owner and repo parameters are required in path-mode.', 400);
-    }
-
-    const fstab = await fetchFstab(ctx, ctx.data);
-    const mp = fstab.match(path);
-    let { relPath } = mp;
-    if (relPath.endsWith('/index.md')) {
-      relPath = relPath.substring(0, relPath.length - 8);
-    } else if (relPath.endsWith('.md')) {
-      relPath = relPath.substring(0, relPath.length - 3);
-    }
-    const mpUrl = new URL(mp.url);
-    const mpPathname = mpUrl.pathname.endsWith('/')
-      ? mpUrl.pathname.substring(0, mpUrl.pathname.length - 1)
-      : mpUrl.pathname;
-    url = new URL(mpPathname + relPath, mp.url).href;
-    contentBusId = await getContentBusId(ctx, ctx.data);
-  } else if (!url) {
-    return error('url or path parameter is required.', 400);
+  // resolve url via fstab
+  if (!path || !owner || !repo) {
+    return error('path, owner and repo parameters are required.', 400);
   }
+
+  const fstab = await fetchFstab(ctx, ctx.data);
+  const mp = fstab.match(path);
+  let { relPath } = mp;
+  if (relPath.endsWith('/index.md')) {
+    relPath = relPath.substring(0, relPath.length - 8);
+  } else if (relPath.endsWith('.md')) {
+    relPath = relPath.substring(0, relPath.length - 3);
+  }
+  const mpUrl = new URL(mp.url);
+  const mpPathname = mpUrl.pathname.endsWith('/')
+    ? mpUrl.pathname.substring(0, mpUrl.pathname.length - 1)
+    : mpUrl.pathname;
+  const url = new URL(mpPathname + relPath, mp.url).href;
+  const contentBusId = await getContentBusId(ctx, ctx.data);
 
   const reqHeaders = {};
   const auth = request.headers.get('authorization');
