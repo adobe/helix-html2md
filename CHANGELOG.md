@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/adobe/helix-html2md/compare/v1.3.65...v2.0.0) (2023-03-28)
+
+
+### Bug Fixes
+
+* remove url support and move to helix3 ([86beac3](https://github.com/adobe/helix-html2md/commit/86beac3efa72b9aca704457cab954e0f7c824cd3))
+
+
+### BREAKING CHANGES
+
+* url parameter no longer supported
+
 ## [1.3.65](https://github.com/adobe/helix-html2md/compare/v1.3.64...v1.3.65) (2023-03-27)
 
 
