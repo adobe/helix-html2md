@@ -20,10 +20,9 @@ import { Nock } from './utils.js';
 
 function reqUrl(path = '', init = {}) {
   const url = new URL('https://localhost');
-  url.searchParams.append('url', `https://www.example.com${path}`);
   url.searchParams.append('owner', 'owner');
   url.searchParams.append('repo', 'repo');
-  url.searchParams.append('contentBusId', 'foo-id');
+  url.searchParams.append('path', path);
   return new Request(url.href, init);
 }
 
@@ -51,19 +50,8 @@ describe('Index Tests', () => {
     nock.done();
   });
 
-  it('returns 400 for missing url and path', async () => {
-    const url = new URL('https://localhost');
-    const result = await main(new Request(url.href), {});
-    assert.strictEqual(result.status, 400);
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'url or path parameter is required.',
-    });
-  });
-
-  for (const param of ['owner', 'repo']) {
-    it(`returns 400 for path and missing ${param}`, async () => {
+  for (const param of ['path', 'owner', 'repo']) {
+    it(`returns 400 for missing ${param}`, async () => {
       const url = new URL('https://localhost');
       url.searchParams.append('path', '/index.html');
       url.searchParams.append('owner', 'owner');
@@ -74,32 +62,14 @@ describe('Index Tests', () => {
       assert.deepStrictEqual(result.headers.plain(), {
         'cache-control': 'no-store, private, must-revalidate',
         'content-type': 'text/plain; charset=utf-8',
-        'x-error': 'owner and repo parameters are required in path-mode.',
+        'x-error': 'path, owner and repo parameters are required.',
       });
     });
   }
 
-  it('returns 200 for a simple html', async () => {
-    nock('https://www.example.com')
-      .get('/')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
-        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      });
-    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-    const result = await main(reqUrl(), { log: console, env: DUMMY_ENV });
-    assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '162',
-      'content-type': 'text/markdown; charset=utf-8',
-      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      'x-source-location': 'https://www.example.com',
-    });
-  });
-
   it('uploads images to media-bus', async () => {
     const testImagePath = resolve(__testdir, 'fixtures', '300.png');
+    nock.fstab();
     nock('https://www.example.com')
       .get('/blog/article')
       .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
@@ -120,10 +90,10 @@ describe('Index Tests', () => {
         'content-type': 'image/png',
       });
     nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
-      .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
+      .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
       .times(3)
       .reply(404)
-      .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
+      .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
       .times(3)
       .reply(201);
 
@@ -152,18 +122,7 @@ describe('Index Tests', () => {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       });
     const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-
-    const url = new URL('https://localhost');
-    url.searchParams.append('path', '/index.html');
-    url.searchParams.append('owner', 'owner');
-    url.searchParams.append('repo', 'repo');
-    const req = new Request(url.href, {
-      headers: {
-        authorization: 'Bearer 1234',
-      },
-    });
-
-    const result = await main(req, { log: console, env: DUMMY_ENV });
+    const result = await main(reqUrl('/index.html', { headers: { authorization: 'Bearer 1234' } }), { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -196,18 +155,7 @@ mountpoints:
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       });
     const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-
-    const url = new URL('https://localhost');
-    url.searchParams.append('path', '/index.html');
-    url.searchParams.append('owner', 'owner');
-    url.searchParams.append('repo', 'repo');
-    const req = new Request(url.href, {
-      headers: {
-        authorization: 'Bearer 1234',
-      },
-    });
-
-    const result = await main(req, { log: console, env: DUMMY_ENV });
+    const result = await main(reqUrl('/index.html', { headers: { authorization: 'Bearer 1234' } }), { log: console, env: DUMMY_ENV });
     assert.strictEqual(result.status, 200);
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
@@ -327,33 +275,35 @@ mountpoints:
   for (const status of [401, 403, 403]) {
     // eslint-disable-next-line no-loop-func
     it(`returns ${status} for a ${status} response`, async () => {
+      nock.fstab();
       nock('https://www.example.com')
         .get('/')
         .reply(status);
 
-      const result = await main(reqUrl(), { log: console });
+      const result = await main(reqUrl('/'), { log: console });
       assert.strictEqual(result.status, status);
       assert.strictEqual(await result.text(), '');
       assert.deepStrictEqual(result.headers.plain(), {
         'cache-control': 'no-store, private, must-revalidate',
         'content-type': 'text/plain; charset=utf-8',
-        'x-error': 'resource not found: https://www.example.com',
+        'x-error': 'resource not found: https://www.example.com/',
       });
     });
   }
 
   it('returns 502 for am error response', async () => {
+    nock.fstab();
     nock('https://www.example.com')
       .get('/')
       .reply(500);
 
-    const result = await main(reqUrl(), { log: console });
+    const result = await main(reqUrl('/'), { log: console });
     assert.strictEqual(result.status, 502);
     assert.strictEqual(await result.text(), '');
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'error fetching resource at https://www.example.com: 500',
+      'x-error': 'error fetching resource at https://www.example.com/: 500',
     });
   });
 });
