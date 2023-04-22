@@ -75,7 +75,7 @@
     "c8": "7.13.0",
     "codecov": "3.8.3",
     "dotenv": "16.0.3",
-    "eslint": "8.38.0",
+    "eslint": "8.39.0",
     "husky": "8.0.3",
     "junit-report-builder": "3.0.1",
     "lint-staged": "13.2.1",
