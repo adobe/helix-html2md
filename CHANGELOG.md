@@ -1,3 +1,10 @@
+## [2.0.13](https://github.com/adobe/helix-html2md/compare/v2.0.12...v2.0.13) (2023-05-09)
+
+
+### Bug Fixes
+
+* use about:error for missing images ([#194](https://github.com/adobe/helix-html2md/issues/194)) ([84769e3](https://github.com/adobe/helix-html2md/commit/84769e31b3beb64054e433fb2cb7e228226f80cf))
+
 ## [2.0.12](https://github.com/adobe/helix-html2md/compare/v2.0.11...v2.0.12) (2023-05-08)
 
 
