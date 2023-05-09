@@ -42,7 +42,8 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
 
   // upload images
   await processQueue(images, async (node) => {
+    const blob = await mediaHandler.getBlob(node.url, baseUrl);
     // eslint-disable-next-line no-param-reassign
-    node.url = (await mediaHandler.getBlob(node.url, baseUrl)).uri;
+    node.url = blob?.uri || 'about:error';
   }, 8);
 }
