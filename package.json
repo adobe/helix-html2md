@@ -59,7 +59,7 @@
     "mdast-util-to-markdown": "1.5.0",
     "rehype-parse": "8.0.4",
     "remark-gfm": "3.0.1",
-    "remark-stringify": "10.0.2",
+    "remark-stringify": "10.0.3",
     "unified": "10.1.2",
     "unist-util-visit": "4.1.2"
   },
@@ -75,7 +75,7 @@
     "c8": "7.13.0",
     "codecov": "3.8.3",
     "dotenv": "16.0.3",
-    "eslint": "8.40.0",
+    "eslint": "8.41.0",
     "husky": "8.0.3",
     "junit-report-builder": "3.0.1",
     "lint-staged": "13.2.2",
