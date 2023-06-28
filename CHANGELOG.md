@@ -1,3 +1,10 @@
+## [2.0.29](https://github.com/adobe/helix-html2md/compare/v2.0.28...v2.0.29) (2023-06-28)
+
+
+### Bug Fixes
+
+* codeblock with tabs is not correctly converted to grid table ([#229](https://github.com/adobe/helix-html2md/issues/229)) ([ac77309](https://github.com/adobe/helix-html2md/commit/ac77309cad94aca96a160a47eddebc6b1e39326a)), closes [#230](https://github.com/adobe/helix-html2md/issues/230)
+
 ## [2.0.28](https://github.com/adobe/helix-html2md/compare/v2.0.27...v2.0.28) (2023-06-28)
 
 
