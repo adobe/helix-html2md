@@ -83,7 +83,9 @@ describe('Index Tests', () => {
       .get('/blog/relative.png')
       .replyWithFile(200, testImagePath, {
         'content-type': 'image/png',
-      });
+      })
+      .get('/missing.png')
+      .reply(404);
     nock('https://dummyimage.com')
       .get('/300.png')
       .replyWithFile(200, testImagePath, {
@@ -103,7 +105,7 @@ describe('Index Tests', () => {
     assert.strictEqual((await result.text()).trim(), expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '452',
+      'content-length': '488',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       'x-source-location': 'https://www.example.com/blog/article',

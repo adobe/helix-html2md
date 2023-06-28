@@ -15,16 +15,16 @@
 |                                                                                                                                                   |
 |     ```bash                                                                                                                                       |
 |         "cloudName": "AzureCloud",                                                                                                                |
-|           "homeTenantId": <This value is not needed>,                                                                                             |
-|           "id": <This is the subscription ID>,                                                                                                    |
-|           "isDefault": true,                                                                                                                      |
-|           "managedByTenants": [],                                                                                                                 |
-|                   "name": "Azure",                                                                                                                |
-|           "state": "Enabled",                                                                                                                     |
-|           "tenantId": <This is the tenant ID>,                                                                                                    |
-|           "user": {                                                                                                                               |
-|             "name": "jdoe@example.onmicrosoft.com",                                                                                               |
-|             "type": "user"                                                                                                                        |
+|             "homeTenantId": <This value is not needed>,                                                                                           |
+|             "id": <This is the subscription ID>,                                                                                                  |
+|             "isDefault": true,                                                                                                                    |
+|             "managedByTenants": [],                                                                                                               |
+|                     "name": "Azure",                                                                                                              |
+|             "state": "Enabled",                                                                                                                   |
+|             "tenantId": <This is the tenant ID>,                                                                                                  |
+|             "user": {                                                                                                                             |
+|               "name": "jdoe@example.onmicrosoft.com",                                                                                             |
+|               "type": "user"                                                                                                                      |
 |                }                                                                                                                                  |
 |     ```                                                                                                                                           |
 +---------------------------------------------------------------------------------------------------------------------------------------------------+

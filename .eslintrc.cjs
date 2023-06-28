@@ -13,26 +13,8 @@
 module.exports = {
   root: true,
   extends: '@adobe/helix',
-  env: {
-    node: true,
-    es6: true,
-  },
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 13,
-  },
   rules: {
     'import/extensions': [2, 'ignorePackages'],
     'import/prefer-default-export': 0,
-  },
-  globals: {
-    __rootdir: true,
-    __testdir: true,
-  },
-  plugins: ['import'],
-  settings: {
-    'import/resolver': {
-      exports: {},
-    },
   },
 };
