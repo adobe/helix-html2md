@@ -1,3 +1,10 @@
+## [2.0.28](https://github.com/adobe/helix-html2md/compare/v2.0.27...v2.0.28) (2023-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/remark-gridtables to v1.0.4 ([af26cfc](https://github.com/adobe/helix-html2md/commit/af26cfc48de790d2797d6550315b20edb6e5d280))
+
 ## [2.0.27](https://github.com/adobe/helix-html2md/compare/v2.0.26...v2.0.27) (2023-06-24)
 
 
