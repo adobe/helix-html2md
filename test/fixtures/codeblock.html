@@ -1,0 +1,30 @@
+<main>
+    <div>
+        <h3>Get the Needed Azure Account Details</h3>
+
+        <div class="procedure">
+            <div><div>
+                <ol><li><p>Log in to Azure with the Azure CLI.</p></li><li><p>Query Azure for your tenant and subscription IDs. .</p><div class="listingblock">
+                    <div class="content">
+                        <pre class="highlight"><code>az account list</code></pre>
+                    </div>
+                </div></li><li><p>Copy the output which is similar to the following example. In the output, identify the <code>tenantId</code> tenant ID and the <code>id</code> of the subscription.</p><div class="listingblock">
+                    <div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">    "cloudName": "AzureCloud",
+	    "homeTenantId": &lt;This value is not needed&gt;,
+	    "id": &lt;This is the subscription ID&gt;,
+	    "isDefault": true,
+	    "managedByTenants": [],
+    		    "name": "Azure",
+	    "state": "Enabled",
+	    "tenantId": &lt;This is the tenant ID&gt;,
+	    "user": {
+	      "name": "jdoe@example.onmicrosoft.com",
+	      "type": "user"
+           }</code></pre>
+                    </div>
+                </div></li></ol>
+            </div></div>
+        </div>
+    </div>
+</main>

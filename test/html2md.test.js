@@ -59,6 +59,10 @@ describe('html2md Tests', () => {
   it('converts a document with multiple sections', async () => {
     await test('multiple-sections');
   });
+
+  it('converts a document with code block and tabs correctly', async () => {
+    await test('codeblock');
+  });
 });
 
 describe('className to block type tests', () => {
