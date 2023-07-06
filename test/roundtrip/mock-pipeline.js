@@ -48,11 +48,11 @@ export const render = async (url, source) => {
     ref: 'super-test',
     partition: 'live',
     path: url.pathname,
-    contentBusId: 'foo-id',
     timer: {
       update: () => {},
     },
   });
+  state.contentBusId = 'foo-id';
 
   return htmlPipe(state, req);
 };
