@@ -1,3 +1,10 @@
+## [2.0.41](https://github.com/adobe/helix-html2md/compare/v2.0.40...v2.0.41) (2023-08-14)
+
+
+### Bug Fixes
+
+* **deps:** update external major (major) ([#259](https://github.com/adobe/helix-html2md/issues/259)) ([43a5e39](https://github.com/adobe/helix-html2md/commit/43a5e39e4c45efa45b9714fa7e82eabe5da3a43e))
+
 ## [2.0.40](https://github.com/adobe/helix-html2md/compare/v2.0.39...v2.0.40) (2023-08-14)
 
 
