@@ -57,7 +57,7 @@
     "hast-util-to-mdast": "10.0.0",
     "hast-util-to-string": "2.0.0",
     "mdast-util-to-markdown": "2.1.0",
-    "rehype-parse": "8.0.4",
+    "rehype-parse": "8.0.5",
     "remark-gfm": "3.0.1",
     "remark-stringify": "10.0.3",
     "unified": "10.1.2",
@@ -81,7 +81,7 @@
     "lint-staged": "14.0.0",
     "mocha": "10.2.0",
     "mocha-multi-reporters": "1.5.1",
-    "nock": "13.3.2",
+    "nock": "13.3.3",
     "semantic-release": "21.0.7"
   },
   "lint-staged": {
