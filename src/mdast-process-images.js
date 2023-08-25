@@ -21,39 +21,23 @@ function createFilter(log, baseUrlStr, imgSrcPolicy) {
     }
 
     if (policyValue === 'self') {
-      return (urlStr) => {
-        try {
-          const { host } = new URL(urlStr);
-          return baseUrl.host === host;
-        } catch (e) {
-          log.warn(`Failed to parse url '${urlStr}': ${e.message}`);
-          return false;
-        }
-      };
+      return (url) => baseUrl.host === url.host;
     }
 
-    return (urlStr) => {
-      try {
-        // omit the protocol check, as https:// is enforced earlier already
-        // omit the pathname check, as we may not need it (yet)
-        const url = new URL(urlStr);
-        const protocolEndIdx = policyValue.indexOf('://');
-        let host = protocolEndIdx < 0 ? policyValue : policyValue.substring(protocolEndIdx + 3);
-        const slashIdx = host.indexOf('/');
-        if (slashIdx >= 0) host = host.substring(0, slashIdx);
+    return (url) => {
+      // omit the protocol check, as https:// is enforced earlier already
+      // omit the pathname check, as we may not need it (yet)
+      const protocolEndIdx = policyValue.indexOf('://');
+      let host = protocolEndIdx < 0 ? policyValue : policyValue.substring(protocolEndIdx + 3);
+      const slashIdx = host.indexOf('/');
+      if (slashIdx >= 0) host = host.substring(0, slashIdx);
 
-        if (host.startsWith('*')) {
-          // allow subdomain
-          const dotIdx = url.host.indexOf('.');
-          if (dotIdx < 0) return false;
-
-          return url.host.substring(dotIdx) === host.substring(1);
-        } else {
-          return url.host === host;
-        }
-      } catch (e) {
-        log.warn(`Failed to parse url '${urlStr}': ${e.message}`);
-        return false;
+      if (host.startsWith('*')) {
+        // allow subdomain
+        const dotIdx = url.host.indexOf('.');
+        return dotIdx > 0 && url.host.substring(dotIdx) === host.substring(1);
+      } else {
+        return url.host === host;
       }
     };
   });
@@ -83,8 +67,17 @@ export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPoli
         // eslint-disable-next-line no-param-reassign
         node.url = new URL(url, baseUrl).href;
         images.push(node);
-      } else if (url.startsWith('https://') && filter(url)) {
-        images.push(node);
+      } else if (url.startsWith('https://')) {
+        try {
+          if (filter(new URL(url))) {
+            images.push(node);
+          }
+        } catch (e) {
+          // in case of invalid urls, or other errors
+          log.warn(`Failed to test url '${url}': ${e.message}`);
+          // eslint-disable-next-line no-param-reassign
+          node.url = 'about:error';
+        }
       }
     }
     return visit.CONTINUE;
