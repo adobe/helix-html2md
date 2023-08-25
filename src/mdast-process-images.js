@@ -58,7 +58,7 @@ function createFilter(log, baseUrlStr, imgSrcPolicy) {
     };
   });
 
-  return (urlStr) => urlStr.startsWith('https://') && imgSrcPolicFilters.some((f) => f(urlStr));
+  return (urlStr) => imgSrcPolicFilters.some((f) => f(urlStr));
 }
 
 /**
@@ -82,8 +82,8 @@ export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPoli
       if (url.indexOf(':') < 0) {
         // eslint-disable-next-line no-param-reassign
         node.url = new URL(url, baseUrl).href;
-      }
-      if (filter(node.url)) {
+        images.push(node);
+      } else if (url.startsWith('https://') && filter(url)) {
         images.push(node);
       }
     }
