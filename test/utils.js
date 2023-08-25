@@ -75,19 +75,23 @@ export function Nock() {
     return nocker;
   };
 
-  nocker.done = () => {
+  nocker.restoreEnv = () => {
     if (savedEnv) {
       process.env = savedEnv;
     }
+  };
 
+  nocker.done = () => {
     try {
       Object.values(scopes).forEach((s) => s.done());
     } finally {
       nock.cleanAll();
+      Object.keys(scopes).forEach((k) => delete scopes[k]);
     }
     if (unmatched) {
       assert.deepStrictEqual(unmatched.map((req) => req.options || req), []);
       nock.emitter.off('no match', noMatchHandler);
+      unmatched.length = 0;
     }
   };
 
