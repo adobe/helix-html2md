@@ -108,6 +108,9 @@ describe('Index Tests', () => {
         .reply(404);
     });
 
+    /**
+     * The following test cases use the images.html fixture and allow the upload of all images.
+     */
     [
       '*', // allow all
       'images.dummy.com', // allow images.dummy.com
@@ -137,6 +140,10 @@ describe('Index Tests', () => {
       });
     });
 
+    /**
+     * The following test cases use the images.html fixture but do not allow the upload of the
+     * https://images.dummy.com/300.png image.
+     */
     [
       '', // allow nothing but self
       'self', // allow nothing but self
