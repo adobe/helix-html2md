@@ -74,6 +74,7 @@ describe('Index Tests', () => {
       .get('/blog/article')
       .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+        'x-html2md-img-src': 'self https://dummyimage.com',
       })
       .get('/absolute.png')
       .basicAuth({ user: 'john', pass: 'doe' })

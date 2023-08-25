@@ -87,6 +87,7 @@ async function run(request, ctx) {
     }
   }
   const html = await res.text();
+  const imgSrcPolicy = (res.headers.get('x-html2md-img-src') || 'self').split(' ');
 
   // only use media handler when loaded via fstab. otherwise images are not processed.
   let mediaHandler;
@@ -115,6 +116,7 @@ async function run(request, ctx) {
     mediaHandler,
     log,
     url,
+    imgSrcPolicy,
   });
 
   const headers = {

@@ -199,7 +199,7 @@ function handleBlockAsGridTable(state, node) {
 
 export async function html2md(html, opts) {
   const {
-    log, url, mediaHandler,
+    log, url, mediaHandler, imgSrcPolicy,
   } = opts;
   const t0 = Date.now();
   const hast = unified()
@@ -223,7 +223,7 @@ export async function html2md(html, opts) {
 
   addMetadata(hast, mdast);
 
-  await processImages(log, mdast, mediaHandler, url);
+  await processImages(log, mdast, mediaHandler, url, imgSrcPolicy);
   imageReferences(mdast);
 
   // noinspection JSVoidFunctionReturnValueUsed
