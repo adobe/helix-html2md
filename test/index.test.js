@@ -27,6 +27,7 @@ function reqUrl(path = '', init = {}) {
 }
 
 const DUMMY_ENV = {
+  MEDIAHANDLER_NOCACHHE: true,
   AWS_REGION: 'dummy',
   AWS_ACCESS_KEY_ID: 'dummy',
   AWS_SECRET_ACCESS_KEY: 'dummy',
@@ -37,17 +38,13 @@ const DUMMY_ENV = {
 
 describe('Index Tests', () => {
   let nock;
-  before(() => {
+  beforeEach(() => {
     nock = new Nock().env();
     Object.assign(process.env, {
       AWS_S3_REGION: 'us-east-1',
       AWS_S3_ACCESS_KEY_ID: 'dummy',
       AWS_S3_SECRET_ACCESS_KEY: 'dummy',
     });
-  });
-
-  after(() => {
-    nock.restoreEnv();
   });
 
   afterEach(() => {
@@ -74,40 +71,6 @@ describe('Index Tests', () => {
   describe('image upload', () => {
     const testImagePath = resolve(__testdir, 'fixtures', '300.png');
 
-    before(() => {
-      // mock the image and related s3 requests for existing images only once as they will be
-      // cached by the MediaHandler
-      nock('https://www.example.com')
-        .get('/absolute.png')
-        .basicAuth({ user: 'john', pass: 'doe' })
-        .replyWithFile(200, testImagePath, {
-          'content-type': 'image/png',
-        })
-        .get('/blog/relative.png')
-        .replyWithFile(200, testImagePath, {
-          'content-type': 'image/png',
-        });
-      nock('https://images.dummy.com')
-        .get('/300.png')
-        .replyWithFile(200, testImagePath, {
-          'content-type': 'image/png',
-        });
-      nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
-        .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-        .times(3)
-        .reply(404)
-        .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-        .times(3)
-        .reply(201);
-    });
-
-    beforeEach(() => {
-      nock.fstab();
-      nock('https://www.example.com')
-        .get('/missing.png')
-        .reply(404);
-    });
-
     /**
      * The following test cases use the images.html fixture and allow the upload of all images.
      */
@@ -119,12 +82,36 @@ describe('Index Tests', () => {
       'https://images.dummy.com/200', // allow images.dummy.com path ignored
     ].forEach((imgSrcPolicy) => {
       it(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
+        nock.fstab();
         nock('https://www.example.com')
           .get('/blog/article')
           .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
             'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
             'x-html2md-img-src': imgSrcPolicy,
+          })
+          .get('/missing.png')
+          .reply(404)
+          .get('/absolute.png')
+          .basicAuth({ user: 'john', pass: 'doe' })
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          })
+          .get('/blog/relative.png')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
           });
+        nock('https://images.dummy.com')
+          .get('/300.png')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          });
+        nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
+          .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
+          .times(3)
+          .reply(404)
+          .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
+          .times(3)
+          .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
         const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console, env: DUMMY_ENV });
@@ -151,12 +138,31 @@ describe('Index Tests', () => {
       '*dummy.com', // invalid subdomain
     ].forEach((imgSrcPolicy) => {
       it(`does not upload images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
+        nock.fstab();
         nock('https://www.example.com')
           .get('/blog/article')
           .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
             'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
             'x-html2md-img-src': imgSrcPolicy,
+          })
+          .get('/missing.png')
+          .reply(404)
+          .get('/absolute.png')
+          .basicAuth({ user: 'john', pass: 'doe' })
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          })
+          .get('/blog/relative.png')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
           });
+        nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
+          .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
+          .times(2)
+          .reply(404)
+          .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
+          .times(2)
+          .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images-negative.md'), 'utf-8');
         const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console, env: DUMMY_ENV });
