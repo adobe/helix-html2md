@@ -30,7 +30,9 @@ function createFilter(log, baseUrlStr, imgSrcPolicy) {
       const protocolEndIdx = policyValue.indexOf('://');
       let host = protocolEndIdx < 0 ? policyValue : policyValue.substring(protocolEndIdx + 3);
       const slashIdx = host.indexOf('/');
-      if (slashIdx >= 0) host = host.substring(0, slashIdx);
+      if (slashIdx >= 0) {
+        host = host.substring(0, slashIdx);
+      }
 
       if (host.startsWith('*')) {
         // allow subdomain
