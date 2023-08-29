@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/adobe/helix-html2md/compare/v2.0.44...v2.1.0) (2023-08-29)
+
+
+### Features
+
+* support x-html2md-img-src header ([#273](https://github.com/adobe/helix-html2md/issues/273)) ([2ad20ba](https://github.com/adobe/helix-html2md/commit/2ad20bad09fc11a8275079d7ee445cbb35c56918)), closes [#268](https://github.com/adobe/helix-html2md/issues/268)
+
 ## [2.0.44](https://github.com/adobe/helix-html2md/compare/v2.0.43...v2.0.44) (2023-08-26)
 
 
