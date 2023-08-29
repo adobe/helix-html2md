@@ -12,6 +12,41 @@
 import { visit } from 'unist-util-visit';
 import processQueue from '@adobe/helix-shared-process-queue';
 
+function createFilter(log, baseUrlStr, imgSrcPolicy) {
+  const baseUrl = new URL(baseUrlStr);
+  const imgSrcPolicFilters = imgSrcPolicy.map((policyValue) => {
+    // filter according to https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources
+    if (policyValue === '*') {
+      return () => true;
+    }
+
+    if (policyValue === 'self') {
+      return (url) => baseUrl.host === url.host;
+    }
+
+    return (url) => {
+      // omit the protocol check, as https:// is enforced earlier already
+      // omit the pathname check, as we may not need it (yet)
+      const protocolEndIdx = policyValue.indexOf('://');
+      let host = protocolEndIdx < 0 ? policyValue : policyValue.substring(protocolEndIdx + 3);
+      const slashIdx = host.indexOf('/');
+      if (slashIdx >= 0) {
+        host = host.substring(0, slashIdx);
+      }
+
+      if (host.startsWith('*')) {
+        // allow subdomain
+        const dotIdx = url.host.indexOf('.');
+        return dotIdx > 0 && url.host.substring(dotIdx) === host.substring(1);
+      } else {
+        return url.host === host;
+      }
+    };
+  });
+
+  return (urlStr) => imgSrcPolicFilters.some((f) => f(urlStr));
+}
+
 /**
  * Process images
  * @param {Console} log
@@ -19,22 +54,32 @@ import processQueue from '@adobe/helix-shared-process-queue';
  * @param {MediaHandler} mediaHandler
  * @param {string} baseUrl
  */
-export async function processImages(log, tree, mediaHandler, baseUrl) {
+export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPolicy) {
   if (!mediaHandler) {
     return;
   }
 
   // gather all image nodes
+  const filter = createFilter(log, baseUrl, imgSrcPolicy);
   const images = [];
   visit(tree, (node) => {
     if (node.type === 'image') {
       const { url = '' } = node;
-      if (url.startsWith('https://')) {
-        images.push(node);
-      } else if (url.indexOf(':') < 0) {
+      if (url.indexOf(':') < 0) {
         // eslint-disable-next-line no-param-reassign
         node.url = new URL(url, baseUrl).href;
         images.push(node);
+      } else if (url.startsWith('https://')) {
+        try {
+          if (filter(new URL(url))) {
+            images.push(node);
+          }
+        } catch (e) {
+          // in case of invalid urls, or other errors
+          log.warn(`Failed to test url '${url}': ${e.message}`);
+          // eslint-disable-next-line no-param-reassign
+          node.url = 'about:error';
+        }
       }
     }
     return visit.CONTINUE;

@@ -27,6 +27,7 @@ function reqUrl(path = '', init = {}) {
 }
 
 const DUMMY_ENV = {
+  MEDIAHANDLER_NOCACHHE: true,
   AWS_REGION: 'dummy',
   AWS_ACCESS_KEY_ID: 'dummy',
   AWS_SECRET_ACCESS_KEY: 'dummy',
@@ -67,48 +68,114 @@ describe('Index Tests', () => {
     });
   }
 
-  it('uploads images to media-bus', async () => {
+  describe('image upload', () => {
     const testImagePath = resolve(__testdir, 'fixtures', '300.png');
-    nock.fstab();
-    nock('https://www.example.com')
-      .get('/blog/article')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
-        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      })
-      .get('/absolute.png')
-      .basicAuth({ user: 'john', pass: 'doe' })
-      .replyWithFile(200, testImagePath, {
-        'content-type': 'image/png',
-      })
-      .get('/blog/relative.png')
-      .replyWithFile(200, testImagePath, {
-        'content-type': 'image/png',
-      })
-      .get('/missing.png')
-      .reply(404);
-    nock('https://dummyimage.com')
-      .get('/300.png')
-      .replyWithFile(200, testImagePath, {
-        'content-type': 'image/png',
-      });
-    nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
-      .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-      .times(3)
-      .reply(404)
-      .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-      .times(3)
-      .reply(201);
 
-    const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
-    const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console, env: DUMMY_ENV });
-    assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '488',
-      'content-type': 'text/markdown; charset=utf-8',
-      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      'x-source-location': 'https://www.example.com/blog/article',
+    /**
+     * The following test cases use the images.html fixture and allow the upload of all images.
+     */
+    [
+      '*', // allow all
+      'images.dummy.com', // allow images.dummy.com
+      '*.dummy.com', // allow dummy.com subdomains
+      'self https://images.dummy.com', // allow images.dummy.com with protocol, self explicitly
+      'https://images.dummy.com/200', // allow images.dummy.com path ignored
+    ].forEach((imgSrcPolicy) => {
+      it(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
+        nock.fstab();
+        nock('https://www.example.com')
+          .get('/blog/article')
+          .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
+            'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+            'x-html2md-img-src': imgSrcPolicy,
+          })
+          .get('/missing.png')
+          .reply(404)
+          .get('/absolute.png')
+          .basicAuth({ user: 'john', pass: 'doe' })
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          })
+          .get('/blog/relative.png')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          });
+        nock('https://images.dummy.com')
+          .get('/300.png')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          });
+        nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
+          .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
+          .times(3)
+          .reply(404)
+          .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
+          .times(3)
+          .reply(201);
+
+        const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
+        const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console, env: DUMMY_ENV });
+        assert.strictEqual(result.status, 200);
+        assert.strictEqual((await result.text()).trim(), expected.trim());
+        assert.deepStrictEqual(result.headers.plain(), {
+          'cache-control': 'no-store, private, must-revalidate',
+          'content-length': '501',
+          'content-type': 'text/markdown; charset=utf-8',
+          'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+          'x-source-location': 'https://www.example.com/blog/article',
+        });
+      });
+    });
+
+    /**
+     * The following test cases use the images.html fixture but do not allow the upload of the
+     * https://images.dummy.com/300.png image.
+     */
+    [
+      '', // allow nothing but self
+      'self', // allow nothing but self
+      'assets.dummy.com', // unallowed subdomain
+      '*dummy.com', // invalid subdomain
+    ].forEach((imgSrcPolicy) => {
+      it(`does not upload images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
+        nock.fstab();
+        nock('https://www.example.com')
+          .get('/blog/article')
+          .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
+            'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+            'x-html2md-img-src': imgSrcPolicy,
+          })
+          .get('/missing.png')
+          .reply(404)
+          .get('/absolute.png')
+          .basicAuth({ user: 'john', pass: 'doe' })
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          })
+          .get('/blog/relative.png')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          });
+        nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
+          .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
+          .times(2)
+          .reply(404)
+          .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
+          .times(2)
+          .reply(201);
+
+        const expected = await readFile(resolve(__testdir, 'fixtures', 'images-negative.md'), 'utf-8');
+        const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console, env: DUMMY_ENV });
+        assert.strictEqual(result.status, 200);
+        assert.strictEqual((await result.text()).trim(), expected.trim());
+        assert.deepStrictEqual(result.headers.plain(), {
+          'cache-control': 'no-store, private, must-revalidate',
+          'content-length': '545',
+          'content-type': 'text/markdown; charset=utf-8',
+          'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+          'x-source-location': 'https://www.example.com/blog/article',
+        });
+      });
     });
   });
 

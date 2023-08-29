@@ -87,11 +87,16 @@ async function run(request, ctx) {
     }
   }
   const html = await res.text();
+  const imgSrcPolicy = res.headers.get('x-html2md-img-src')?.split(/\s+/) || [];
+  if (imgSrcPolicy.indexOf('self') < 0) {
+    imgSrcPolicy.push('self');
+  }
 
   // only use media handler when loaded via fstab. otherwise images are not processed.
   let mediaHandler;
   if (contentBusId) {
     const {
+      MEDIAHANDLER_NOCACHHE: noCache,
       CLOUDFLARE_ACCOUNT_ID: r2AccountId,
       CLOUDFLARE_R2_ACCESS_KEY_ID: r2AccessKeyId,
       CLOUDFLARE_R2_SECRET_ACCESS_KEY: r2SecretAccessKey,
@@ -108,6 +113,7 @@ async function run(request, ctx) {
       auth,
       filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
       blobAgent: `html2md-${pkgJson.version}`,
+      noCache,
     });
   }
 
@@ -115,6 +121,7 @@ async function run(request, ctx) {
     mediaHandler,
     log,
     url,
+    imgSrcPolicy,
   });
 
   const headers = {
