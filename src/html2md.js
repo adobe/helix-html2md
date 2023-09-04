@@ -144,6 +144,7 @@ function createBlocks(main) {
           type: 'element',
           tagName: 'tr',
           children: [],
+          properties: {},
         };
         rows.push(tableRow);
         let numCols = 0;
@@ -163,7 +164,7 @@ function createBlocks(main) {
 
     // convert block to table
     block.tagName = 'block';
-    delete block.properties;
+    block.properties = {};
     block.children = rows;
     block.data = {
       type: classNameToBlockType(className),
