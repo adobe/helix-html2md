@@ -55,12 +55,12 @@
     "@adobe/remark-gridtables": "1.0.4",
     "hast-util-select": "6.0.0",
     "hast-util-to-mdast": "10.0.1",
-    "hast-util-to-string": "2.0.0",
+    "hast-util-to-string": "3.0.0",
     "mdast-util-to-markdown": "2.1.0",
-    "rehype-parse": "8.0.5",
-    "remark-gfm": "3.0.1",
-    "remark-stringify": "10.0.3",
-    "unified": "10.1.2",
+    "rehype-parse": "9.0.0",
+    "remark-gfm": "4.0.0",
+    "remark-stringify": "11.0.0",
+    "unified": "11.0.3",
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
@@ -82,7 +82,7 @@
     "mocha": "10.2.0",
     "mocha-multi-reporters": "1.5.1",
     "nock": "13.3.3",
-    "semantic-release": "21.1.2"
+    "semantic-release": "22.0.5"
   },
   "lint-staged": {
     "*.js": "eslint"
