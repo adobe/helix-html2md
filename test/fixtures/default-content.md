@@ -4,10 +4,10 @@ This tutorial should have you up and running with your AEM Helix projects in 10 
 
 Pre-requisites:
 
-1.  You have a github account, and understand git basics
-2.  You have a google account
-3.  You understand the basic HTML, CSS and JavaScript
-4.  Have node/npm installed for local development
+1. You have a github account, and understand git basics
+2. You have a google account
+3. You understand the basic HTML, CSS and JavaScript
+4. Have node/npm installed for local development
 
 This tutorial assumes that you are using MacOS, Chrome and Visual Studio Code as part of your development environment.\
 Of course you can use a different operating system, browser and code editor, but you will see that screenshots and default instructions are most compatible with that setup.
