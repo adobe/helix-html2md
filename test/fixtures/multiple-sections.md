@@ -16,9 +16,9 @@ Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your g
 +================================+==================================+
 | Columns block                  | ![green double Helix][image1]    |
 |                                |                                  |
-| -   One                        |                                  |
-| -   Two                        |                                  |
-| -   Three                      |                                  |
+| - One                          |                                  |
+| - Two                          |                                  |
+| - Three                        |                                  |
 |                                |                                  |
 | [Live](/)                      |                                  |
 +--------------------------------+----------------------------------+

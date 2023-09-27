@@ -43,29 +43,29 @@
 
 ---
 
-+-------------------------------------------------------------------------------------+
-| Columns (bleed)                                                                     |
-+=======================================================================+=============+
-| ### It’s about time to lose patience with slow sites                  | ![][image4] |
-|                                                                       |             |
-| -   Half a second delay in page load time leads to 20% increase in    |             |
-|     bounce rate                                                       |             |
-| -   53% of all mobile visits end prematurely if a page takes more     |             |
-|     than 3 seconds to load                                            |             |
-| -   2 seconds of load time or more drop conversion rates by 50%       |             |
-|                                                                       |             |
-| ### Don’t make your business wait for your content management system  |             |
-|                                                                       |             |
-| -   Authors spend more time with data entry than writing content      |             |
-| -   Deadlines are frequently missed because content is hard to review |             |
-| -   Unit costs for content are increasing                             |             |
-|                                                                       |             |
-| ### Stop wasting developer time on framework churn                    |             |
-|                                                                       |             |
-| -   Heavyweight frameworks make it harder to find developers          |             |
-| -   Slower to build sites                                             |             |
-| -   Costly to implement changes                                       |             |
-+-----------------------------------------------------------------------+-------------+
++------------------------------------------------------------------------------------+
+| Columns (bleed)                                                                    |
++======================================================================+=============+
+| ### It’s about time to lose patience with slow sites                 | ![][image4] |
+|                                                                      |             |
+| - Half a second delay in page load time leads to 20% increase in     |             |
+|   bounce rate                                                        |             |
+| - 53% of all mobile visits end prematurely if a page takes more than |             |
+|   3 seconds to load                                                  |             |
+| - 2 seconds of load time or more drop conversion rates by 50%        |             |
+|                                                                      |             |
+| ### Don’t make your business wait for your content management system |             |
+|                                                                      |             |
+| - Authors spend more time with data entry than writing content       |             |
+| - Deadlines are frequently missed because content is hard to review  |             |
+| - Unit costs for content are increasing                              |             |
+|                                                                      |             |
+| ### Stop wasting developer time on framework churn                   |             |
+|                                                                      |             |
+| - Heavyweight frameworks make it harder to find developers           |             |
+| - Slower to build sites                                              |             |
+| - Costly to implement changes                                        |             |
++----------------------------------------------------------------------+-------------+
 
 ---
 
