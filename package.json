@@ -54,7 +54,7 @@
     "@adobe/helix-status": "10.0.10",
     "@adobe/remark-gridtables": "2.0.1",
     "hast-util-select": "6.0.1",
-    "hast-util-to-mdast": "10.0.1",
+    "hast-util-to-mdast": "10.1.0",
     "hast-util-to-string": "3.0.0",
     "mdast-util-to-markdown": "2.1.0",
     "rehype-parse": "9.0.0",
