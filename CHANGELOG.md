@@ -1,3 +1,10 @@
+## [2.1.11](https://github.com/adobe/helix-html2md/compare/v2.1.10...v2.1.11) (2023-09-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hast-util-to-mdast to v10.1.0 ([0981775](https://github.com/adobe/helix-html2md/commit/09817758d050b8f3c7ec8b19d50c2e9e348df1cc))
+
 ## [2.1.10](https://github.com/adobe/helix-html2md/compare/v2.1.9...v2.1.10) (2023-09-30)
 
 
