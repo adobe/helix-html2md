@@ -2,11 +2,11 @@ version: 2.1
 executors:
   node18:
     docker:
-      - image: cimg/node:18.17
+      - image: cimg/node:18.18
 
 orbs:
   helix-post-deploy: adobe/helix-post-deploy@3.0.1
-  codecov: codecov/codecov@3.2.5
+  codecov: codecov/codecov@3.3.0
 
 commands:
   setup:
