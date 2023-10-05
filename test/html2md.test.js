@@ -63,6 +63,10 @@ describe('html2md Tests', () => {
   it('converts a document with code block and tabs correctly', async () => {
     await test('codeblock');
   });
+
+  it('convert a document with icons', async () => {
+    await test('icons');
+  });
 });
 
 describe('className to block type tests', () => {
