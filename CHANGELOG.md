@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/adobe/helix-html2md/compare/v2.1.12...v2.2.0) (2023-10-06)
+
+
+### Features
+
+* add handling for icons ([#300](https://github.com/adobe/helix-html2md/issues/300)) ([f7644b3](https://github.com/adobe/helix-html2md/commit/f7644b37bc8bc1dfa35fa588026cf63bbc00740d)), closes [#299](https://github.com/adobe/helix-html2md/issues/299)
+
 ## [2.1.12](https://github.com/adobe/helix-html2md/compare/v2.1.11...v2.1.12) (2023-10-02)
 
 
