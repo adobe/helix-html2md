@@ -22,6 +22,7 @@ import { imageReferences } from '@adobe/helix-markdown-support';
 import { remarkMatter } from '@adobe/helix-markdown-support/matter';
 import remarkGridTable from '@adobe/remark-gridtables';
 import { processImages } from './mdast-process-images.js';
+import { processIcons } from './hast-process-icons.js';
 
 export const TYPE_GRID_TABLE = 'gridTable';
 export const TYPE_GT_HEADER = 'gtHeader';
@@ -213,6 +214,7 @@ export async function html2md(html, opts) {
     return '';
   }
 
+  processIcons(main);
   createSections(main);
   createBlocks(main);
 
