@@ -19,7 +19,7 @@ import { visit } from 'unist-util-visit';
 export async function processIcons(tree) {
   visit(tree, 'element', (node) => {
     if (node.tagName === 'span') {
-      if (node.properties && node.properties.className && node.properties.className.includes('icon')) {
+      if (node.properties?.className?.includes('icon')) {
         const className = node.properties.className.find((attr) => attr.startsWith('icon-'));
         if (className) {
           // eslint-disable-next-line no-param-reassign
