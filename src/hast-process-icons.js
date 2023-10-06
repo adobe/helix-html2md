@@ -9,6 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+/* eslint-disable no-param-reassign */
 import { visit } from 'unist-util-visit';
 
 /**
@@ -22,13 +23,9 @@ export async function processIcons(tree) {
       if (node.properties && node.properties.className && node.properties.className.includes('icon')) {
         const className = node.properties.className.find((attr) => attr.startsWith('icon-'));
         if (className) {
-          // eslint-disable-next-line no-param-reassign
           node.type = 'text';
-          // eslint-disable-next-line no-param-reassign
           node.value = `:${className.substring(5)}:`;
-          // eslint-disable-next-line no-param-reassign
           delete node.tagName;
-          // eslint-disable-next-line no-param-reassign
           delete node.children;
         }
       }
