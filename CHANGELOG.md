@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/adobe/helix-html2md/compare/v2.2.1...v2.2.2) (2023-10-13)
+
+
+### Bug Fixes
+
+* convert all HTML tables to gridtables ([1c2ab8f](https://github.com/adobe/helix-html2md/commit/1c2ab8f0ecf145739bfb858a9cec0121bfd17156))
+
 ## [2.2.1](https://github.com/adobe/helix-html2md/compare/v2.2.0...v2.2.1) (2023-10-07)
 
 
