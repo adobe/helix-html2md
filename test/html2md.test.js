@@ -67,6 +67,10 @@ describe('html2md Tests', () => {
   it('convert a document with icons', async () => {
     await test('icons');
   });
+
+  it('convert a document with blocks containing tables', async () => {
+    await test('block-with-table');
+  });
 });
 
 describe('className to block type tests', () => {
