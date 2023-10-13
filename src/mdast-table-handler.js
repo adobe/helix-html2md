@@ -27,13 +27,13 @@ function toGridCell(cell, state) {
 function toGridRow(row, state) {
   return {
     ...row,
-    children: row.children?.map((cell) => toGridCell(cell, state)) || [],
+    children: row.children.map((cell) => toGridCell(cell, state)),
     type: TYPE_GT_ROW,
   };
 }
 
 function toGridRows(rows, state) {
-  return rows?.map((r) => toGridRow(r, state)) || [];
+  return rows.map((r) => toGridRow(r, state));
 }
 
 const tableToGridTable = (table, state) => {
