@@ -17,7 +17,7 @@ import { visit } from 'unist-util-visit';
  * In-place replacement of the element with a special text node, used by the html-pipeline
  * @param {object} hast tree
  */
-export async function processIcons(tree) {
+export function processIcons(tree) {
   visit(tree, 'element', (node) => {
     if (node.tagName === 'span') {
       if (node.properties?.className?.includes('icon')) {
