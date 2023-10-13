@@ -23,12 +23,9 @@ import { remarkMatter } from '@adobe/helix-markdown-support/matter';
 import remarkGridTable from '@adobe/remark-gridtables';
 import { processImages } from './mdast-process-images.js';
 import { processIcons } from './hast-process-icons.js';
-
-export const TYPE_GRID_TABLE = 'gridTable';
-export const TYPE_GT_HEADER = 'gtHeader';
-export const TYPE_GT_BODY = 'gtBody';
-export const TYPE_GT_ROW = 'gtRow';
-export const TYPE_GT_CELL = 'gtCell';
+import {
+  TYPE_GRID_TABLE, TYPE_GT_BODY, TYPE_GT_CELL, TYPE_GT_HEADER, TYPE_GT_ROW, handleTableAsGridTable,
+} from './mdast-table-handler.js';
 
 function m(type, children, props = {}) {
   return {
@@ -221,6 +218,7 @@ export async function html2md(html, opts) {
   const mdast = toMdast(main, {
     handlers: {
       block: handleBlockAsGridTable,
+      table: handleTableAsGridTable,
     },
   });
 
