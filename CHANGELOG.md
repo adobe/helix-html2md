@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/adobe/helix-html2md/compare/v2.2.3...v2.2.4) (2023-10-18)
+
+
+### Bug Fixes
+
+* remove empty section at the end of a document ([eba88d0](https://github.com/adobe/helix-html2md/commit/eba88d0fab3bfeba4ff37c78b7d184bf7e9a769e))
+
 ## [2.2.3](https://github.com/adobe/helix-html2md/compare/v2.2.2...v2.2.3) (2023-10-14)
 
 
