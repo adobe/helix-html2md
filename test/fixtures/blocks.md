@@ -155,8 +155,6 @@ Helix lets frontend devs develop and deploy the design and functionality of thei
 | Style   | highlight |
 +---------+-----------+
 
----
-
 +----------------------------------------------------------------------+
 | Metadata                                                             |
 +=============+========================================================+

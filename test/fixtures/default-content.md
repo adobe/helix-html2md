@@ -147,8 +147,6 @@ Once you are are ready to push your changes, simply git add, commit and push and
 
 **That’s it, you made it! Congrats, your first Helix site is up and running.**
 
----
-
 +----------------------------------------------------------------------+
 | Metadata                                                             |
 +=============+========================================================+

@@ -81,7 +81,6 @@ function addMetadata(hast, mdast) {
   }
 
   if (meta.size) {
-    mdast.children.push(m('thematicBreak'));
     mdast.children.push(toGridTable('Metadata', Array.from(meta.entries())));
   }
 }
