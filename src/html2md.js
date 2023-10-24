@@ -18,7 +18,10 @@ import { toString } from 'hast-util-to-string';
 import { select } from 'hast-util-select';
 import gfm from 'remark-gfm';
 
-import { imageReferences } from '@adobe/helix-markdown-support';
+import {
+  imageReferences,
+  sanitizeTextAndFormats,
+} from '@adobe/helix-markdown-support';
 import { remarkMatter } from '@adobe/helix-markdown-support/matter';
 import remarkGridTable from '@adobe/remark-gridtables';
 import { processImages } from './mdast-process-images.js';
@@ -26,6 +29,7 @@ import { processIcons } from './hast-process-icons.js';
 import {
   TYPE_GRID_TABLE, TYPE_GT_BODY, TYPE_GT_CELL, TYPE_GT_HEADER, TYPE_GT_ROW, handleTableAsGridTable,
 } from './mdast-table-handler.js';
+import formatPlugin from './markdownFormatPlugin.js';
 
 function m(type, children, props = {}) {
   return {
@@ -195,6 +199,18 @@ function handleBlockAsGridTable(state, node) {
   return m(TYPE_GRID_TABLE, children);
 }
 
+/**
+ * creates a mdast node of the given type.
+ * @param {string} type
+ * @return {Node}
+ */
+function handleFormat(type) {
+  return (state, node) => {
+    const children = state.all(node);
+    return m(type, children);
+  };
+}
+
 export async function html2md(html, opts) {
   const {
     log, url, mediaHandler, imgSrcPolicy,
@@ -218,6 +234,9 @@ export async function html2md(html, opts) {
     handlers: {
       block: handleBlockAsGridTable,
       table: handleTableAsGridTable,
+      sub: handleFormat('subscript'),
+      sup: handleFormat('superscript'),
+      u: handleFormat('underline'),
     },
   });
 
@@ -225,6 +244,7 @@ export async function html2md(html, opts) {
 
   await processImages(log, mdast, mediaHandler, url, imgSrcPolicy);
   imageReferences(mdast);
+  sanitizeTextAndFormats(mdast);
 
   // noinspection JSVoidFunctionReturnValueUsed
   const md = unified()
@@ -243,6 +263,7 @@ export async function html2md(html, opts) {
     .use(remarkMatter)
     .use(remarkGridTable)
     // .use(orderedListPlugin)
+    .use(formatPlugin)
     .stringify(mdast);
 
   const t1 = Date.now();
