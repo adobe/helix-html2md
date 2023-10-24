@@ -71,6 +71,10 @@ describe('html2md Tests', () => {
   it('convert a document with blocks containing tables', async () => {
     await test('block-with-table');
   });
+
+  it('convert a document with underling, sub-, and superscript', async () => {
+    await test('sub-sup-u');
+  });
 });
 
 describe('className to block type tests', () => {
