@@ -1,3 +1,10 @@
+## [2.2.7](https://github.com/adobe/helix-html2md/compare/v2.2.6...v2.2.7) (2023-10-24)
+
+
+### Bug Fixes
+
+* add support for sub-, superscript, and underline ([#315](https://github.com/adobe/helix-html2md/issues/315)) ([66f1b6e](https://github.com/adobe/helix-html2md/commit/66f1b6e0c38c2e1aaf3f0e8862c82de5e13d0755)), closes [#314](https://github.com/adobe/helix-html2md/issues/314)
+
 ## [2.2.6](https://github.com/adobe/helix-html2md/compare/v2.2.5...v2.2.6) (2023-10-21)
 
 
