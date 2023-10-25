@@ -45,16 +45,15 @@ function text(value) {
   };
 }
 
-function image(url, alt) {
+function image(url) {
   return {
     type: 'image',
     url,
-    alt,
   };
 }
 
 const HELIX_META = new Set(Array.from([
-  'viewport', 'image-alt',
+  'viewport',
 ]));
 
 function toGridTable(title, data) {
@@ -77,36 +76,27 @@ function toGridTable(title, data) {
   ]);
 }
 
-function buildMetaData(meta) {
-  const metaMap = new Map();
-  for (const [key, value] of meta) {
-    if (key === 'image') {
-      metaMap.set(text(key), image(value, meta.get('image-alt')));
-    } else if (!HELIX_META.has(key) && !key.startsWith('twitter:')) {
-      metaMap.set(text(key), text(value));
-    }
-  }
-  return metaMap;
-}
-
 function addMetadata(hast, mdast) {
   const meta = new Map();
 
   const head = select('head', hast);
   for (const child of head.children) {
     if (child.tagName === 'title') {
-      meta.set('title', toString(child));
+      meta.set(text('title'), text(toString(child)));
     } else if (child.tagName === 'meta') {
       const { name, content } = child.properties;
-      if (name) {
-        meta.set(name, content);
+      if (name && !HELIX_META.has(name) && !name.startsWith('twitter:')) {
+        if (name === 'image') {
+          meta.set(text(name), image(content));
+        } else {
+          meta.set(text(name), text(content));
+        }
       }
     }
   }
 
   if (meta.size) {
-    const metaData = buildMetaData(meta);
-    mdast.children.push(toGridTable('Metadata', Array.from(metaData.entries())));
+    mdast.children.push(toGridTable('Metadata', Array.from(meta.entries())));
   }
 }
 
