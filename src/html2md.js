@@ -45,6 +45,13 @@ function text(value) {
   };
 }
 
+function image(url) {
+  return {
+    type: 'image',
+    url,
+  };
+}
+
 const HELIX_META = new Set(Array.from([
   'viewport',
 ]));
@@ -62,7 +69,7 @@ function toGridTable(title, data) {
       data.map((row) => m(
         TYPE_GT_ROW,
         row.map((cell) => m(TYPE_GT_CELL, [
-          text(cell),
+          cell,
         ])),
       )),
     ),
@@ -75,11 +82,15 @@ function addMetadata(hast, mdast) {
   const head = select('head', hast);
   for (const child of head.children) {
     if (child.tagName === 'title') {
-      meta.set('title', toString(child));
+      meta.set(text('title'), text(toString(child)));
     } else if (child.tagName === 'meta') {
       const { name, content } = child.properties;
       if (name && !HELIX_META.has(name) && !name.startsWith('twitter:')) {
-        meta.set(name, content);
+        if (name === 'image') {
+          meta.set(text(name), image(content));
+        } else {
+          meta.set(text(name), text(content));
+        }
       }
     }
   }

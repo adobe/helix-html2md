@@ -96,6 +96,11 @@ describe('Index Tests', () => {
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
           })
+          .get('/meta-image.png')
+          .basicAuth({ user: 'john', pass: 'doe' })
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          })
           .get('/blog/relative.png')
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
@@ -107,10 +112,10 @@ describe('Index Tests', () => {
           });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
           .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-          .times(3)
+          .times(4)
           .reply(404)
           .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-          .times(3)
+          .times(4)
           .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
@@ -119,7 +124,7 @@ describe('Index Tests', () => {
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
-          'content-length': '496',
+          'content-length': '811',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
@@ -152,16 +157,21 @@ describe('Index Tests', () => {
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
           })
+          .get('/meta-image.png')
+          .basicAuth({ user: 'john', pass: 'doe' })
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          })
           .get('/blog/relative.png')
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
           });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
           .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-          .times(2)
+          .times(3)
           .reply(404)
           .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-          .times(2)
+          .times(3)
           .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images-negative.md'), 'utf-8');
@@ -170,7 +180,7 @@ describe('Index Tests', () => {
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
-          'content-length': '540',
+          'content-length': '855',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
