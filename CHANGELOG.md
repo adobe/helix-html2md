@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/adobe/helix-html2md/compare/v2.2.7...v2.3.0) (2023-10-26)
+
+
+### Features
+
+* add support for images in page metadata ([ed0f6b4](https://github.com/adobe/helix-html2md/commit/ed0f6b4aee6b88f4b355a2bde85203169b401086)), closes [#316](https://github.com/adobe/helix-html2md/issues/316)
+
 ## [2.2.7](https://github.com/adobe/helix-html2md/compare/v2.2.6...v2.2.7) (2023-10-24)
 
 
