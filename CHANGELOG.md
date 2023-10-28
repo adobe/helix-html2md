@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/adobe/helix-html2md/compare/v2.3.1...v2.3.2) (2023-10-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency unified to v11.0.4 ([#320](https://github.com/adobe/helix-html2md/issues/320)) ([6b8fe97](https://github.com/adobe/helix-html2md/commit/6b8fe976dc566aa533ef86342f4fb7d1bd593724))
+
 ## [2.3.1](https://github.com/adobe/helix-html2md/compare/v2.3.0...v2.3.1) (2023-10-28)
 
 
