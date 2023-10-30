@@ -12,41 +12,6 @@
 import { visit } from 'unist-util-visit';
 import processQueue from '@adobe/helix-shared-process-queue';
 
-function createFilter(log, baseUrlStr, imgSrcPolicy) {
-  const baseUrl = new URL(baseUrlStr);
-  const imgSrcPolicFilters = imgSrcPolicy.map((policyValue) => {
-    // filter according to https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources
-    if (policyValue === '*') {
-      return () => true;
-    }
-
-    if (policyValue === 'self') {
-      return (url) => baseUrl.host === url.host;
-    }
-
-    return (url) => {
-      // omit the protocol check, as https:// is enforced earlier already
-      // omit the pathname check, as we may not need it (yet)
-      const protocolEndIdx = policyValue.indexOf('://');
-      let host = protocolEndIdx < 0 ? policyValue : policyValue.substring(protocolEndIdx + 3);
-      const slashIdx = host.indexOf('/');
-      if (slashIdx >= 0) {
-        host = host.substring(0, slashIdx);
-      }
-
-      if (host.startsWith('*')) {
-        // allow subdomain
-        const dotIdx = url.host.indexOf('.');
-        return dotIdx > 0 && url.host.substring(dotIdx) === host.substring(1);
-      } else {
-        return url.host === host;
-      }
-    };
-  });
-
-  return (urlStr) => imgSrcPolicFilters.some((f) => f(urlStr));
-}
-
 /**
  * Process images
  * @param {Console} log
@@ -54,13 +19,11 @@ function createFilter(log, baseUrlStr, imgSrcPolicy) {
  * @param {MediaHandler} mediaHandler
  * @param {string} baseUrl
  */
-export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPolicy) {
+export async function processImages(log, tree, mediaHandler, baseUrl) {
   if (!mediaHandler) {
     return;
   }
-
   // gather all image nodes
-  const filter = createFilter(log, baseUrl, imgSrcPolicy);
   const images = [];
   visit(tree, (node) => {
     if (node.type === 'image') {
@@ -70,16 +33,7 @@ export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPoli
         node.url = new URL(url, baseUrl).href;
         images.push(node);
       } else if (url.startsWith('https://')) {
-        try {
-          if (filter(new URL(url))) {
-            images.push(node);
-          }
-        } catch (e) {
-          // in case of invalid urls, or other errors
-          log.warn(`Failed to test url '${url}': ${e.message}`);
-          // eslint-disable-next-line no-param-reassign
-          node.url = 'about:error';
-        }
+        images.push(node);
       }
     }
     return visit.CONTINUE;
@@ -87,8 +41,16 @@ export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPoli
 
   // upload images
   await processQueue(images, async (node) => {
-    const blob = await mediaHandler.getBlob(node.url, baseUrl);
-    // eslint-disable-next-line no-param-reassign
-    node.url = blob?.uri || 'about:error';
+    const { url } = node;
+    try {
+      const blob = await mediaHandler.getBlob(node.url, baseUrl);
+      // eslint-disable-next-line no-param-reassign
+      node.url = blob?.uri || 'about:error';
+    } catch (e) {
+      // in case of invalid urls, or other errors
+      log.warn(`Failed to fetch image for url '${url}': ${e.message}`);
+      // eslint-disable-next-line no-param-reassign
+      node.url = 'about:error';
+    }
   }, 8);
 }

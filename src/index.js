@@ -39,6 +39,48 @@ export function error(message, statusCode = 500) {
 }
 
 /**
+ * Creates a filter function to test if a given URL matches a set of img-src policies.
+ *
+ * @param {String} baseUrlStr
+ * @param {String[]} imgSrcPolicy
+ * @returns {(url: URL) => true|false}
+ */
+export function createImgSrcPolicy(baseUrlStr, imgSrcPolicy) {
+  const baseUrl = new URL(baseUrlStr);
+  const imgSrcPolicFilters = imgSrcPolicy.map((policyValue) => {
+    // filter according to https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources
+    if (policyValue === '*') {
+      return () => true;
+    }
+
+    if (policyValue === 'self') {
+      return (url) => baseUrl.host === url.host;
+    }
+
+    return (url) => {
+      // omit the protocol check, as https:// is enforced earlier already
+      // omit the pathname check, as we may not need it (yet)
+      const protocolEndIdx = policyValue.indexOf('://');
+      let host = protocolEndIdx < 0 ? policyValue : policyValue.substring(protocolEndIdx + 3);
+      const slashIdx = host.indexOf('/');
+      if (slashIdx >= 0) {
+        host = host.substring(0, slashIdx);
+      }
+
+      if (host.startsWith('*')) {
+        // allow subdomain
+        const dotIdx = url.host.indexOf('.');
+        return dotIdx > 0 && url.host.substring(dotIdx) === host.substring(1);
+      } else {
+        return url.host === host;
+      }
+    };
+  });
+
+  return (url) => imgSrcPolicFilters.some((f) => f(url));
+}
+
+/**
  * This is the main function
  * @param {Request} request the request object (see fetch api)
  * @param {UniversalContext} ctx the context of the universal serverless function
@@ -87,14 +129,15 @@ async function run(request, ctx) {
     }
   }
   const html = await res.text();
-  const imgSrcPolicy = res.headers.get('x-html2md-img-src')?.split(/\s+/) || [];
-  if (imgSrcPolicy.indexOf('self') < 0) {
-    imgSrcPolicy.push('self');
-  }
 
   // only use media handler when loaded via fstab. otherwise images are not processed.
   let mediaHandler;
   if (contentBusId) {
+    const imgSrc = res.headers.get('x-html2md-img-src')?.split(/\s+/) || [];
+    if (imgSrc.indexOf('self') < 0) {
+      imgSrc.push('self');
+    }
+    const imgSrcPolicy = createImgSrcPolicy(url, imgSrc);
     const {
       MEDIAHANDLER_NOCACHHE: noCache,
       CLOUDFLARE_ACCOUNT_ID: r2AccountId,
@@ -110,7 +153,7 @@ async function run(request, ctx) {
       ref: 'main',
       contentBusId,
       log,
-      auth,
+      auth: (src) => (imgSrcPolicy(src) ? auth : undefined),
       filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
       blobAgent: `html2md-${pkgJson.version}`,
       noCache,
@@ -121,7 +164,6 @@ async function run(request, ctx) {
     mediaHandler,
     log,
     url,
-    imgSrcPolicy,
   });
 
   const headers = {
