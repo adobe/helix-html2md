@@ -19,7 +19,7 @@ import processQueue from '@adobe/helix-shared-process-queue';
  * @param {MediaHandler} mediaHandler
  * @param {string} baseUrl
  */
-export async function processImages(log, tree, baseUrl, mediaHandler) {
+export async function processImages(log, tree, mediaHandler, baseUrl) {
   if (!mediaHandler) {
     return;
   }
@@ -48,7 +48,7 @@ export async function processImages(log, tree, baseUrl, mediaHandler) {
       node.url = blob?.uri || 'about:error';
     } catch (e) {
       // in case of invalid urls, or other errors
-      log.warn(`Failed to test url '${url}': ${e.message}`);
+      log.warn(`Failed to fetch image for url '${url}': ${e.message}`);
       // eslint-disable-next-line no-param-reassign
       node.url = 'about:error';
     }

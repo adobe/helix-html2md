@@ -251,7 +251,7 @@ export async function html2md(html, opts) {
 
   addMetadata(hast, mdast);
 
-  await processImages(log, mdast, url, mediaHandler);
+  await processImages(log, mdast, mediaHandler, url);
   imageReferences(mdast);
   sanitizeTextAndFormats(mdast);
 
