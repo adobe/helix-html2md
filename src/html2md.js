@@ -223,7 +223,7 @@ function handleFormat(type) {
 }
 
 export async function html2md(html, opts) {
-  const { log, url } = opts;
+  const { log, url, mediaHandler } = opts;
   const t0 = Date.now();
   const hast = unified()
     .use(parse)
@@ -251,7 +251,7 @@ export async function html2md(html, opts) {
 
   addMetadata(hast, mdast);
 
-  await processImages(log, mdast, opts);
+  await processImages(log, mdast, url, mediaHandler);
   imageReferences(mdast);
   sanitizeTextAndFormats(mdast);
 

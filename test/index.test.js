@@ -81,7 +81,7 @@ describe('Index Tests', () => {
       'self https://images.dummy.com', // allow images.dummy.com with protocol, self explicitly
       'https://images.dummy.com/200', // allow images.dummy.com path ignored
     ].forEach((imgSrcPolicy) => {
-      it(`uploads images to media-bus using authenticated mediahander with to img-src policy '${imgSrcPolicy}'`, async () => {
+      it(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
         const headers = { authorization: 'Basic am9objpkb2U=' };
         const reqheaders = { ...headers };
         nock.fstab();
@@ -144,7 +144,7 @@ describe('Index Tests', () => {
       'assets.dummy.com', // unallowed subdomain
       '*dummy.com', // invalid subdomain
     ].forEach((imgSrcPolicy) => {
-      it(`does upload images to media-bus using unauthenticated mediahander with img-src policy '${imgSrcPolicy}'`, async () => {
+      it(`does upload images to media-bus sending no auth with img-src policy '${imgSrcPolicy}'`, async () => {
         const headers = { authorization: 'Basic am9objpkb2U=' };
         nock.fstab();
         nock('https://www.example.com', { reqheaders: { ...headers } })
