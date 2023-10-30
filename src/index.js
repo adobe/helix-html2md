@@ -93,7 +93,8 @@ async function run(request, ctx) {
   }
 
   // only use media handler when loaded via fstab. otherwise images are not processed.
-  let mediaHandler;
+  let mediaHandlerWithAuth;
+  let mediaHandlerWithoutAuth;
   if (contentBusId) {
     const {
       MEDIAHANDLER_NOCACHHE: noCache,
@@ -101,7 +102,7 @@ async function run(request, ctx) {
       CLOUDFLARE_R2_ACCESS_KEY_ID: r2AccessKeyId,
       CLOUDFLARE_R2_SECRET_ACCESS_KEY: r2SecretAccessKey,
     } = ctx.env;
-    mediaHandler = new MediaHandler({
+    const mediaHandlerOpts = {
       r2AccountId,
       r2AccessKeyId,
       r2SecretAccessKey,
@@ -110,15 +111,17 @@ async function run(request, ctx) {
       ref: 'main',
       contentBusId,
       log,
-      auth,
       filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
       blobAgent: `html2md-${pkgJson.version}`,
       noCache,
-    });
+    };
+    mediaHandlerWithoutAuth = new MediaHandler(mediaHandlerOpts);
+    mediaHandlerWithAuth = new MediaHandler({ ...mediaHandlerOpts, auth });
   }
 
   const md = await html2md(html, {
-    mediaHandler,
+    mediaHandlerWithAuth,
+    mediaHandlerWithoutAuth,
     log,
     url,
     imgSrcPolicy,

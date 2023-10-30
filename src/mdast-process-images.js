@@ -54,11 +54,15 @@ function createFilter(log, baseUrlStr, imgSrcPolicy) {
  * @param {MediaHandler} mediaHandler
  * @param {string} baseUrl
  */
-export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPolicy) {
-  if (!mediaHandler) {
+export async function processImages(log, tree, {
+  url: baseUrl,
+  mediaHandlerWithAuth,
+  mediaHandlerWithoutAuth,
+  imgSrcPolicy,
+}) {
+  if (!mediaHandlerWithAuth || !mediaHandlerWithoutAuth) {
     return;
   }
-
   // gather all image nodes
   const filter = createFilter(log, baseUrl, imgSrcPolicy);
   const images = [];
@@ -70,16 +74,7 @@ export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPoli
         node.url = new URL(url, baseUrl).href;
         images.push(node);
       } else if (url.startsWith('https://')) {
-        try {
-          if (filter(new URL(url))) {
-            images.push(node);
-          }
-        } catch (e) {
-          // in case of invalid urls, or other errors
-          log.warn(`Failed to test url '${url}': ${e.message}`);
-          // eslint-disable-next-line no-param-reassign
-          node.url = 'about:error';
-        }
+        images.push(node);
       }
     }
     return visit.CONTINUE;
@@ -87,8 +82,20 @@ export async function processImages(log, tree, mediaHandler, baseUrl, imgSrcPoli
 
   // upload images
   await processQueue(images, async (node) => {
-    const blob = await mediaHandler.getBlob(node.url, baseUrl);
-    // eslint-disable-next-line no-param-reassign
-    node.url = blob?.uri || 'about:error';
+    const { url } = node;
+    try {
+      const blob = filter(new URL(url))
+        // if included in the img-src policy, use mediahandler with auth
+        ? await mediaHandlerWithAuth.getBlob(node.url, baseUrl)
+        // if not use mediahandler without auth
+        : await mediaHandlerWithoutAuth.getBlob(node.url, baseUrl);
+      // eslint-disable-next-line no-param-reassign
+      node.url = blob?.uri || 'about:error';
+    } catch (e) {
+      // in case of invalid urls, or other errors
+      log.warn(`Failed to test url '${url}': ${e.message}`);
+      // eslint-disable-next-line no-param-reassign
+      node.url = 'about:error';
+    }
   }, 8);
 }

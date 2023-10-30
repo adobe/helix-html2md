@@ -81,9 +81,11 @@ describe('Index Tests', () => {
       'self https://images.dummy.com', // allow images.dummy.com with protocol, self explicitly
       'https://images.dummy.com/200', // allow images.dummy.com path ignored
     ].forEach((imgSrcPolicy) => {
-      it(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
+      it(`uploads images to media-bus using authenticated mediahander with to img-src policy '${imgSrcPolicy}'`, async () => {
+        const headers = { authorization: 'Basic am9objpkb2U=' };
+        const reqheaders = { ...headers };
         nock.fstab();
-        nock('https://www.example.com')
+        nock('https://www.example.com', { reqheaders })
           .get('/blog/article')
           .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
             'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -105,7 +107,7 @@ describe('Index Tests', () => {
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
           });
-        nock('https://images.dummy.com')
+        nock('https://images.dummy.com', { reqheaders })
           .get('/300.png')
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
@@ -119,7 +121,7 @@ describe('Index Tests', () => {
           .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
-        const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console, env: DUMMY_ENV });
+        const result = await main(reqUrl('/blog/article', { headers }), { log: console, env: DUMMY_ENV });
         assert.strictEqual(result.status, 200);
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
@@ -142,9 +144,10 @@ describe('Index Tests', () => {
       'assets.dummy.com', // unallowed subdomain
       '*dummy.com', // invalid subdomain
     ].forEach((imgSrcPolicy) => {
-      it(`does not upload images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
+      it(`does upload images to media-bus using unauthenticated mediahander with img-src policy '${imgSrcPolicy}'`, async () => {
+        const headers = { authorization: 'Basic am9objpkb2U=' };
         nock.fstab();
-        nock('https://www.example.com')
+        nock('https://www.example.com', { reqheaders: { ...headers } })
           .get('/blog/article')
           .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
             'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -166,21 +169,26 @@ describe('Index Tests', () => {
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
           });
+        nock('https://images.dummy.com', { badheaders: ['authorization'] })
+          .get('/300.png')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
+          });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
           .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-          .times(3)
+          .times(4)
           .reply(404)
           .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-          .times(3)
+          .times(4)
           .reply(201);
 
-        const expected = await readFile(resolve(__testdir, 'fixtures', 'images-negative.md'), 'utf-8');
-        const result = await main(reqUrl('/blog/article', { headers: { authorization: 'Basic am9objpkb2U=' } }), { log: console, env: DUMMY_ENV });
+        const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
+        const result = await main(reqUrl('/blog/article', { headers }), { log: console, env: DUMMY_ENV });
         assert.strictEqual(result.status, 200);
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
-          'content-length': '855',
+          'content-length': '811',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
