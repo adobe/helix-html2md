@@ -1,3 +1,10 @@
+## [2.3.5](https://github.com/adobe/helix-html2md/compare/v2.3.4...v2.3.5) (2023-10-30)
+
+
+### Bug Fixes
+
+* revert loading all imgs in mediabus ([ff4dd1a](https://github.com/adobe/helix-html2md/commit/ff4dd1ae18011b8317d7432274c59762014a1e49)), closes [#268](https://github.com/adobe/helix-html2md/issues/268)
+
 ## [2.3.4](https://github.com/adobe/helix-html2md/compare/v2.3.3...v2.3.4) (2023-10-30)
 
 
