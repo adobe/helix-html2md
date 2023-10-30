@@ -15,3 +15,4 @@ jobs:
         with:
           circleci-token: ${{ secrets.CIRCLECI_TOKEN }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          users: renovate[bot],buuhuu,bpauli
