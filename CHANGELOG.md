@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/adobe/helix-html2md/compare/v2.3.2...v2.3.3) (2023-10-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/fetch to v4.1.1 ([#323](https://github.com/adobe/helix-html2md/issues/323)) ([8473f94](https://github.com/adobe/helix-html2md/commit/8473f94778418258d268274a5864113328f82305))
+
 ## [2.3.2](https://github.com/adobe/helix-html2md/compare/v2.3.1...v2.3.2) (2023-10-28)
 
 
