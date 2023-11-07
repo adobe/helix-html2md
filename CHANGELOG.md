@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/adobe/helix-html2md/compare/v2.3.6...v2.4.0) (2023-11-07)
+
+
+### Features
+
+* update media handler to 2.3.2 ([#330](https://github.com/adobe/helix-html2md/issues/330)) ([fbe75f5](https://github.com/adobe/helix-html2md/commit/fbe75f5d58b92b266a8ac34ba44ff419d3f19e61))
+
 ## [2.3.6](https://github.com/adobe/helix-html2md/compare/v2.3.5...v2.3.6) (2023-11-05)
 
 
