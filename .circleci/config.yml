@@ -53,12 +53,11 @@ jobs:
       # see https://circleci.com/orbs/registry/orb/adobe/helix-post-deploy
       # for more available parameters
       - helix-post-deploy/monitoring:
-          statuspage_name: Helix Html2MD
-          statuspage_group: Publishing
+          statuspage_name: AEM Adapter
+          statuspage_group: Internal Services
           newrelic_group_policy: Publishing Repeated Failure
           targets: aws
           action_package: helix3
-          incubator: true # remove only when promoting service to production
 
   branch-deploy:
     executor: node18
