@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "2.0.4",
-    "@adobe/helix-deploy": "9.3.15",
+    "@adobe/helix-deploy": "9.3.16",
     "@adobe/helix-html-pipeline": "^5.0.0",
     "@adobe/helix-universal": "4.4.1",
     "@adobe/semantic-release-coralogix": "1.1.27",
