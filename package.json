@@ -6,8 +6,8 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "c8 mocha -i -g 'Post-Deploy'",
-    "test-postdeploy": "mocha -g 'Post-Deploy'",
+    "test": "c8 mocha -i -g 'Post-Deploy' --spec=test/**/*.test.js",
+    "test-postdeploy": "mocha -g 'Post-Deploy' --spec=test/**/*.test.js",
     "lint": "eslint .",
     "semantic-release": "semantic-release",
     "build": "hedy -v",
@@ -27,8 +27,10 @@
     "nodeVersion": 18
   },
   "mocha": {
-    "spec": "test/**/*.test.js",
-    "require": "test/setup-env.js",
+    "require": [
+      "test/setup-env.js",
+      "mocha-suppress-logs"
+    ],
     "recursive": "true",
     "reporter": "mocha-multi-reporters",
     "reporter-options": "configFile=.mocha-multi.json"
@@ -81,6 +83,7 @@
     "lint-staged": "15.1.0",
     "mocha": "10.2.0",
     "mocha-multi-reporters": "1.5.1",
+    "mocha-suppress-logs": "0.4.1",
     "nock": "13.3.8",
     "semantic-release": "22.0.7"
   },

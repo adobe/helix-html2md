@@ -15,7 +15,7 @@ import { Scope } from 'nock/lib/scope.js';
 
 const FSTAB = `
 mountpoints:
-  /: 
+  /:
     url: https://www.example.com/
     type: markup
     suffix: '.semantic.html'
@@ -61,6 +61,7 @@ export function Nock() {
       unmatched = [];
       nock.emitter.on('no match', noMatchHandler);
     }
+    nock.disableNetConnect();
     return scope;
   }
 
