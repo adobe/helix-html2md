@@ -359,7 +359,7 @@ mountpoints:
     });
   });
 
-  for (const status of [401, 403, 403]) {
+  for (const status of [401, 403, 404]) {
     // eslint-disable-next-line no-loop-func
     it(`returns ${status} for a ${status} response`, async () => {
       nock.fstab();
@@ -377,6 +377,22 @@ mountpoints:
       });
     });
   }
+
+  it('returns 400 for a 400 response', async () => {
+    nock.fstab();
+    nock('https://www.example.com')
+      .get('/')
+      .reply(400);
+
+    const result = await main(reqUrl('/'), { log: console });
+    assert.strictEqual(result.status, 400);
+    assert.strictEqual(await result.text(), '');
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-type': 'text/plain; charset=utf-8',
+      'x-error': 'error fetching resource at https://www.example.com/',
+    });
+  });
 
   it('returns 502 for am error response', async () => {
     nock.fstab();

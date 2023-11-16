@@ -121,11 +121,19 @@ async function run(request, ctx) {
     headers: reqHeaders,
   });
   if (!res.ok) {
-    if (res.status === 404 || res.status === 403 || res.status === 401) {
-      // only propagate 404, 401 and 403
-      return error(`resource not found: ${url}`, res.status);
+    const { status } = res;
+    if (status >= 400 && status < 500) {
+      switch (status) {
+        case 401:
+        case 403:
+        case 404:
+          return error(`resource not found: ${url}`, status);
+        default:
+          return error(`error fetching resource at ${url}`, status);
+      }
     } else {
-      return error(`error fetching resource at ${url}: ${res.status}`, 502);
+      // propagate other errors as 502
+      return error(`error fetching resource at ${url}: ${status}`, 502);
     }
   }
   const html = await res.text();
