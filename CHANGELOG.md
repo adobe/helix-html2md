@@ -1,3 +1,10 @@
+## [2.4.6](https://github.com/adobe/helix-html2md/compare/v2.4.5...v2.4.6) (2023-11-16)
+
+
+### Bug Fixes
+
+* propagate 4xx status unchanged ([#342](https://github.com/adobe/helix-html2md/issues/342)) ([be1dbec](https://github.com/adobe/helix-html2md/commit/be1dbec57870569d672dbbe5975f42fb9ed62fec))
+
 ## [2.4.5](https://github.com/adobe/helix-html2md/compare/v2.4.4...v2.4.5) (2023-11-14)
 
 
