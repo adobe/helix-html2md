@@ -121,8 +121,8 @@ async function run(request, ctx) {
     headers: reqHeaders,
   });
   if (!res.ok) {
-    if (res.status === 404 || res.status === 403 || res.status === 401) {
-      // only propagate 404, 401 and 403
+    if (res.status >= 400 && res.status < 500) {
+      // propagate any 4xx error as such
       return error(`resource not found: ${url}`, res.status);
     } else {
       return error(`error fetching resource at ${url}: ${res.status}`, 502);
