@@ -46,7 +46,7 @@
   "homepage": "https://github.com/adobe/helix-html2md#readme",
   "dependencies": {
     "@adobe/fetch": "4.1.1",
-    "@adobe/helix-admin-support": "2.3.2",
+    "@adobe/helix-admin-support": "2.3.3",
     "@adobe/helix-markdown-support": "7.1.0",
     "@adobe/helix-mediahandler": "2.3.4",
     "@adobe/helix-shared-body-data": "2.0.1",
@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "2.0.5",
-    "@adobe/helix-deploy": "9.3.16",
+    "@adobe/helix-deploy": "9.3.17",
     "@adobe/helix-html-pipeline": "^5.0.0",
     "@adobe/helix-universal": "4.4.1",
     "@adobe/semantic-release-coralogix": "1.1.27",
