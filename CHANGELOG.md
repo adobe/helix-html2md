@@ -1,3 +1,10 @@
+## [2.4.12](https://github.com/adobe/helix-html2md/compare/v2.4.11...v2.4.12) (2023-12-07)
+
+
+### Bug Fixes
+
+* force http 1.1 until NGHTTP2_INTERNAL_ERROR is fixed ([#354](https://github.com/adobe/helix-html2md/issues/354)) ([03607c1](https://github.com/adobe/helix-html2md/commit/03607c196d9e692fe59f7ffcdae95e2e71b0e289))
+
 ## [2.4.11](https://github.com/adobe/helix-html2md/compare/v2.4.10...v2.4.11) (2023-12-04)
 
 
