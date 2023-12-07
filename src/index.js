@@ -165,6 +165,7 @@ async function run(request, ctx) {
       filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
       blobAgent: `html2md-${pkgJson.version}`,
       noCache,
+      forceHttp1: true,
     });
   }
 
