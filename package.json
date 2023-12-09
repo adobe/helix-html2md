@@ -81,13 +81,13 @@
     "eslint": "8.55.0",
     "husky": "8.0.3",
     "junit-report-builder": "3.1.0",
-    "lint-staged": "15.1.0",
+    "lint-staged": "15.2.0",
     "mocha": "10.2.0",
     "mocha-multi-reporters": "1.5.1",
     "mocha-suppress-logs": "0.4.1",
     "nock": "13.4.0",
     "nodemon": "3.0.2",
-    "semantic-release": "22.0.8"
+    "semantic-release": "22.0.10"
   },
   "lint-staged": {
     "*.js": "eslint"
