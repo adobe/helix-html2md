@@ -49,7 +49,7 @@
     "@adobe/fetch": "4.1.1",
     "@adobe/helix-admin-support": "2.3.7",
     "@adobe/helix-markdown-support": "7.1.0",
-    "@adobe/helix-mediahandler": "2.3.9",
+    "@adobe/helix-mediahandler": "2.4.0",
     "@adobe/helix-shared-body-data": "2.0.1",
     "@adobe/helix-shared-process-queue": "3.0.0",
     "@adobe/helix-shared-utils": "3.0.0",
