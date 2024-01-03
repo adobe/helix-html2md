@@ -150,6 +150,16 @@ function createBlocks(main) {
     // validate 'table structure'
     const rows = [];
     let maxCols = 0;
+    if (block.children.length === 0) {
+      maxCols = 1;
+      const tableRow = {
+        type: 'element',
+        tagName: 'tr',
+        children: [],
+        properties: {},
+      };
+      rows.push(tableRow);
+    }
     for (const row of block.children) {
       if (row.tagName === 'div') {
         const tableRow = {
