@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/adobe/helix-html2md/compare/v2.4.19...v2.5.0) (2024-01-10)
+
+
+### Features
+
+* Support for empty blocks  ([0247b08](https://github.com/adobe/helix-html2md/commit/0247b088544d9420038a9b78a1666659308fb613)), closes [#366](https://github.com/adobe/helix-html2md/issues/366)
+
 ## [2.4.19](https://github.com/adobe/helix-html2md/compare/v2.4.18...v2.4.19) (2024-01-06)
 
 
