@@ -4,3 +4,4 @@ node_modules/
 junit
 dist
 tmp
+.idea/

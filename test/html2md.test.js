@@ -48,6 +48,10 @@ describe('html2md Tests', () => {
     await test('no-blocks');
   });
 
+  it('converts empty block divs', async () => {
+    await test('empty-block');
+  });
+
   it('converts a document with default-content', async () => {
     await test('default-content');
   });
