@@ -11,9 +11,9 @@
  */
 
 /* eslint-env mocha */
-
-import { PipelineRequest, PipelineState, htmlPipe } from '@adobe/helix-html-pipeline';
-import { PipelineResponse } from '@adobe/helix-html-pipeline/src/PipelineResponse.js';
+import {
+  PipelineRequest, PipelineResponse, PipelineState, htmlPipe,
+} from '@adobe/helix-html-pipeline';
 
 export const render = async (url, source) => {
   const req = new PipelineRequest(url, {
@@ -43,13 +43,18 @@ export const render = async (url, source) => {
   const state = new PipelineState({
     log,
     s3Loader,
-    owner: 'adobe',
-    repo: 'helix-pages',
     ref: 'super-test',
+    site: 'site',
+    org: 'org',
     partition: 'live',
     path: url.pathname,
     timer: {
       update: () => {},
+    },
+    config: {
+      owner: 'adobe',
+      repo: 'helix-pages',
+      contentBusId: 'foo-id',
     },
   });
   state.contentBusId = 'foo-id';
