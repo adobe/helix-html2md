@@ -30,6 +30,7 @@ import {
   TYPE_GRID_TABLE, TYPE_GT_BODY, TYPE_GT_CELL, TYPE_GT_HEADER, TYPE_GT_ROW, handleTableAsGridTable,
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
+import { getForms, processForms } from './process-forms.js';
 
 function m(type, children, props = {}) {
   return {
@@ -175,6 +176,13 @@ function createBlocks(main) {
             cell.tagName = 'td';
             numCols += 1;
             tableRow.children.push(cell);
+          } else if (cell.tagName === 'form') {
+            const formWrapper = {
+              type: 'element',
+              tagName: 'td',
+              children: [cell],
+            };
+            tableRow.children.push(formWrapper);
           }
         }
         maxCols = Math.max(maxCols, numCols);
@@ -235,6 +243,7 @@ function handleFormat(type) {
 export async function html2md(html, opts) {
   const { log, url, mediaHandler } = opts;
   const t0 = Date.now();
+  const forms = await getForms(html, opts);
   const hast = unified()
     .use(parse)
     .parse(html);
@@ -248,6 +257,7 @@ export async function html2md(html, opts) {
   processIcons(main);
   createSections(main);
   createBlocks(main);
+  processForms(main, forms);
 
   const mdast = toMdast(main, {
     handlers: {

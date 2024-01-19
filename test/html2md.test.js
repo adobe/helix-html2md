@@ -79,8 +79,15 @@ describe('html2md Tests', () => {
   it('convert a document with underling, sub-, and superscript', async () => {
     await test('sub-sup-u');
   });
-});
 
+  it('convert a document with site core form', async () => {
+    await test('site-form');
+  });
+
+  it('convert a Adaptive form page', async () => {
+    await test('af-form');
+  });
+});
 describe('className to block type tests', () => {
   it('simple', () => {
     assert.strictEqual(classNameToBlockType(['foo']), 'Foo');
