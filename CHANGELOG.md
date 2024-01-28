@@ -1,3 +1,10 @@
+## [2.5.5](https://github.com/adobe/helix-html2md/compare/v2.5.4...v2.5.5) (2024-01-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-admin-support to v2.3.16 ([2b4546f](https://github.com/adobe/helix-html2md/commit/2b4546fc95e15e885c5532736845240f8328ecc5))
+
 ## [2.5.4](https://github.com/adobe/helix-html2md/compare/v2.5.3...v2.5.4) (2024-01-27)
 
 
