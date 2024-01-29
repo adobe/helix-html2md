@@ -79,7 +79,7 @@
     "codecov": "3.8.3",
     "dotenv": "16.4.1",
     "eslint": "8.56.0",
-    "husky": "8.0.3",
+    "husky": "9.0.6",
     "junit-report-builder": "3.1.0",
     "lint-staged": "15.2.0",
     "mocha": "10.2.0",
