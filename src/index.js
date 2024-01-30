@@ -173,6 +173,7 @@ async function run(request, ctx) {
     mediaHandler,
     log,
     url,
+    reqHeaders,
   });
 
   const headers = {
