@@ -11,6 +11,7 @@
     "test-postdeploy": "mocha -g 'Post-Deploy' --spec=test/**/*.test.js",
     "lint": "eslint .",
     "semantic-release": "semantic-release",
+    "semantic-release-dry": "semantic-release --dry-run --branches $CIRCLE_BRANCH",
     "build": "hedy -v",
     "deploy": "hedy -v --deploy --test",
     "deploy-routes": "hedy --no-build --no-hints -l major",
