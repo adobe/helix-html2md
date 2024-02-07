@@ -29,7 +29,7 @@ And more...newcontent
 +-------------------+-----------------------------------------+
 | description       | Content is: sharepoint-/main/index.docx |
 +-------------------+-----------------------------------------+
-| serp-content-type | overlay                                 |
+| serp-content-type | product                                 |
 +-------------------+-----------------------------------------+
 `;
 
