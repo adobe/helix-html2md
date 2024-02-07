@@ -1,0 +1,109 @@
+name: Build
+on:
+  push:
+    branches-ignore:
+      - main
+env:
+  CIRCLE_BUILD_NUM: ${{ github.run_id }}
+  CIRCLE_BRANCH: ${{ github.ref_name }}
+
+permissions:
+  id-token: write
+  contents: write  # semantic-release-dry verifies the write permissions
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+      - run: npm install
+      - run: npm test
+      - uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  test-deploy:
+    name: Test Deploy
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref != 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+      - run: npm install
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::118435662149:role/helix-gh-deploy-config-service
+      - name: Fetch AWS Secrets
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        with:
+          parse-json-secrets: true
+          secret-ids: |
+            /helix/github-action-secrets
+      # see https://github.com/aws-actions/aws-secretsmanager-get-secrets/issues/11
+      - name: unprefix variables
+        run: |
+          for variable in "${!_HELIX_GITHUB_ACTION_SECRETS_@}"; do 
+            echo "${variable#_HELIX_GITHUB_ACTION_SECRETS_}=${!variable}" >> $GITHUB_ENV
+          done
+
+      - name: Branch Deployment
+        run: npm run deploy-ci
+        env:
+          HLX_TEST_HEADERS: ${{ secrets.HLX_TEST_HEADERS }}
+      - name: Post-Deployment Integration Test
+        run: npm run test-postdeploy
+        env:
+          HLX_TEST_HEADERS: ${{ secrets.HLX_TEST_HEADERS }}
+      - name: Semantic Release (Dry Run)
+        run: npm run semantic-release-dry
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+      - run: npm install
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::118435662149:role/helix-gh-deploy-config-service
+      - name: Fetch AWS Secrets
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        with:
+          parse-json-secrets: true
+          secret-ids: |
+            /helix/github-action-secrets
+      # see https://github.com/aws-actions/aws-secretsmanager-get-secrets/issues/11
+      - name: unprefix variables
+        run: |
+          for variable in "${!_HELIX_GITHUB_ACTION_SECRETS_@}"; do 
+            echo "${variable#_HELIX_GITHUB_ACTION_SECRETS_}=${!variable}" >> $GITHUB_ENV
+          done
+
+      - name: Semantic Release
+        run: npm run semantic-release
+        env:
+          HLX_TEST_HEADERS: ${{ secrets.HLX_TEST_HEADERS }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
