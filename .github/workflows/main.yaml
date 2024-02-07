@@ -1,8 +1,6 @@
 name: Build
-on:
-  push:
-    branches-ignore:
-      - main
+on: [push]
+
 env:
   CIRCLE_BUILD_NUM: ${{ github.run_id }}
   CIRCLE_BRANCH: ${{ github.ref_name }}
@@ -10,6 +8,7 @@ env:
 permissions:
   id-token: write
   contents: write  # semantic-release-dry verifies the write permissions
+  issues: read # needed by semantic-release
 
 jobs:
   test:
