@@ -81,7 +81,7 @@ describe('html2md Tests', () => {
   });
 
   it('convert a document with headline and soft breaks correctly', async () => {
-    await test('breaks');
+    await test('breaks-in-headings');
   });
 });
 
