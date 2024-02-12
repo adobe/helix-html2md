@@ -1,3 +1,11 @@
+# [2.6.0](https://github.com/adobe/helix-html2md/compare/v2.5.8...v2.6.0) (2024-02-12)
+
+
+### Features
+
+* Add sanitizeHeading function to html2md.js ([#411](https://github.com/adobe/helix-html2md/issues/411)) ([dee0154](https://github.com/adobe/helix-html2md/commit/dee015427b529a25f2c4dcf21e9f119849947c43))
+* forward x-content-source-location to origin ([#410](https://github.com/adobe/helix-html2md/issues/410)) ([e0262e4](https://github.com/adobe/helix-html2md/commit/e0262e460c855c6a6d77b4e6141469f639294b19))
+
 ## [2.5.8](https://github.com/adobe/helix-html2md/compare/v2.5.7...v2.5.8) (2024-02-11)
 
 
