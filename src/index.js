@@ -117,6 +117,11 @@ async function run(request, ctx) {
     reqHeaders.authorization = auth;
   }
 
+  const sourceLocation = request.headers.get('x-content-source-location');
+  if (sourceLocation) {
+    reqHeaders['x-content-source-location'] = sourceLocation;
+  }
+
   const res = await fetch(url, {
     headers: reqHeaders,
   });
