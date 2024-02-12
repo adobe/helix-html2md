@@ -21,6 +21,7 @@ import gfm from 'remark-gfm';
 import {
   imageReferences,
   sanitizeTextAndFormats,
+  sanitizeHeading,
 } from '@adobe/helix-markdown-support';
 import { remarkMatter } from '@adobe/helix-markdown-support/matter';
 import remarkGridTable from '@adobe/remark-gridtables';
@@ -263,6 +264,7 @@ export async function html2md(html, opts) {
 
   await processImages(log, mdast, mediaHandler, url);
   imageReferences(mdast);
+  sanitizeHeading(mdast);
   sanitizeTextAndFormats(mdast);
 
   // noinspection JSVoidFunctionReturnValueUsed
