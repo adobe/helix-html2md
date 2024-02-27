@@ -194,7 +194,7 @@ async function run(request, ctx) {
       filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
       blobAgent: `html2md-${pkgJson.version}`,
       noCache,
-      fetchTimeout: 115000, // limit image fetches to 5s
+      fetchTimeout: 5000, // limit image fetches to 5s
       forceHttp1: true,
     });
   }
