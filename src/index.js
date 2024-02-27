@@ -12,12 +12,18 @@
 import wrap from '@adobe/helix-shared-wrap';
 import { helixStatus } from '@adobe/helix-status';
 import bodyData from '@adobe/helix-shared-body-data';
-import { Response, h1NoCache } from '@adobe/fetch';
+import {
+  Response,
+  h1NoCache,
+  timeoutSignal,
+  AbortError,
+} from '@adobe/fetch';
 import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
 import { MediaHandler } from '@adobe/helix-mediahandler';
 import { fetchFstab, getContentBusId } from '@adobe/helix-admin-support';
 import pkgJson from './package.cjs';
 import { html2md } from './html2md.js';
+import { TooManyImagesError } from './mdast-process-images.js';
 
 /* c8 ignore next 7 */
 export const { fetch } = h1NoCache();
@@ -122,26 +128,44 @@ async function run(request, ctx) {
     reqHeaders['x-content-source-location'] = sourceLocation;
   }
 
-  const res = await fetch(url, {
-    headers: reqHeaders,
-  });
-  if (!res.ok) {
-    const { status } = res;
-    if (status >= 400 && status < 500) {
-      switch (status) {
-        case 401:
-        case 403:
-        case 404:
-          return error(`resource not found: ${url}`, status);
-        default:
-          return error(`error fetching resource at ${url}`, status);
+  let html;
+  let res;
+  // limit response time of content provider to 10s
+  const signal = timeoutSignal(ctx.env?.HTML_FETCH_TIMEOUT || 10_000);
+  try {
+    res = await fetch(url, {
+      headers: reqHeaders,
+      signal,
+    });
+    html = await res.text();
+    if (!res.ok) {
+      const { status } = res;
+      if (status >= 400 && status < 500) {
+        switch (status) {
+          case 401:
+          case 403:
+          case 404:
+            return error(`resource not found: ${url}`, status);
+          default:
+            return error(`error fetching resource at ${url}`, status);
+        }
+      } else {
+        // propagate other errors as 502
+        return error(`error fetching resource at ${url}: ${status}`, 502);
       }
-    } else {
-      // propagate other errors as 502
-      return error(`error fetching resource at ${url}: ${status}`, 502);
     }
+    // limit response size of content provider to 1mb
+    if (html.length > 1024 * 1024) {
+      return error(`error fetching resource at ${url}: html source larger than 1mb`, 409);
+    }
+  } catch (e) {
+    if (e instanceof AbortError) {
+      return error(`error fetching resource at ${url}: timeout after 10s`, 504);
+    }
+    return error(`error fetching resource at ${url}: ${e.message}`, 502);
+  } finally {
+    signal.clear();
   }
-  const html = await res.text();
 
   // only use media handler when loaded via fstab. otherwise images are not processed.
   let mediaHandler;
@@ -170,32 +194,43 @@ async function run(request, ctx) {
       filter: /* c8 ignore next */ (blob) => ((blob.contentType || '').startsWith('image/')),
       blobAgent: `html2md-${pkgJson.version}`,
       noCache,
+      fetchTimeout: 115000, // limit image fetches to 5s
       forceHttp1: true,
     });
   }
 
-  const md = await html2md(html, {
-    mediaHandler,
-    log,
-    url,
-  });
+  try {
+    const md = await html2md(html, {
+      mediaHandler,
+      log,
+      url,
+    });
 
-  const headers = {
-    'content-type': 'text/markdown; charset=utf-8',
-    'content-length': md.length,
-    'cache-control': 'no-store, private, must-revalidate',
-    'x-source-location': cleanupHeaderValue(url),
-  };
+    const headers = {
+      'content-type': 'text/markdown; charset=utf-8',
+      'content-length': md.length,
+      'cache-control': 'no-store, private, must-revalidate',
+      'x-source-location': cleanupHeaderValue(url),
+    };
 
-  const lastMod = res.headers.get('last-modified');
-  if (lastMod) {
-    headers['last-modified'] = lastMod;
+    const lastMod = res.headers.get('last-modified');
+    if (lastMod) {
+      headers['last-modified'] = lastMod;
+    }
+
+    return new Response(md, {
+      status: 200,
+      headers,
+    });
+  } catch (e) {
+    if (e instanceof TooManyImagesError) {
+      return error(`error fetching resource at ${url}: ${e.message}`, 409);
+    }
+    /* c8 ignore next 2 */
+    return error(`error fetching resource at ${url}: ${e.message}`, 500);
+  } finally {
+    await mediaHandler?.fetchContext.reset();
   }
-
-  return new Response(md, {
-    status: 200,
-    headers,
-  });
 }
 
 export const main = wrap(run)

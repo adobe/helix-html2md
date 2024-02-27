@@ -126,7 +126,7 @@ describe('Index Tests', () => {
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
-          'content-length': '811',
+          'content-length': '824',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
@@ -188,7 +188,7 @@ describe('Index Tests', () => {
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
-          'content-length': '811',
+          'content-length': '824',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
@@ -409,7 +409,45 @@ mountpoints:
     });
   });
 
-  it('returns 502 for am error response', async () => {
+  it('returns 409 for too many different images', async () => {
+    let html = '<html><body><main><div>';
+    for (let i = 0; i < 101; i += 1) {
+      html += `<img src="/image-${i}.png">`;
+    }
+    html += '</div></main></body>';
+
+    nock.fstab();
+    nock('https://www.example.com')
+      .get('/')
+      .reply(200, html);
+
+    const result = await main(reqUrl('/'), { log: console, env: {} });
+    assert.strictEqual(result.status, 409);
+    assert.strictEqual(await result.text(), '');
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-type': 'text/plain; charset=utf-8',
+      'x-error': 'error fetching resource at https://www.example.com/: maximum number of images reached: 101 of 100 max.',
+    });
+  });
+
+  it('returns 409 for a large html', async () => {
+    nock.fstab();
+    nock('https://www.example.com')
+      .get('/')
+      .reply(200, 'x'.repeat(1024 ** 2 + 1));
+
+    const result = await main(reqUrl('/'), { log: console });
+    assert.strictEqual(result.status, 409);
+    assert.strictEqual(await result.text(), '');
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-type': 'text/plain; charset=utf-8',
+      'x-error': 'error fetching resource at https://www.example.com/: html source larger than 1mb',
+    });
+  });
+
+  it('returns 502 for a error response', async () => {
     nock.fstab();
     nock('https://www.example.com')
       .get('/')
@@ -422,6 +460,39 @@ mountpoints:
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
       'x-error': 'error fetching resource at https://www.example.com/: 500',
+    });
+  });
+
+  it('returns 502 for a fetch error', async () => {
+    nock.fstab();
+    nock('https://www.example.com')
+      .get('/')
+      .replyWithError(new Error('boom!'));
+
+    const result = await main(reqUrl('/'), { log: console });
+    assert.strictEqual(result.status, 502);
+    assert.strictEqual(await result.text(), '');
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-type': 'text/plain; charset=utf-8',
+      'x-error': 'error fetching resource at https://www.example.com/: boom!',
+    });
+  });
+
+  it('returns 504 when html fetch times out', async () => {
+    nock.fstab();
+    nock('https://www.example.com')
+      .get('/')
+      .delay(100)
+      .reply(404);
+
+    const result = await main(reqUrl('/'), { log: console, env: { HTML_FETCH_TIMEOUT: 10 } });
+    assert.strictEqual(result.status, 504);
+    assert.strictEqual(await result.text(), '');
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-type': 'text/plain; charset=utf-8',
+      'x-error': 'error fetching resource at https://www.example.com/: timeout after 10s',
     });
   });
 });
