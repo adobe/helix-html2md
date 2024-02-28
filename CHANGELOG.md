@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/adobe/helix-html2md/compare/v2.6.2...v2.7.0) (2024-02-28)
+
+
+### Features
+
+* add limits ([5ff8cec](https://github.com/adobe/helix-html2md/commit/5ff8cecf64ee898f7c440742d381475997074509)), closes [#420](https://github.com/adobe/helix-html2md/issues/420)
+
 ## [2.6.2](https://github.com/adobe/helix-html2md/compare/v2.6.1...v2.6.2) (2024-02-25)
 
 
