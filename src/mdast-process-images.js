@@ -9,8 +9,11 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import { visit } from 'unist-util-visit';
+import { visit, CONTINUE } from 'unist-util-visit';
 import processQueue from '@adobe/helix-shared-process-queue';
+
+export class TooManyImagesError extends Error {
+}
 
 /**
  * Process images
@@ -24,33 +27,48 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
     return;
   }
   // gather all image nodes
-  const images = [];
+  const images = new Map();
+  const register = (node) => {
+    if (images.has(node.url)) {
+      images.get(node.url).push(node);
+    } else {
+      images.set(node.url, [node]);
+    }
+  };
+
   visit(tree, (node) => {
     if (node.type === 'image') {
       const { url = '' } = node;
       if (url.indexOf(':') < 0) {
         // eslint-disable-next-line no-param-reassign
         node.url = new URL(url, baseUrl).href;
-        images.push(node);
+        register(node);
       } else if (url.startsWith('https://')) {
-        images.push(node);
+        register(node);
       }
     }
-    return visit.CONTINUE;
+    return CONTINUE;
   });
 
+  if (images.size > 100) {
+    throw new TooManyImagesError(`maximum number of images reached: ${images.size} of 100 max.`);
+  }
+
   // upload images
-  await processQueue(images, async (node) => {
-    const { url } = node;
+  await processQueue(images.entries(), async ([url, nodes]) => {
     try {
-      const blob = await mediaHandler.getBlob(node.url, baseUrl);
+      const blob = await mediaHandler.getBlob(url, baseUrl);
       // eslint-disable-next-line no-param-reassign
-      node.url = blob?.uri || 'about:error';
+      url = blob?.uri || 'about:error';
+      /* c8 ignore next 6 */
     } catch (e) {
       // in case of invalid urls, or other errors
       log.warn(`Failed to fetch image for url '${url}': ${e.message}`);
       // eslint-disable-next-line no-param-reassign
-      node.url = 'about:error';
+      url = 'about:error';
+    }
+    for (const node of nodes) {
+      node.url = url;
     }
   }, 8);
 }
