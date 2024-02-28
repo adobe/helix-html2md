@@ -1,3 +1,10 @@
+## [2.7.2](https://github.com/adobe/helix-html2md/compare/v2.7.1...v2.7.2) (2024-02-28)
+
+
+### Bug Fixes
+
+* update remark-gridtables ([#424](https://github.com/adobe/helix-html2md/issues/424)) ([2c9f832](https://github.com/adobe/helix-html2md/commit/2c9f832f6dfbf91dae5a15ae194519e226d31a2f)), closes [#423](https://github.com/adobe/helix-html2md/issues/423)
+
 ## [2.7.1](https://github.com/adobe/helix-html2md/compare/v2.7.0...v2.7.1) (2024-02-28)
 
 
