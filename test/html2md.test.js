@@ -83,6 +83,10 @@ describe('html2md Tests', () => {
   it('convert a document with headline and soft breaks correctly', async () => {
     await test('breaks-in-headings');
   });
+
+  it('convert a document with self-closing breaks correctly', async () => {
+    await test('self-closing-breaks');
+  });
 });
 
 describe('className to block type tests', () => {
