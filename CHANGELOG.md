@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/adobe/helix-html2md/compare/v2.7.8...v2.8.0) (2024-03-13)
+
+
+### Features
+
+* return severity header ([#435](https://github.com/adobe/helix-html2md/issues/435)) ([745bb83](https://github.com/adobe/helix-html2md/commit/745bb838c382625c55298ec0af288efbac4ce15b))
+
 ## [2.7.8](https://github.com/adobe/helix-html2md/compare/v2.7.7...v2.7.8) (2024-03-10)
 
 
