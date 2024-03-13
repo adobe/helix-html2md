@@ -152,7 +152,7 @@ async function run(request, ctx) {
         }
       } else {
         // propagate other errors as 502
-        return error(`error fetching resource at ${url}: ${status}`, 502);
+        return error(`error fetching resource at ${url}: ${status}`, 502, 'warn');
       }
     }
     // limit response size of content provider to 1mb
@@ -163,7 +163,7 @@ async function run(request, ctx) {
     if (e instanceof AbortError) {
       return error(`error fetching resource at ${url}: timeout after 10s`, 504, 'warn');
     }
-    return error(`error fetching resource at ${url}: ${e.message}`, 502);
+    return error(`error fetching resource at ${url}: ${e.message}`, 502, 'warn');
   } finally {
     signal.clear();
   }
