@@ -460,6 +460,7 @@ mountpoints:
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
       'x-error': 'error fetching resource at https://www.example.com/: 500',
+      'x-severity': 'warn',
     });
   });
 
@@ -476,6 +477,7 @@ mountpoints:
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
       'x-error': 'error fetching resource at https://www.example.com/: boom!',
+      'x-severity': 'warn',
     });
   });
 
@@ -493,6 +495,7 @@ mountpoints:
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
       'x-error': 'error fetching resource at https://www.example.com/: timeout after 10s',
+      'x-severity': 'warn',
     });
   });
 });

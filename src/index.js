@@ -31,17 +31,18 @@ export const { fetch } = h1NoCache();
 /**
  * Generates an error response
  * @param {string} message - error message
- * @param {number} statusCode - error code.
+ * @param {number} status - error code.
  * @returns {Response} A response object.
  */
-export function error(message, statusCode = 500) {
-  return new Response('', {
-    status: statusCode,
-    headers: {
-      'Cache-Control': 'no-store, private, must-revalidate',
-      'x-error': cleanupHeaderValue(message),
-    },
-  });
+export function error(message, status = 500, severity = null) {
+  const headers = {
+    'Cache-Control': 'no-store, private, must-revalidate',
+    'x-error': cleanupHeaderValue(message),
+  };
+  if (severity) {
+    headers['x-severity'] = severity;
+  }
+  return new Response('', { status, headers });
 }
 
 /**
@@ -151,7 +152,7 @@ async function run(request, ctx) {
         }
       } else {
         // propagate other errors as 502
-        return error(`error fetching resource at ${url}: ${status}`, 502);
+        return error(`error fetching resource at ${url}: ${status}`, 502, 'warn');
       }
     }
     // limit response size of content provider to 1mb
@@ -160,9 +161,9 @@ async function run(request, ctx) {
     }
   } catch (e) {
     if (e instanceof AbortError) {
-      return error(`error fetching resource at ${url}: timeout after 10s`, 504);
+      return error(`error fetching resource at ${url}: timeout after 10s`, 504, 'warn');
     }
-    return error(`error fetching resource at ${url}: ${e.message}`, 502);
+    return error(`error fetching resource at ${url}: ${e.message}`, 502, 'warn');
   } finally {
     signal.clear();
   }
