@@ -134,6 +134,11 @@ export function classNameToBlockType(className) {
   return blockType;
 }
 
+function isBlockEmpty(block) {
+  return block.children.length === 0
+    || (block.children.length === 1 && block.children[0].type === 'text' && block.children[0].value.trim() === '');
+}
+
 /**
  * Detects blocks and converts the divs to `block` tags, which are later converted to tables.
  * @param main
@@ -151,7 +156,7 @@ function createBlocks(main) {
     // validate 'table structure'
     const rows = [];
     let maxCols = 0;
-    if (block.children.length === 0) {
+    if (isBlockEmpty(block)) {
       maxCols = 1;
       const tableRow = {
         type: 'element',
