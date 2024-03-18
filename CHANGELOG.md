@@ -1,3 +1,10 @@
+## [2.8.4](https://github.com/adobe/helix-html2md/compare/v2.8.3...v2.8.4) (2024-03-18)
+
+
+### Bug Fixes
+
+* keep empty blocks that contain only blank text ([#439](https://github.com/adobe/helix-html2md/issues/439)) ([886fbeb](https://github.com/adobe/helix-html2md/commit/886fbeb1cb2d6fb86a1bb5190e61805a7587b649))
+
 ## [2.8.3](https://github.com/adobe/helix-html2md/compare/v2.8.2...v2.8.3) (2024-03-17)
 
 
