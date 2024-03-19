@@ -50,7 +50,7 @@
     "@adobe/fetch": "4.1.1",
     "@adobe/helix-admin-support": "2.5.2",
     "@adobe/helix-markdown-support": "7.1.0",
-    "@adobe/helix-mediahandler": "2.4.15",
+    "@adobe/helix-mediahandler": "2.4.16",
     "@adobe/helix-shared-body-data": "2.0.2",
     "@adobe/helix-shared-process-queue": "3.0.1",
     "@adobe/helix-shared-utils": "3.0.1",
