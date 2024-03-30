@@ -1,3 +1,10 @@
+## [2.8.8](https://github.com/adobe/helix-html2md/compare/v2.8.7...v2.8.8) (2024-03-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-shared-process-queue to v3.0.2 ([15456d0](https://github.com/adobe/helix-html2md/commit/15456d01f70e8b4f6969bd5053c4b5db18df8916))
+
 ## [2.8.7](https://github.com/adobe/helix-html2md/compare/v2.8.6...v2.8.7) (2024-03-24)
 
 
