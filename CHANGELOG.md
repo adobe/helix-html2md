@@ -1,3 +1,10 @@
+## [2.8.18](https://github.com/adobe/helix-html2md/compare/v2.8.17...v2.8.18) (2024-04-17)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#461](https://github.com/adobe/helix-html2md/issues/461)) ([9ff903b](https://github.com/adobe/helix-html2md/commit/9ff903be6a3189e29b052546ce1713f472630a19))
+
 ## [2.8.17](https://github.com/adobe/helix-html2md/compare/v2.8.16...v2.8.17) (2024-04-17)
 
 
