@@ -60,6 +60,10 @@ describe('html2md Tests', () => {
     await test('blocks');
   });
 
+  it('converts a document with blocks with colspans', async () => {
+    await test('blocks-with-colspan');
+  });
+
   it('converts a document with multiple sections', async () => {
     await test('multiple-sections');
   });

@@ -204,15 +204,21 @@ function createBlocks(main) {
 function handleBlockAsGridTable(state, node) {
   const rows = state.all(node);
 
+  const { type, numCols } = node.data;
   for (const row of rows) {
     row.type = TYPE_GT_ROW;
-    for (const cell of row.children) {
+    const cells = row.children;
+    const noOfCells = cells.length;
+    for (let idx = 0; idx < noOfCells; idx += 1) {
+      const cell = cells[idx];
       cell.type = TYPE_GT_CELL;
+      if (idx === noOfCells - 1 && noOfCells < numCols) {
+        cell.colSpan = numCols;
+      }
     }
   }
 
   // add header row
-  const { type, numCols } = node.data;
   const th = m(TYPE_GT_CELL, [text(type)]);
   if (numCols > 1) {
     th.colSpan = numCols;
