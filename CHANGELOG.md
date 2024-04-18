@@ -1,3 +1,10 @@
+## [2.8.20](https://github.com/adobe/helix-html2md/compare/v2.8.19...v2.8.20) (2024-04-18)
+
+
+### Bug Fixes
+
+* Create col spans for expanding trailing cells ([8fb34ed](https://github.com/adobe/helix-html2md/commit/8fb34ed3c6c5a91dfbd538455797a2ca46bfa133)), closes [#463](https://github.com/adobe/helix-html2md/issues/463)
+
 ## [2.8.19](https://github.com/adobe/helix-html2md/compare/v2.8.18...v2.8.19) (2024-04-17)
 
 
