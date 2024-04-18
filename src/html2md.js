@@ -213,7 +213,7 @@ function handleBlockAsGridTable(state, node) {
       const cell = cells[idx];
       cell.type = TYPE_GT_CELL;
       if (idx === noOfCells - 1 && noOfCells < numCols) {
-        cell.colSpan = numCols;
+        cell.colSpan = numCols - idx;
       }
     }
   }
