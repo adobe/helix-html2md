@@ -1,3 +1,10 @@
+## [2.8.21](https://github.com/adobe/helix-html2md/compare/v2.8.20...v2.8.21) (2024-04-18)
+
+
+### Bug Fixes
+
+* trigger release ([2051fcd](https://github.com/adobe/helix-html2md/commit/2051fcdcf4dd660c98374f3b312bf4098fdf02e2))
+
 ## [2.8.20](https://github.com/adobe/helix-html2md/compare/v2.8.19...v2.8.20) (2024-04-18)
 
 
