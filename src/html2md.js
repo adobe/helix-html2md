@@ -28,7 +28,7 @@ import remarkGridTable from '@adobe/remark-gridtables';
 import { processImages } from './mdast-process-images.js';
 import { processIcons } from './hast-process-icons.js';
 import {
-  TYPE_GRID_TABLE, TYPE_GT_BODY, TYPE_GT_CELL, TYPE_GT_HEADER, TYPE_GT_ROW, handleTableAsGridTable,
+  TYPE_GRID_TABLE, TYPE_GT_BODY, TYPE_GT_CELL, TYPE_GT_ROW, handleTableAsGridTable,
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
 
@@ -59,20 +59,19 @@ const HELIX_META = new Set(Array.from([
 
 function toGridTable(title, data) {
   return m(TYPE_GRID_TABLE, [
-    m(TYPE_GT_HEADER, [
-      m(TYPE_GT_ROW, [
+    m(
+      TYPE_GT_BODY,
+      [m(TYPE_GT_ROW, [
         m(TYPE_GT_CELL, [
           text(title),
         ], { colSpan: data[0].length }),
-      ])]),
-    m(
-      TYPE_GT_BODY,
-      data.map((row) => m(
+      ]),
+      ...(data.map((row) => m(
         TYPE_GT_ROW,
         row.map((cell) => m(TYPE_GT_CELL, [
           cell,
         ])),
-      )),
+      )))],
     ),
   ]);
 }
@@ -205,30 +204,36 @@ function handleBlockAsGridTable(state, node) {
   const rows = state.all(node);
 
   const { type, numCols } = node.data;
-  for (const row of rows) {
+  const blockRows = node.children;
+  for (let rowIdx = 0; rowIdx < rows.length; rowIdx += 1) {
+    const row = rows[rowIdx];
     row.type = TYPE_GT_ROW;
     const cells = row.children;
+    const blockCells = blockRows[rowIdx].children;
     const noOfCells = cells.length;
     for (let idx = 0; idx < noOfCells; idx += 1) {
+      const blockCell = blockCells[idx];
       const cell = cells[idx];
       cell.type = TYPE_GT_CELL;
       if (idx === noOfCells - 1 && noOfCells < numCols) {
         cell.colSpan = numCols - idx;
       }
+      const blockProperties = blockCell?.properties;
+      if (blockProperties) {
+        cell.align = blockProperties?.dataAlign;
+        cell.valign = blockProperties?.dataValign;
+      }
     }
   }
 
-  // add header row
-  const th = m(TYPE_GT_CELL, [text(type)]);
+  // add block name row
+  const tr = m(TYPE_GT_CELL, [text(type)]);
   if (numCols > 1) {
-    th.colSpan = numCols;
+    tr.colSpan = numCols;
   }
 
   // create table header and body
-  const children = [
-    m(TYPE_GT_HEADER, [m(TYPE_GT_ROW, [th])]),
-    m(TYPE_GT_BODY, rows),
-  ];
+  const children = [m(TYPE_GT_BODY, [m(TYPE_GT_ROW, [tr]), ...rows])];
   return m(TYPE_GRID_TABLE, children);
 }
 

@@ -64,6 +64,10 @@ describe('html2md Tests', () => {
     await test('blocks-with-colspan');
   });
 
+  it('converts a document with blocks with alignment correctly', async () => {
+    await test('blocks-with-alignment');
+  });
+
   it('converts a document with multiple sections', async () => {
     await test('multiple-sections');
   });
