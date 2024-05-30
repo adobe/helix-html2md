@@ -1,3 +1,10 @@
+## [2.8.25](https://github.com/adobe/helix-html2md/compare/v2.8.24...v2.8.25) (2024-05-30)
+
+
+### Bug Fixes
+
+* block name row, alignment info ([#480](https://github.com/adobe/helix-html2md/issues/480)) ([3a742b6](https://github.com/adobe/helix-html2md/commit/3a742b6e03d0f5e13af42097b4fc1f1faf323673)), closes [#474](https://github.com/adobe/helix-html2md/issues/474) [#475](https://github.com/adobe/helix-html2md/issues/475)
+
 ## [2.8.24](https://github.com/adobe/helix-html2md/compare/v2.8.23...v2.8.24) (2024-05-25)
 
 
