@@ -1,3 +1,10 @@
+## [2.8.27](https://github.com/adobe/helix-html2md/compare/v2.8.26...v2.8.27) (2024-06-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-mediahandler to v2.5.6 ([b73b2be](https://github.com/adobe/helix-html2md/commit/b73b2be14da82f96895b7a58a0baf37d59542c1a))
+
 ## [2.8.26](https://github.com/adobe/helix-html2md/compare/v2.8.25...v2.8.26) (2024-06-02)
 
 
