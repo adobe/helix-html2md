@@ -1,3 +1,10 @@
+## [2.8.29](https://github.com/adobe/helix-html2md/compare/v2.8.28...v2.8.29) (2024-06-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-admin-support to v2.8.9 ([ccf3a58](https://github.com/adobe/helix-html2md/commit/ccf3a58392ac29845d425b995c4fcb0f9ab6b4a5))
+
 ## [2.8.28](https://github.com/adobe/helix-html2md/compare/v2.8.27...v2.8.28) (2024-06-04)
 
 
