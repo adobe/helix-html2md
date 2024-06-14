@@ -95,7 +95,9 @@ export function createImgSrcPolicy(baseUrlStr, imgSrcPolicy) {
  */
 async function run(request, ctx) {
   const { log } = ctx;
-  const { owner, repo, path } = ctx.data;
+  const {
+    owner, repo, path, sourceUrl, site, org, contentBusId: contentBusIdParam,
+  } = ctx.data;
   ctx.attributes = {};
 
   // resolve url via fstab
@@ -117,6 +119,16 @@ async function run(request, ctx) {
     : mpUrl.pathname;
   const url = new URL(mpPathname + relPath, mp.url).href;
   const contentBusId = await getContentBusId(ctx, ctx.data);
+
+  if (contentBusIdParam !== contentBusId) {
+    log.warn(`[${owner}/${repo}] contentBusId mismatch: ${contentBusIdParam} !== ${contentBusId}`);
+  }
+  if (sourceUrl !== url) {
+    log.warn(`[${owner}/${repo}] sourceUrl mismatch: ${sourceUrl} !== ${url}`);
+  }
+  if (site !== repo || org !== owner) {
+    log.warn(`[${owner}/${repo}] site/org mismatch: ${site} !== ${repo} || ${org} !== ${owner}`);
+  }
 
   const reqHeaders = {};
   const auth = request.headers.get('authorization');
