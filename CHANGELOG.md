@@ -1,3 +1,10 @@
+# [2.9.0](https://github.com/adobe/helix-html2md/compare/v2.8.31...v2.9.0) (2024-06-14)
+
+
+### Features
+
+* enable debugging for new payload ([5c7049a](https://github.com/adobe/helix-html2md/commit/5c7049af0407835b4ea4822b6a351e15b31655be))
+
 ## [2.8.31](https://github.com/adobe/helix-html2md/compare/v2.8.30...v2.8.31) (2024-06-09)
 
 
