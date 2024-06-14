@@ -126,8 +126,11 @@ async function run(request, ctx) {
   if (sourceUrl !== url) {
     log.warn(`[${owner}/${repo}] sourceUrl mismatch: ${sourceUrl} !== ${url}`);
   }
-  if (site !== repo || org !== owner) {
-    log.warn(`[${owner}/${repo}] site/org mismatch: ${site} !== ${repo} || ${org} !== ${owner}`);
+  if (org !== owner) {
+    log.warn(`[${owner}/${repo}] org mismatch: ${org} !== ${owner}`);
+  }
+  if (site !== repo) {
+    log.warn(`[${owner}/${repo}] site mismatch: ${site} !== ${repo}`);
   }
 
   const reqHeaders = {};
