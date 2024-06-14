@@ -24,8 +24,8 @@ export class OpenwhiskTarget {
       name: packjson.name.replace('@adobe/helix-', ''),
       version: String(packjson.version),
     }, opts);
-    if (process.env.CI && process.env.CIRCLE_BUILD_NUM && process.env.CIRCLE_BRANCH !== 'main' && !opts.version) {
-      this.version = `ci${process.env.CIRCLE_BUILD_NUM}`;
+    if (process.env.CI && process.env.CI_BUILD_NUM && process.env.CI_BRANCH !== 'main' && !opts.version) {
+      this.version = `ci${process.env.CI_BUILD_NUM}`;
     }
     this.headers = process.env.HLX_TEST_HEADERS ? JSON.parse(process.env.HLX_TEST_HEADERS) : {};
   }
