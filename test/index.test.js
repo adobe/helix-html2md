@@ -18,11 +18,12 @@ import { Request } from '@adobe/fetch';
 import { main } from '../src/index.js';
 import { Nock } from './utils.js';
 
-function reqUrl(path = '', init = {}) {
+function reqUrl(path = '/', init = {}) {
   const url = new URL('https://localhost');
-  url.searchParams.append('owner', 'owner');
-  url.searchParams.append('repo', 'repo');
-  url.searchParams.append('path', path);
+  url.searchParams.append('org', 'owner');
+  url.searchParams.append('site', 'repo');
+  url.searchParams.append('sourceUrl', `https://www.example.com${path}`);
+  url.searchParams.append('contentBusId', 'foo-id');
   return new Request(url.href, init);
 }
 
@@ -51,19 +52,20 @@ describe('Index Tests', () => {
     nock.done();
   });
 
-  for (const param of ['path', 'owner', 'repo']) {
+  for (const param of ['sourceUrl', 'site', 'org', 'contentBusId']) {
     it(`returns 400 for missing ${param}`, async () => {
       const url = new URL('https://localhost');
-      url.searchParams.append('path', '/index.html');
-      url.searchParams.append('owner', 'owner');
-      url.searchParams.append('repo', 'repo');
+      url.searchParams.append('sourceUrl', 'https://www.example.com/foo.html');
+      url.searchParams.append('org', 'org');
+      url.searchParams.append('site', 'site');
+      url.searchParams.append('contentBusId', 'contentBusId');
       url.searchParams.delete(param);
       const result = await main(new Request(url.href), { log: console });
       assert.strictEqual(result.status, 400);
       assert.deepStrictEqual(result.headers.plain(), {
         'cache-control': 'no-store, private, must-revalidate',
         'content-type': 'text/plain; charset=utf-8',
-        'x-error': 'path, owner and repo parameters are required.',
+        'x-error': 'sourceUrl, site, org and contentBusID parameters are required.',
       });
     });
   }
@@ -84,7 +86,6 @@ describe('Index Tests', () => {
       it(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
         const headers = { authorization: 'Basic am9objpkb2U=' };
         const reqheaders = { ...headers };
-        nock.fstab();
         nock('https://www.example.com', { reqheaders })
           .get('/blog/article')
           .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
@@ -113,10 +114,10 @@ describe('Index Tests', () => {
             'content-type': 'image/png',
           });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
-          .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
+          .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
           .times(4)
           .reply(404)
-          .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
+          .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
           .times(4)
           .reply(201);
 
@@ -146,7 +147,6 @@ describe('Index Tests', () => {
     ].forEach((imgSrcPolicy) => {
       it(`does upload images to media-bus sending no auth with img-src policy '${imgSrcPolicy}'`, async () => {
         const headers = { authorization: 'Basic am9objpkb2U=' };
-        nock.fstab();
         nock('https://www.example.com', { reqheaders: { ...headers } })
           .get('/blog/article')
           .replyWithFile(200, resolve(__testdir, 'fixtures', 'images.html'), {
@@ -175,10 +175,10 @@ describe('Index Tests', () => {
             'content-type': 'image/png',
           });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
-          .head('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
+          .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
           .times(4)
           .reply(404)
-          .put('/49365e2b6b265ccba4bed01f5fa3cbcf6a028e5354d2b647f5eb37be735/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
+          .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
           .times(4)
           .reply(201);
 
@@ -197,29 +197,25 @@ describe('Index Tests', () => {
     });
   });
 
-  it('returns 200 for a simple html via path', async () => {
-    nock.fstab();
+  it('returns 200 for a simple html', async () => {
     nock('https://www.example.com', {
       reqheaders: {
         authorization: 'Bearer 1234',
         'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
       },
     })
-      .get('/index.html')
+      .get('/')
       .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
         'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
       });
     const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
     const result = await main(
-      reqUrl(
-        '/index.html',
-        {
-          headers: {
-            authorization: 'Bearer 1234',
-            'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
-          },
+      reqUrl('/', {
+        headers: {
+          authorization: 'Bearer 1234',
+          'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
         },
-      ),
+      }),
       {
         log: console,
         env: DUMMY_ENV,
@@ -232,152 +228,13 @@ describe('Index Tests', () => {
       'content-length': '157',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      'x-source-location': 'https://www.example.com/index.html',
+      'x-source-location': 'https://www.example.com/',
     });
   });
 
-  [
-    'https://www.example.com/content/mysite',
-    'https://www.example.com/content/mysite/',
-  ].forEach((mpUrl) => it(`returns 200 for a simple html via path and preserves mountpoint pathname: ${mpUrl}`, async () => {
-    nock.fstab(`
-mountpoints:
-  /:
-    url: ${mpUrl}
-    type: markup
-    suffix: '.semantic.html');
-`);
-    nock('https://www.example.com', {
-      reqheaders: {
-        authorization: 'Bearer 1234',
-      },
-    })
-      .get('/content/mysite/index.html')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
-        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      });
-    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-    const result = await main(reqUrl('/index.html', { headers: { authorization: 'Bearer 1234' } }), { log: console, env: DUMMY_ENV });
-    assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '157',
-      'content-type': 'text/markdown; charset=utf-8',
-      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      'x-source-location': 'https://www.example.com/content/mysite/index.html',
-    });
-  }));
-
-  it('returns 200 for deep index page', async () => {
-    nock.fstab();
-    nock('https://www.example.com', {
-      reqheaders: {
-        authorization: 'Bearer 1234',
-      },
-    })
-      .get('/blog/')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
-        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      });
-    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-
-    const url = new URL('https://localhost');
-    url.searchParams.append('path', '/blog/');
-    url.searchParams.append('owner', 'owner');
-    url.searchParams.append('repo', 'repo');
-    const req = new Request(url.href, {
-      headers: {
-        authorization: 'Bearer 1234',
-      },
-    });
-
-    const result = await main(req, { log: console, env: DUMMY_ENV });
-    assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '157',
-      'content-type': 'text/markdown; charset=utf-8',
-      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      'x-source-location': 'https://www.example.com/blog/',
-    });
-  });
-
-  it('returns 200 for md file', async () => {
-    nock.fstab();
-    nock('https://www.example.com', {
-      reqheaders: {
-        authorization: 'Bearer 1234',
-      },
-    })
-      .get('/blog')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
-        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      });
-    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-
-    const url = new URL('https://localhost');
-    url.searchParams.append('path', '/blog.md');
-    url.searchParams.append('owner', 'owner');
-    url.searchParams.append('repo', 'repo');
-    const req = new Request(url.href, {
-      headers: {
-        authorization: 'Bearer 1234',
-      },
-    });
-
-    const result = await main(req, { log: console, env: DUMMY_ENV });
-    assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '157',
-      'content-type': 'text/markdown; charset=utf-8',
-      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      'x-source-location': 'https://www.example.com/blog',
-    });
-  });
-
-  it('returns 200 for md index', async () => {
-    nock.fstab();
-    nock('https://www.example.com', {
-      reqheaders: {
-        authorization: 'Bearer 1234',
-      },
-    })
-      .get('/blog/')
-      .replyWithFile(200, resolve(__testdir, 'fixtures', 'simple.html'), {
-        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      });
-    const expected = await readFile(resolve(__testdir, 'fixtures', 'simple.md'), 'utf-8');
-
-    const url = new URL('https://localhost');
-    url.searchParams.append('path', '/blog/index.md');
-    url.searchParams.append('owner', 'owner');
-    url.searchParams.append('repo', 'repo');
-    const req = new Request(url.href, {
-      headers: {
-        authorization: 'Bearer 1234',
-      },
-    });
-
-    const result = await main(req, { log: console, env: DUMMY_ENV });
-    assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-length': '157',
-      'content-type': 'text/markdown; charset=utf-8',
-      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
-      'x-source-location': 'https://www.example.com/blog/',
-    });
-  });
-
-  for (const status of [401, 403, 404]) {
+  for (const status of [400, 401, 403, 404]) {
     // eslint-disable-next-line no-loop-func
     it(`returns ${status} for a ${status} response`, async () => {
-      nock.fstab();
       nock('https://www.example.com')
         .get('/')
         .reply(status);
@@ -388,26 +245,12 @@ mountpoints:
       assert.deepStrictEqual(result.headers.plain(), {
         'cache-control': 'no-store, private, must-revalidate',
         'content-type': 'text/plain; charset=utf-8',
-        'x-error': 'resource not found: https://www.example.com/',
+        'x-error': status === 400
+          ? 'error fetching resource at https://www.example.com/'
+          : 'resource not found: https://www.example.com/',
       });
     });
   }
-
-  it('returns 400 for a 400 response', async () => {
-    nock.fstab();
-    nock('https://www.example.com')
-      .get('/')
-      .reply(400);
-
-    const result = await main(reqUrl('/'), { log: console });
-    assert.strictEqual(result.status, 400);
-    assert.strictEqual(await result.text(), '');
-    assert.deepStrictEqual(result.headers.plain(), {
-      'cache-control': 'no-store, private, must-revalidate',
-      'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'error fetching resource at https://www.example.com/',
-    });
-  });
 
   it('returns 409 for too many different images', async () => {
     let html = '<html><body><main><div>';
@@ -416,7 +259,6 @@ mountpoints:
     }
     html += '</div></main></body>';
 
-    nock.fstab();
     nock('https://www.example.com')
       .get('/')
       .reply(200, html);
@@ -432,7 +274,6 @@ mountpoints:
   });
 
   it('returns 409 for a large html', async () => {
-    nock.fstab();
     nock('https://www.example.com')
       .get('/')
       .reply(200, 'x'.repeat(1024 ** 2 + 1));
@@ -448,7 +289,6 @@ mountpoints:
   });
 
   it('returns 502 for a error response', async () => {
-    nock.fstab();
     nock('https://www.example.com')
       .get('/')
       .reply(500);
@@ -465,7 +305,6 @@ mountpoints:
   });
 
   it('returns 502 for a fetch error', async () => {
-    nock.fstab();
     nock('https://www.example.com')
       .get('/')
       .replyWithError(new Error('boom!'));
@@ -482,7 +321,6 @@ mountpoints:
   });
 
   it('returns 504 when html fetch times out', async () => {
-    nock.fstab();
     nock('https://www.example.com')
       .get('/')
       .delay(100)

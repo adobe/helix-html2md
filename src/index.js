@@ -20,7 +20,6 @@ import {
 } from '@adobe/fetch';
 import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
 import { MediaHandler } from '@adobe/helix-mediahandler';
-import { fetchFstab, getContentBusId } from '@adobe/helix-admin-support';
 import pkgJson from './package.cjs';
 import { html2md } from './html2md.js';
 import { TooManyImagesError } from './mdast-process-images.js';
@@ -96,41 +95,13 @@ export function createImgSrcPolicy(baseUrlStr, imgSrcPolicy) {
 async function run(request, ctx) {
   const { log } = ctx;
   const {
-    owner, repo, path, sourceUrl, site, org, contentBusId: contentBusIdParam,
+    sourceUrl, site, org, contentBusId,
   } = ctx.data;
   ctx.attributes = {};
 
   // resolve url via fstab
-  if (!path || !owner || !repo) {
-    return error('path, owner and repo parameters are required.', 400);
-  }
-
-  const fstab = await fetchFstab(ctx, ctx.data);
-  const mp = fstab.match(path);
-  let { relPath } = mp;
-  if (relPath.endsWith('/index.md')) {
-    relPath = relPath.substring(0, relPath.length - 8);
-  } else if (relPath.endsWith('.md')) {
-    relPath = relPath.substring(0, relPath.length - 3);
-  }
-  const mpUrl = new URL(mp.url);
-  const mpPathname = mpUrl.pathname.endsWith('/')
-    ? mpUrl.pathname.substring(0, mpUrl.pathname.length - 1)
-    : mpUrl.pathname;
-  const url = new URL(mpPathname + relPath, mp.url).href;
-  const contentBusId = await getContentBusId(ctx, ctx.data);
-
-  if (contentBusIdParam !== contentBusId) {
-    log.warn(`[${owner}/${repo}] contentBusId mismatch: ${contentBusIdParam} !== ${contentBusId}`);
-  }
-  if (sourceUrl !== url) {
-    log.warn(`[${owner}/${repo}] sourceUrl mismatch: ${sourceUrl} !== ${url}`);
-  }
-  if (org !== owner) {
-    log.warn(`[${owner}/${repo}] org mismatch: ${org} !== ${owner}`);
-  }
-  if (site !== repo) {
-    log.warn(`[${owner}/${repo}] site mismatch: ${site} !== ${repo}`);
+  if (!sourceUrl || !site || !org || !contentBusId) {
+    return error('sourceUrl, site, org and contentBusID parameters are required.', 400);
   }
 
   const reqHeaders = {};
@@ -149,7 +120,7 @@ async function run(request, ctx) {
   // limit response time of content provider to 10s
   const signal = timeoutSignal(ctx.env?.HTML_FETCH_TIMEOUT || 10_000);
   try {
-    res = await fetch(url, {
+    res = await fetch(sourceUrl, {
       headers: reqHeaders,
       signal,
     });
@@ -161,24 +132,24 @@ async function run(request, ctx) {
           case 401:
           case 403:
           case 404:
-            return error(`resource not found: ${url}`, status);
+            return error(`resource not found: ${sourceUrl}`, status);
           default:
-            return error(`error fetching resource at ${url}`, status);
+            return error(`error fetching resource at ${sourceUrl}`, status);
         }
       } else {
         // propagate other errors as 502
-        return error(`error fetching resource at ${url}: ${status}`, 502, 'warn');
+        return error(`error fetching resource at ${sourceUrl}: ${status}`, 502, 'warn');
       }
     }
     // limit response size of content provider to 1mb
     if (html.length > 1024 * 1024) {
-      return error(`error fetching resource at ${url}: html source larger than 1mb`, 409);
+      return error(`error fetching resource at ${sourceUrl}: html source larger than 1mb`, 409);
     }
   } catch (e) {
     if (e instanceof AbortError) {
-      return error(`error fetching resource at ${url}: timeout after 10s`, 504, 'warn');
+      return error(`error fetching resource at ${sourceUrl}: timeout after 10s`, 504, 'warn');
     }
-    return error(`error fetching resource at ${url}: ${e.message}`, 502, 'warn');
+    return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 502, 'warn');
   } finally {
     signal.clear();
   }
@@ -190,7 +161,7 @@ async function run(request, ctx) {
     if (imgSrc.indexOf('self') < 0) {
       imgSrc.push('self');
     }
-    const imgSrcPolicy = createImgSrcPolicy(url, imgSrc);
+    const imgSrcPolicy = createImgSrcPolicy(sourceUrl, imgSrc);
     const {
       MEDIAHANDLER_NOCACHHE: noCache,
       CLOUDFLARE_ACCOUNT_ID: r2AccountId,
@@ -201,8 +172,8 @@ async function run(request, ctx) {
       r2AccountId,
       r2AccessKeyId,
       r2SecretAccessKey,
-      owner,
-      repo,
+      owner: org,
+      repo: site,
       ref: 'main',
       contentBusId,
       log,
@@ -219,14 +190,14 @@ async function run(request, ctx) {
     const md = await html2md(html, {
       mediaHandler,
       log,
-      url,
+      url: sourceUrl,
     });
 
     const headers = {
       'content-type': 'text/markdown; charset=utf-8',
       'content-length': md.length,
       'cache-control': 'no-store, private, must-revalidate',
-      'x-source-location': cleanupHeaderValue(url),
+      'x-source-location': cleanupHeaderValue(sourceUrl),
     };
 
     const lastMod = res.headers.get('last-modified');
@@ -240,10 +211,10 @@ async function run(request, ctx) {
     });
   } catch (e) {
     if (e instanceof TooManyImagesError) {
-      return error(`error fetching resource at ${url}: ${e.message}`, 409);
+      return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 409);
     }
     /* c8 ignore next 2 */
-    return error(`error fetching resource at ${url}: ${e.message}`, 500);
+    return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 500);
   } finally {
     await mediaHandler?.fetchContext.reset();
   }
