@@ -1,3 +1,10 @@
+# [2.10.0](https://github.com/adobe/helix-html2md/compare/v2.9.2...v2.10.0) (2024-06-17)
+
+
+### Features
+
+* use source url passed via params ([#496](https://github.com/adobe/helix-html2md/issues/496)) ([45d1cef](https://github.com/adobe/helix-html2md/commit/45d1cefaff8eda5ab78cb6169059b3fdb8b42834))
+
 ## [2.9.2](https://github.com/adobe/helix-html2md/compare/v2.9.1...v2.9.2) (2024-06-16)
 
 
