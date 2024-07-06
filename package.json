@@ -82,7 +82,7 @@
     "husky": "9.0.11",
     "junit-report-builder": "3.2.1",
     "lint-staged": "15.2.7",
-    "mocha": "10.5.2",
+    "mocha": "10.6.0",
     "mocha-multi-reporters": "1.5.1",
     "mocha-suppress-logs": "0.5.1",
     "nock": "13.5.4",
