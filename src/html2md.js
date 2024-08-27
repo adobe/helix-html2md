@@ -76,6 +76,11 @@ function toGridTable(title, data) {
   ]);
 }
 
+function sanitizeJsonLd(jsonLd) {
+  const sanitizedJsonLd = jsonLd.replaceAll('<', '&#x3c;').replaceAll('>', '&#x3e;');
+  return JSON.stringify(JSON.parse(sanitizedJsonLd.trim()));
+}
+
 function addMetadata(hast, mdast) {
   const meta = new Map();
 
@@ -91,6 +96,12 @@ function addMetadata(hast, mdast) {
         } else {
           meta.set(text(name), text(content));
         }
+      }
+    } else if (child.tagName === 'script' && child.properties.type === 'application/ld+json') {
+      try {
+        meta.set(text('json-ld'), text(sanitizeJsonLd(toString(child))));
+      } catch {
+        throw Error('invalid json-ld');
       }
     }
   }
