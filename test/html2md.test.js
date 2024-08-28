@@ -103,6 +103,10 @@ describe('html2md Tests', () => {
   it('throws meaningful error when json-ld is invalid', async () => {
     await assert.rejects(() => test('json-ld-invalid'), Error('invalid json-ld'));
   });
+
+  it('throws meaningful error when json-ld is too large', async () => {
+    await assert.rejects(() => test('json-ld-too-large'), Error('metadata size limit exceeded'));
+  });
 });
 
 describe('className to block type tests', () => {
