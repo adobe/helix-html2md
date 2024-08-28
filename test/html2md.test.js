@@ -96,10 +96,6 @@ describe('html2md Tests', () => {
     await test('self-closing-breaks');
   });
 
-  it('convert a document with self-closing breaks correctly', async () => {
-    await test('self-closing-breaks');
-  });
-
   it('convert a document with json-ld script tags correctly', async () => {
     await test('json-ld');
   });
