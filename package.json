@@ -16,7 +16,7 @@
     "deploy": "hedy -v --deploy --test",
     "deploy-routes": "hedy --no-build --no-hints -l major",
     "deploy-ci": "hedy -v --deploy --test --pkgVersion=ci$CI_BUILD_NUM -l ci --cleanup-ci 24h",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "wsk": {
     "target": "aws",

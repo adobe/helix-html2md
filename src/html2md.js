@@ -31,7 +31,6 @@ import {
   TYPE_GRID_TABLE, TYPE_GT_BODY, TYPE_GT_CELL, TYPE_GT_ROW, handleTableAsGridTable,
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
-import { unspreadLists } from './unspread-lists.js';
 
 function m(type, children, props = {}) {
   return {
@@ -283,7 +282,6 @@ export async function html2md(html, opts) {
   imageReferences(mdast);
   sanitizeHeading(mdast);
   sanitizeTextAndFormats(mdast);
-  unspreadLists(mdast);
 
   // noinspection JSVoidFunctionReturnValueUsed
   const md = unified()
