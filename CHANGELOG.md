@@ -1,3 +1,10 @@
+## [2.10.2](https://github.com/adobe/helix-html2md/compare/v2.10.1...v2.10.2) (2024-09-06)
+
+
+### Bug Fixes
+
+* Revert "fix: nested lists roundtrip" ([#539](https://github.com/adobe/helix-html2md/issues/539)) ([ea645a9](https://github.com/adobe/helix-html2md/commit/ea645a922c4a0083d070a70fa1d7057f82234493)), closes [#530](https://github.com/adobe/helix-html2md/issues/530)
+
 ## [2.10.1](https://github.com/adobe/helix-html2md/compare/v2.10.0...v2.10.1) (2024-09-06)
 
 
