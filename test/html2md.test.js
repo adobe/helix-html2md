@@ -19,10 +19,10 @@ import { Nock } from './utils.js';
 
 async function test(spec) {
   const html = await readFile(resolve(__testdir, 'fixtures', `${spec}.html`), 'utf-8');
-  const expected = await readFile(resolve(__testdir, 'fixtures', `${spec}.md`), 'utf-8');
   const actual = await html2md(html, {
     log: console,
   });
+  const expected = await readFile(resolve(__testdir, 'fixtures', `${spec}.md`), 'utf-8');
   assert.strictEqual(actual.trim(), expected.trim());
 }
 
@@ -94,6 +94,18 @@ describe('html2md Tests', () => {
 
   it('convert a document with self-closing breaks correctly', async () => {
     await test('self-closing-breaks');
+  });
+
+  it('convert a document with json-ld script tags correctly', async () => {
+    await test('json-ld');
+  });
+
+  it('throws meaningful error when json-ld is invalid', async () => {
+    await assert.rejects(() => test('json-ld-invalid'), Error('invalid json-ld'));
+  });
+
+  it('throws meaningful error when json-ld is too large', async () => {
+    await assert.rejects(() => test('json-ld-too-large'), Error('metadata size limit exceeded'));
   });
 });
 

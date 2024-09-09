@@ -76,22 +76,40 @@ function toGridTable(title, data) {
   ]);
 }
 
+function assertValidJSON(str) {
+  try {
+    return JSON.stringify(JSON.parse(str.trim()));
+  } catch {
+    throw Error('invalid json-ld');
+  }
+}
+
+function assertMetaSizeLimit(str, limit = 128_000) {
+  if (str && str.length > limit) {
+    throw Error('metadata size limit exceeded');
+  }
+  return str;
+}
+
 function addMetadata(hast, mdast) {
   const meta = new Map();
 
   const head = select('head', hast);
   for (const child of head.children) {
     if (child.tagName === 'title') {
-      meta.set(text('title'), text(toString(child)));
+      meta.set(text('title'), text(assertMetaSizeLimit(toString(child))));
     } else if (child.tagName === 'meta') {
       const { name, content } = child.properties;
       if (name && !HELIX_META.has(name) && !name.startsWith('twitter:')) {
         if (name === 'image') {
-          meta.set(text(name), image(content));
+          meta.set(text(name), image(assertMetaSizeLimit(content)));
         } else {
-          meta.set(text(name), text(content));
+          meta.set(text(name), text(assertMetaSizeLimit(content)));
         }
       }
+    } else if (child.tagName === 'script' && child.properties.type === 'application/ld+json') {
+      const str = assertMetaSizeLimit(assertValidJSON(toString(child)));
+      meta.set(text('json-ld'), text(str));
     }
   }
 
