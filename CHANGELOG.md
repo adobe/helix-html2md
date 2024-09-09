@@ -1,3 +1,10 @@
+## [2.10.3](https://github.com/adobe/helix-html2md/compare/v2.10.2...v2.10.3) (2024-09-09)
+
+
+### Bug Fixes
+
+* add json-ld script handling ([#534](https://github.com/adobe/helix-html2md/issues/534)) ([6c7c1fc](https://github.com/adobe/helix-html2md/commit/6c7c1fce95d51323ee9eb96131537b417d2053bb))
+
 ## [2.10.2](https://github.com/adobe/helix-html2md/compare/v2.10.1...v2.10.2) (2024-09-06)
 
 
