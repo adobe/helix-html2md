@@ -9,6 +9,7 @@ permissions:
   id-token: write
   contents: write  # semantic-release-dry verifies the write permissions
   issues: read # needed by semantic-release
+  pull-requests: write # needed by semantic-release
 
 jobs:
   test:
@@ -53,7 +54,7 @@ jobs:
       # see https://github.com/aws-actions/aws-secretsmanager-get-secrets/issues/11
       - name: unprefix variables
         run: |
-          for variable in "${!_HELIX_GITHUB_ACTION_SECRETS_@}"; do 
+          for variable in "${!_HELIX_GITHUB_ACTION_SECRETS_@}"; do
             echo "${variable#_HELIX_GITHUB_ACTION_SECRETS_}=${!variable}" >> $GITHUB_ENV
           done
 
@@ -97,7 +98,7 @@ jobs:
       # see https://github.com/aws-actions/aws-secretsmanager-get-secrets/issues/11
       - name: unprefix variables
         run: |
-          for variable in "${!_HELIX_GITHUB_ACTION_SECRETS_@}"; do 
+          for variable in "${!_HELIX_GITHUB_ACTION_SECRETS_@}"; do
             echo "${variable#_HELIX_GITHUB_ACTION_SECRETS_}=${!variable}" >> $GITHUB_ENV
           done
 
