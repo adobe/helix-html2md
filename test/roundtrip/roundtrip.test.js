@@ -25,6 +25,7 @@ const specs = [
   'some-text',
   'all-sections',
   'microdata',
+  'lists-with-pictures',
 ];
 
 describe('Roundtrip tests', () => {
