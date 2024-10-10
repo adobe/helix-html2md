@@ -32,6 +32,10 @@ import {
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
 
+const HELIX_META = {
+  viewport: true,
+};
+
 function m(type, children, props = {}) {
   return {
     type,
@@ -53,10 +57,6 @@ function image(url) {
   };
 }
 
-const HELIX_META = new Set(Array.from([
-  'viewport',
-]));
-
 function toGridTable(title, data) {
   return m(TYPE_GRID_TABLE, [
     m(
@@ -76,6 +76,11 @@ function toGridTable(title, data) {
   ]);
 }
 
+/**
+ * @param {string} str
+ * @returns {string}
+ * @throws {Error}
+ */
 function assertValidJSON(str) {
   try {
     return JSON.stringify(JSON.parse(str.trim()));
@@ -84,11 +89,51 @@ function assertValidJSON(str) {
   }
 }
 
+/**
+ * @param {string} str
+ * @param {number} [limit]
+ * @returns {string}
+ * @throws {Error}
+ */
 function assertMetaSizeLimit(str, limit = 128_000) {
   if (str && str.length > limit) {
     throw Error('metadata size limit exceeded');
   }
   return str;
+}
+
+/**
+ * Check if meta name is allowed:
+ *  - non-reserved
+ *  - not starting with 'twitter:'
+ *    - except 'twitter:label' and 'twitter:data'
+ * @param {string} name
+ * @returns {boolean}
+ */
+function isAllowedMetaName(name) {
+  if (typeof name !== 'string') {
+    return false;
+  }
+  return !HELIX_META[name] && (
+    !name.startsWith('twitter:')
+    || name.startsWith('twitter:label')
+    || name.startsWith('twitter:data')
+  );
+}
+
+/**
+ * Check if meta property is allowed:
+ *  - non-reserved
+ *  - og:type
+ *  - product:*
+ * @param {string|undefined} property
+ * @returns {boolean}
+ */
+function isAllowedMetaProperty(property) {
+  if (typeof property !== 'string') {
+    return false;
+  }
+  return !HELIX_META[property] && (property.startsWith('product:') || property === 'og:type');
 }
 
 function addMetadata(hast, mdast) {
@@ -99,13 +144,15 @@ function addMetadata(hast, mdast) {
     if (child.tagName === 'title') {
       meta.set(text('title'), text(assertMetaSizeLimit(toString(child))));
     } else if (child.tagName === 'meta') {
-      const { name, content } = child.properties;
-      if (name && !HELIX_META.has(name) && !name.startsWith('twitter:')) {
+      const { name, property, content } = child.properties;
+      if (isAllowedMetaName(name)) {
         if (name === 'image') {
           meta.set(text(name), image(assertMetaSizeLimit(content)));
         } else {
           meta.set(text(name), text(assertMetaSizeLimit(content)));
         }
+      } else if (isAllowedMetaProperty(property)) {
+        meta.set(text(property), text(assertMetaSizeLimit(content)));
       }
     } else if (child.tagName === 'script' && child.properties.type === 'application/ld+json') {
       const str = assertMetaSizeLimit(assertValidJSON(toString(child)));
