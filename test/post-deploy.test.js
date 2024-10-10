@@ -29,7 +29,7 @@ And more...newcontent
 +-------------------+-----------------------------------------+
 | description       | Content is: sharepoint-/main/index.docx |
 +-------------------+-----------------------------------------+
-| twitter:card      | summary\\_large\\_image                 |
+| twitter:card      | summary\\_large\\_image                   |
 +-------------------+-----------------------------------------+
 | serp-content-type | product                                 |
 +-------------------+-----------------------------------------+
