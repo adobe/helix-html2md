@@ -147,19 +147,21 @@ Once you are are ready to push your changes, simply git add, commit and push and
 
 **That’s it, you made it! Congrats, your first Helix site is up and running.**
 
-+----------------------------------------------------------------------+
-| Metadata                                                             |
-+-------------+--------------------------------------------------------+
-| title       | Getting started with Helix - Developer Tutorial        |
-+-------------+--------------------------------------------------------+
-| description | This tutorial should have you up and running with your |
-|             | AEM Helix projects in 10 - 20 minutes to a place where |
-|             | you can create, ...                                    |
-+-------------+--------------------------------------------------------+
-| template    | docs                                                   |
-+-------------+--------------------------------------------------------+
-| robots      | noindex, nofollow                                      |
-+-------------+--------------------------------------------------------+
++-----------------------------------------------------------------------+
+| Metadata                                                              |
++--------------+--------------------------------------------------------+
+| title        | Getting started with Helix - Developer Tutorial        |
++--------------+--------------------------------------------------------+
+| description  | This tutorial should have you up and running with your |
+|              | AEM Helix projects in 10 - 20 minutes to a place where |
+|              | you can create, ...                                    |
++--------------+--------------------------------------------------------+
+| twitter:card | summary\_large\_image                                  |
++--------------+--------------------------------------------------------+
+| template     | docs                                                   |
++--------------+--------------------------------------------------------+
+| robots       | noindex, nofollow                                      |
++--------------+--------------------------------------------------------+
 
 [image0]: ./media_165bab297e15a33f4742a4f20d8e0a3c3ba42511a.png?width=750&format=png&optimize=medium
 

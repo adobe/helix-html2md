@@ -155,17 +155,19 @@ Helix lets frontend devs develop and deploy the design and functionality of thei
 | Style   | highlight |
 +---------+-----------+
 
-+----------------------------------------------------------------------+
-| Metadata                                                             |
-+-------------+--------------------------------------------------------+
-| title       | Project Helix by Adobe                                 |
-+-------------+--------------------------------------------------------+
-| description | Frictionless experience management: Build blazing fast |
-|             | websites using tools content creators and developers   |
-|             | already know.                                          |
-+-------------+--------------------------------------------------------+
-| robots      | noindex, nofollow                                      |
-+-------------+--------------------------------------------------------+
++-----------------------------------------------------------------------+
+| Metadata                                                              |
++--------------+--------------------------------------------------------+
+| title        | Project Helix by Adobe                                 |
++--------------+--------------------------------------------------------+
+| description  | Frictionless experience management: Build blazing fast |
+|              | websites using tools content creators and developers   |
+|              | already know.                                          |
++--------------+--------------------------------------------------------+
+| twitter:card | summary\_large\_image                                  |
++--------------+--------------------------------------------------------+
+| robots       | noindex, nofollow                                      |
++--------------+--------------------------------------------------------+
 
 [image0]: ./media_11150c400cabf67c6baeb1d92d2adf99ab8941fb7.png?width=750&format=png&optimize=medium
 
