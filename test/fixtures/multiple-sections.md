@@ -82,14 +82,16 @@ Find some of our favorite staff picks below:
 | Style   | highlight |
 +---------+-----------+
 
-+----------------------------------------------------------------------+
-| Metadata                                                             |
-+-------------+--------------------------------------------------------+
-| title       | Home \| Helix Project Boilerplate                      |
-+-------------+--------------------------------------------------------+
-| description | Use this template repository as the starting point for |
-|             | new Helix projects.                                    |
-+-------------+--------------------------------------------------------+
++-----------------------------------------------------------------------+
+| Metadata                                                              |
++--------------+--------------------------------------------------------+
+| title        | Home \| Helix Project Boilerplate                      |
++--------------+--------------------------------------------------------+
+| description  | Use this template repository as the starting point for |
+|              | new Helix projects.                                    |
++--------------+--------------------------------------------------------+
+| twitter:card | summary\_large\_image                                  |
++--------------+--------------------------------------------------------+
 
 [image0]: ./media_12637fbb67cddc5d293b20975e89028d919270ac0.jpeg?width=750&format=jpeg&optimize=medium
 

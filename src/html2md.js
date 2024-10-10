@@ -116,6 +116,7 @@ function isAllowedMetaName(name) {
   }
   return !HELIX_META[name] && (
     !name.startsWith('twitter:')
+    || name === 'twitter:card'
     || name.startsWith('twitter:label')
     || name.startsWith('twitter:data')
   );
