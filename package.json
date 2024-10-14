@@ -71,7 +71,7 @@
     "@adobe/helix-deploy": "12.3.1",
     "@adobe/helix-html-pipeline": "^6.0.0",
     "@adobe/helix-universal": "5.0.6",
-    "@adobe/helix-universal-devserver": "1.1.60",
+    "@adobe/helix-universal-devserver": "1.1.62",
     "@adobe/semantic-release-coralogix": "1.1.32",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
