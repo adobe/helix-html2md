@@ -1,3 +1,10 @@
+## [2.10.7](https://github.com/adobe/[secure]-html2md/compare/v2.10.6...v2.10.7) (2024-10-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hast-util-select to v6.0.3 ([#566](https://github.com/adobe/[secure]-html2md/issues/566)) ([641f4cd](https://github.com/adobe/[secure]-html2md/commit/641f4cdf04a50bf208cdec52b390ef207eceeb58))
+
 ## [2.10.6](https://github.com/adobe/[secure]-html2md/compare/v2.10.5...v2.10.6) (2024-09-28)
 
 
