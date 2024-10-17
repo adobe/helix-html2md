@@ -1,3 +1,10 @@
+## [2.10.8](https://github.com/adobe/[secure]-html2md/compare/v2.10.7...v2.10.8) (2024-10-17)
+
+
+### Bug Fixes
+
+* properly handle sub/sup/u in divs without p ([#570](https://github.com/adobe/[secure]-html2md/issues/570)) ([97e6fba](https://github.com/adobe/[secure]-html2md/commit/97e6fbaac05fb3f14dad0b73128a632294f1fd78)), closes [#569](https://github.com/adobe/[secure]-html2md/issues/569)
+
 ## [2.10.7](https://github.com/adobe/[secure]-html2md/compare/v2.10.6...v2.10.7) (2024-10-14)
 
 
