@@ -1,3 +1,10 @@
+## [2.10.10](https://github.com/adobe/[secure]-html2md/compare/v2.10.9...v2.10.10) (2024-10-21)
+
+
+### Bug Fixes
+
+* allow more meta ([#565](https://github.com/adobe/[secure]-html2md/issues/565)) ([bee785a](https://github.com/adobe/[secure]-html2md/commit/bee785a34077e170d958fd933c228bc7c21737a1))
+
 ## [2.10.9](https://github.com/adobe/[secure]-html2md/compare/v2.10.8...v2.10.9) (2024-10-21)
 
 
