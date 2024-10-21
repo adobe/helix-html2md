@@ -25,6 +25,7 @@ import {
 } from '@adobe/helix-markdown-support';
 import { remarkMatter } from '@adobe/helix-markdown-support/matter';
 import remarkGridTable from '@adobe/remark-gridtables';
+import { CONTINUE, visit } from 'unist-util-visit';
 import { processImages } from './mdast-process-images.js';
 import { processIcons } from './hast-process-icons.js';
 import {
@@ -311,8 +312,19 @@ function handleBlockAsGridTable(state, node) {
 function handleFormat(type) {
   return (state, node) => {
     const children = state.all(node);
-    return m(type, children);
+    // we wrap the special formats with 'strong' in order to let hast2mdast think it's flow content.
+    return m('strong', [m(type, children)], { virtual: true });
   };
+}
+
+function cleanupFormats(tree) {
+  visit(tree, (node, index, parent) => {
+    if (node.type === 'strong' && node.virtual) {
+      // eslint-disable-next-line no-param-reassign,prefer-destructuring
+      parent.children[index] = node.children[0];
+    }
+    return CONTINUE;
+  });
 }
 
 export async function html2md(html, opts) {
@@ -342,6 +354,7 @@ export async function html2md(html, opts) {
     },
   });
 
+  cleanupFormats(mdast);
   addMetadata(hast, mdast);
 
   await processImages(log, mdast, mediaHandler, url);
