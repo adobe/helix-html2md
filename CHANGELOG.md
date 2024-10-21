@@ -1,3 +1,10 @@
+## [2.10.9](https://github.com/adobe/[secure]-html2md/compare/v2.10.8...v2.10.9) (2024-10-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-html-pipeline to v6.15.3 ([#575](https://github.com/adobe/[secure]-html2md/issues/575)) ([1afb3f6](https://github.com/adobe/[secure]-html2md/commit/1afb3f6db887ade532fbeef4e0bc9c545ba34857))
+
 ## [2.10.8](https://github.com/adobe/[secure]-html2md/compare/v2.10.7...v2.10.8) (2024-10-17)
 
 
