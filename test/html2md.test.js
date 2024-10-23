@@ -36,6 +36,10 @@ describe('html2md Tests', () => {
     nock.done();
   });
 
+  it('convert a sap html', async () => {
+    await test('sap');
+  });
+
   it('convert a simple html', async () => {
     await test('simple');
   });
