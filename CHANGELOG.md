@@ -1,3 +1,10 @@
+## [2.10.11](https://github.com/adobe/[secure]-html2md/compare/v2.10.10...v2.10.11) (2024-11-02)
+
+
+### Bug Fixes
+
+* **deps:** update external fixes ([c61bda2](https://github.com/adobe/[secure]-html2md/commit/c61bda2f40a7e07ccfb22b4ccd62ad14445b7ede))
+
 ## [2.10.10](https://github.com/adobe/[secure]-html2md/compare/v2.10.9...v2.10.10) (2024-10-21)
 
 
