@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "2.0.8",
-    "@adobe/helix-deploy": "12.3.3",
+    "@adobe/helix-deploy": "12.3.4",
     "@adobe/helix-html-pipeline": "^6.0.0",
     "@adobe/helix-universal": "5.0.6",
     "@adobe/helix-universal-devserver": "1.1.64",
