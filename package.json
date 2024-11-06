@@ -59,7 +59,7 @@
     "hast-util-select": "6.0.3",
     "hast-util-to-mdast": "10.1.0",
     "hast-util-to-string": "3.0.1",
-    "mdast-util-to-markdown": "2.1.1",
+    "mdast-util-to-markdown": "2.1.2",
     "rehype-parse": "9.0.1",
     "remark-gfm": "4.0.0",
     "remark-stringify": "11.0.0",
