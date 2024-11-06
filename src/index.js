@@ -213,7 +213,8 @@ async function run(request, ctx) {
     if (e instanceof TooManyImagesError) {
       return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 409);
     }
-    /* c8 ignore next 2 */
+    /* c8 ignore next 3 */
+    log.debug(e.stack);
     return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 500);
   } finally {
     await mediaHandler?.fetchContext.reset();
