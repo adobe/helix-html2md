@@ -1,3 +1,10 @@
+## [2.10.14](https://github.com/adobe/[secure]-html2md/compare/v2.10.13...v2.10.14) (2024-11-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mdast-util-to-markdown to v2.1.2 ([#584](https://github.com/adobe/[secure]-html2md/issues/584)) ([1a39202](https://github.com/adobe/[secure]-html2md/commit/1a392026b411bc6aba641c30e877e5e81cd7facb))
+
 ## [2.10.13](https://github.com/adobe/[secure]-html2md/compare/v2.10.12...v2.10.13) (2024-11-06)
 
 
