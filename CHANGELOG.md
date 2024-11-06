@@ -1,3 +1,10 @@
+## [2.10.13](https://github.com/adobe/[secure]-html2md/compare/v2.10.12...v2.10.13) (2024-11-06)
+
+
+### Bug Fixes
+
+* log stack in debug level (AWS) ([#582](https://github.com/adobe/[secure]-html2md/issues/582)) ([e6cfb05](https://github.com/adobe/[secure]-html2md/commit/e6cfb053a2fc9252b4d8cdcf99012037c334cf99))
+
 ## [2.10.12](https://github.com/adobe/[secure]-html2md/compare/v2.10.11...v2.10.12) (2024-11-03)
 
 
