@@ -252,6 +252,38 @@ describe('Index Tests', () => {
     });
   }
 
+  it('returns 400 for invalid metadata', async () => {
+    const html = `<html>
+<head>
+  <script type="application/ld+json">
+    {"@context":"http://schema.org",.
+  </script>
+</head>
+
+<body>
+  <main>
+    <div>
+      <h1>Hello, World.</h1>
+    </div>
+  </main>
+</body>
+
+</html>
+`;
+    nock('https://www.example.com')
+      .get('/')
+      .reply(200, html);
+
+    const result = await main(reqUrl('/'), { log: console, env: {} });
+    assert.strictEqual(result.status, 400);
+    assert.strictEqual(await result.text(), '');
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-type': 'text/plain; charset=utf-8',
+      'x-error': 'error fetching resource at https://www.example.com/: invalid json-ld',
+    });
+  });
+
   it('returns 409 for too many different images', async () => {
     let html = '<html><body><main><div>';
     for (let i = 0; i < 101; i += 1) {

@@ -21,7 +21,7 @@ import {
 import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
 import { MediaHandler } from '@adobe/helix-mediahandler';
 import pkgJson from './package.cjs';
-import { html2md } from './html2md.js';
+import { ConstraintsError, html2md } from './html2md.js';
 import { TooManyImagesError } from './mdast-process-images.js';
 
 /* c8 ignore next 7 */
@@ -212,6 +212,9 @@ async function run(request, ctx) {
   } catch (e) {
     if (e instanceof TooManyImagesError) {
       return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 409);
+    }
+    if (e instanceof ConstraintsError) {
+      return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 400);
     }
     /* c8 ignore next 3 */
     log.debug(e.stack);
