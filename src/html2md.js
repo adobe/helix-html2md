@@ -33,6 +33,8 @@ import {
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
 
+export class ConstraintsError extends Error {}
+
 const HELIX_META = {
   viewport: true,
 };
@@ -80,13 +82,13 @@ function toGridTable(title, data) {
 /**
  * @param {string} str
  * @returns {string}
- * @throws {Error}
+ * @throws {ConstraintsError} when it is not valid JSON
  */
 function assertValidJSON(str) {
   try {
     return JSON.stringify(JSON.parse(str.trim()));
   } catch {
-    throw Error('invalid json-ld');
+    throw new ConstraintsError('invalid json-ld');
   }
 }
 
@@ -94,11 +96,11 @@ function assertValidJSON(str) {
  * @param {string} str
  * @param {number} [limit]
  * @returns {string}
- * @throws {Error}
+ * @throws {ConstraintsError} when metadata size limit is exceeded
  */
 function assertMetaSizeLimit(str, limit = 128_000) {
   if (str && str.length > limit) {
-    throw Error('metadata size limit exceeded');
+    throw new ConstraintsError('metadata size limit exceeded');
   }
   return str;
 }
