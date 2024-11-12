@@ -1,3 +1,10 @@
+## [2.10.15](https://github.com/adobe/[secure]-html2md/compare/v2.10.14...v2.10.15) (2024-11-12)
+
+
+### Bug Fixes
+
+* unmet constraints should return a 400 ([#589](https://github.com/adobe/[secure]-html2md/issues/589)) ([e953304](https://github.com/adobe/[secure]-html2md/commit/e9533046d96db9729a0f7cb2a9e0d60cc2cb98ea))
+
 ## [2.10.14](https://github.com/adobe/[secure]-html2md/compare/v2.10.13...v2.10.14) (2024-11-06)
 
 
