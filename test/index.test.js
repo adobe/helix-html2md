@@ -252,7 +252,7 @@ describe('Index Tests', () => {
     });
   }
 
-  it('returns 400 for invalid metadata', async () => {
+  it('returns 400 for bad json-ld', async () => {
     const html = `<html>
 <head>
   <script type="application/ld+json">
