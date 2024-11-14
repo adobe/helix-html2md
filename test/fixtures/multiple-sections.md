@@ -82,16 +82,20 @@ Find some of our favorite staff picks below:
 | Style   | highlight |
 +---------+-----------+
 
-+-----------------------------------------------------------------------+
-| Metadata                                                              |
-+--------------+--------------------------------------------------------+
-| title        | Home \| Helix Project Boilerplate                      |
-+--------------+--------------------------------------------------------+
-| description  | Use this template repository as the starting point for |
-|              | new Helix projects.                                    |
-+--------------+--------------------------------------------------------+
-| twitter:card | summary\_large\_image                                  |
-+--------------+--------------------------------------------------------+
++------------------------------------------------------------------------+
+| Metadata                                                               |
++---------------+--------------------------------------------------------+
+| title         | Home \| Helix Project Boilerplate                      |
++---------------+--------------------------------------------------------+
+| description   | Use this template repository as the starting point for |
+|               | new Helix projects.                                    |
++---------------+--------------------------------------------------------+
+| og:image      | ![][image10]                                           |
++---------------+--------------------------------------------------------+
+| twitter:card  | summary\_large\_image                                  |
++---------------+--------------------------------------------------------+
+| twitter:image | ![][image10]                                           |
++---------------+--------------------------------------------------------+
 
 [image0]: ./media_12637fbb67cddc5d293b20975e89028d919270ac0.jpeg?width=750&format=jpeg&optimize=medium
 
@@ -112,3 +116,5 @@ Find some of our favorite staff picks below:
 [image8]: ./media_1362767d232221ff20c67bc0694a8924d483687b1.jpeg?width=750&format=jpeg&optimize=medium
 
 [image9]: ./media_1a620138deb385f05412f4f96f9b18e454a769c76.jpeg?width=750&format=jpeg&optimize=medium
+
+[image10]: https://main--helix-project-boilerplate--adobe.hlx.live/media_12637fbb67cddc5d293b20975e89028d919270ac0.jpeg?width=1200&format=pjpg&optimize=medium
