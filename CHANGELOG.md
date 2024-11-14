@@ -1,3 +1,10 @@
+## [2.10.16](https://github.com/adobe/[secure]-html2md/compare/v2.10.15...v2.10.16) (2024-11-14)
+
+
+### Bug Fixes
+
+* increase memory size to 1G ([faddb03](https://github.com/adobe/[secure]-html2md/commit/faddb033b8b56e9e03bc4a539bbf397576a43f11))
+
 ## [2.10.15](https://github.com/adobe/[secure]-html2md/compare/v2.10.14...v2.10.15) (2024-11-12)
 
 
