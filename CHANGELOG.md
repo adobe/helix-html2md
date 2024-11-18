@@ -1,3 +1,11 @@
+# [2.11.0](https://github.com/adobe/[secure]-html2md/compare/v2.10.16...v2.11.0) (2024-11-18)
+
+
+### Features
+
+* fix post deploy test ([#596](https://github.com/adobe/[secure]-html2md/issues/596)) ([1f034fd](https://github.com/adobe/[secure]-html2md/commit/1f034fd320cb416942651ff915523e7dbb3b356c))
+* Support og:image and twitter:image in page metadata  ([37ccd6a](https://github.com/adobe/[secure]-html2md/commit/37ccd6a48b3ea4e8f87db524ff15975a76f83f06)), closes [#590](https://github.com/adobe/[secure]-html2md/issues/590)
+
 ## [2.10.16](https://github.com/adobe/[secure]-html2md/compare/v2.10.15...v2.10.16) (2024-11-14)
 
 
