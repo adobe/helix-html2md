@@ -120,6 +120,7 @@ function isAllowedMetaName(name) {
   return !HELIX_META[name] && (
     !name.startsWith('twitter:')
     || name === 'twitter:card'
+    || name === 'twitter:image'
     || name.startsWith('twitter:label')
     || name.startsWith('twitter:data')
   );
@@ -137,7 +138,9 @@ function isAllowedMetaProperty(property) {
   if (typeof property !== 'string') {
     return false;
   }
-  return !HELIX_META[property] && (property.startsWith('product:') || property === 'og:type');
+  return !HELIX_META[property] && (property.startsWith('product:')
+    || property === 'og:image'
+    || property === 'og:type');
 }
 
 function addMetadata(hast, mdast) {
@@ -150,13 +153,17 @@ function addMetadata(hast, mdast) {
     } else if (child.tagName === 'meta') {
       const { name, property, content } = child.properties;
       if (isAllowedMetaName(name)) {
-        if (name === 'image') {
+        if (name === 'image' || name === 'twitter:image') {
           meta.set(text(name), image(assertMetaSizeLimit(content)));
         } else {
           meta.set(text(name), text(assertMetaSizeLimit(content)));
         }
       } else if (isAllowedMetaProperty(property)) {
-        meta.set(text(property), text(assertMetaSizeLimit(content)));
+        if (property === 'og:image') {
+          meta.set(text(property), image(assertMetaSizeLimit(content)));
+        } else {
+          meta.set(text(property), text(assertMetaSizeLimit(content)));
+        }
       }
     } else if (child.tagName === 'script' && child.properties.type === 'application/ld+json') {
       const str = assertMetaSizeLimit(assertValidJSON(toString(child)));
