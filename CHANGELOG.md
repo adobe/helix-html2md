@@ -1,3 +1,10 @@
+## [2.11.5](https://github.com/adobe/[secure]-html2md/compare/v2.11.4...v2.11.5) (2024-12-04)
+
+
+### Bug Fixes
+
+* trigger a release ([90f7591](https://github.com/adobe/[secure]-html2md/commit/90f759139bc7de5678e0ddca43a86df38e4db6c8))
+
 ## [2.11.4](https://github.com/adobe/[secure]-html2md/compare/v2.11.3...v2.11.4) (2024-12-03)
 
 
