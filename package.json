@@ -49,7 +49,7 @@
   "dependencies": {
     "@adobe/fetch": "4.1.9",
     "@adobe/helix-markdown-support": "7.1.8",
-    "@adobe/helix-mediahandler": "2.5.36",
+    "@adobe/helix-mediahandler": "2.5.37",
     "@adobe/helix-shared-body-data": "2.1.8",
     "@adobe/helix-shared-process-queue": "3.0.4",
     "@adobe/helix-shared-utils": "3.0.2",
