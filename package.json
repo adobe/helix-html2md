@@ -13,7 +13,7 @@
     "semantic-release": "semantic-release",
     "semantic-release-dry": "semantic-release --dry-run --branches $CI_BRANCH",
     "build": "hedy -v",
-    "deploy": "hedy -v --deploy --test",
+    "deploy": "hedy -v --deploy --test --cleanup-patch=1w",
     "deploy-routes": "hedy --no-build --no-hints -l major",
     "deploy-ci": "hedy -v --deploy --test --pkgVersion=ci$CI_BUILD_NUM -l ci --cleanup-ci 24h",
     "prepare": "husky"
@@ -26,7 +26,7 @@
     "awsRole!important": "arn:aws:iam::118435662149:role/helix-service-role-s3-rw",
     "awsAttachAuthorizer": "helix-token-authorizer_v2",
     "fastlyServiceId!important": "",
-    "nodeVersion": 18
+    "nodeVersion": 22
   },
   "mocha": {
     "require": [
