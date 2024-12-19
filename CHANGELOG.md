@@ -1,3 +1,10 @@
+## [2.11.9](https://github.com/adobe/[secure]-html2md/compare/v2.11.8...v2.11.9) (2024-12-19)
+
+
+### Bug Fixes
+
+* respect row- and colspan in inline table ([#613](https://github.com/adobe/[secure]-html2md/issues/613)) ([8360ffa](https://github.com/adobe/[secure]-html2md/commit/8360ffa73702c48a38c6bcff62bb65ff6d38f000)), closes [#610](https://github.com/adobe/[secure]-html2md/issues/610)
+
 ## [2.11.8](https://github.com/adobe/[secure]-html2md/compare/v2.11.7...v2.11.8) (2024-12-15)
 
 
