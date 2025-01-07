@@ -9,3 +9,9 @@ this is <u>underlined</u>
 this is **<sub>bold subscript</sub>**
 
 this is _<u>italic underlined</u>_
+
+this is [a link with <sub>subscript</sub> inside](#).
+
+[A link with <sup>superscript</sup>](#) inside but outside paragraph.
+
+[e=mc<sup>2</sup>](#)

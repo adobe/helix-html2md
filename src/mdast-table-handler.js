@@ -17,11 +17,18 @@ export const TYPE_GT_ROW = 'gtRow';
 export const TYPE_GT_CELL = 'gtCell';
 
 function toGridCell(cell, state) {
-  return {
+  const node = {
     ...cell,
     children: state.all(cell),
     type: TYPE_GT_CELL,
   };
+  if ('rowSpan' in node.properties) {
+    node.rowSpan = parseInt(node.properties.rowSpan, 10);
+  }
+  if ('colSpan' in node.properties) {
+    node.colSpan = parseInt(node.properties.colSpan, 10);
+  }
+  return node;
 }
 
 function toGridRow(row, state) {

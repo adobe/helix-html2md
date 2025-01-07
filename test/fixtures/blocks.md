@@ -155,17 +155,23 @@ Helix lets frontend devs develop and deploy the design and functionality of thei
 | Style   | highlight |
 +---------+-----------+
 
-+----------------------------------------------------------------------+
-| Metadata                                                             |
-+-------------+--------------------------------------------------------+
-| title       | Project Helix by Adobe                                 |
-+-------------+--------------------------------------------------------+
-| description | Frictionless experience management: Build blazing fast |
-|             | websites using tools content creators and developers   |
-|             | already know.                                          |
-+-------------+--------------------------------------------------------+
-| robots      | noindex, nofollow                                      |
-+-------------+--------------------------------------------------------+
++------------------------------------------------------------------------+
+| Metadata                                                               |
++---------------+--------------------------------------------------------+
+| title         | Project Helix by Adobe                                 |
++---------------+--------------------------------------------------------+
+| description   | Frictionless experience management: Build blazing fast |
+|               | websites using tools content creators and developers   |
+|               | already know.                                          |
++---------------+--------------------------------------------------------+
+| og:image      | ![][image8]                                            |
++---------------+--------------------------------------------------------+
+| twitter:card  | summary\_large\_image                                  |
++---------------+--------------------------------------------------------+
+| twitter:image | ![][image8]                                            |
++---------------+--------------------------------------------------------+
+| robots        | noindex, nofollow                                      |
++---------------+--------------------------------------------------------+
 
 [image0]: ./media_11150c400cabf67c6baeb1d92d2adf99ab8941fb7.png?width=750&format=png&optimize=medium
 
@@ -182,3 +188,5 @@ Helix lets frontend devs develop and deploy the design and functionality of thei
 [image6]: ./media_1b8ff9e1931834386254be2c49c4424210fb0988c.png?width=750&format=png&optimize=medium
 
 [image7]: ./media_1b5d4ed769249aadccd584894ceff3b1b0439747e.png?width=750&format=png&optimize=medium
+
+[image8]: https://www.hlx.live/media_112ad8fa392b52f2190d63f2017dd605ad4d4d13c.png?width=1200&format=pjpg&optimize=medium

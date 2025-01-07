@@ -29,8 +29,16 @@ And more...newcontent
 +-------------------+-----------------------------------------+
 | description       | Content is: sharepoint-/main/index.docx |
 +-------------------+-----------------------------------------+
-| serp-content-type | product                                 |
+| og:image          | ![][image0]                             |
 +-------------------+-----------------------------------------+
+| twitter:card      | summary\\_large\\_image                   |
++-------------------+-----------------------------------------+
+| twitter:image     | ![][image0]                             |
++-------------------+-----------------------------------------+
+| serp-content-type | overlay                                 |
++-------------------+-----------------------------------------+
+
+[image0]: about:error
 `;
 
 createTargets({ _version: 'ci' }).forEach((target) => {

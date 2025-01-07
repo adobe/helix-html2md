@@ -25,6 +25,7 @@ import {
 } from '@adobe/helix-markdown-support';
 import { remarkMatter } from '@adobe/helix-markdown-support/matter';
 import remarkGridTable from '@adobe/remark-gridtables';
+import { CONTINUE, visit } from 'unist-util-visit';
 import { processImages } from './mdast-process-images.js';
 import { processIcons } from './hast-process-icons.js';
 import {
@@ -32,6 +33,12 @@ import {
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
 import { unspreadLists } from './unspread-lists.js';
+
+export class ConstraintsError extends Error {}
+
+const HELIX_META = {
+  viewport: true,
+};
 
 function m(type, children, props = {}) {
   return {
@@ -54,10 +61,6 @@ function image(url) {
   };
 }
 
-const HELIX_META = new Set(Array.from([
-  'viewport',
-]));
-
 function toGridTable(title, data) {
   return m(TYPE_GRID_TABLE, [
     m(
@@ -77,19 +80,68 @@ function toGridTable(title, data) {
   ]);
 }
 
+/**
+ * @param {string} str
+ * @returns {string}
+ * @throws {ConstraintsError} when it is not valid JSON
+ */
 function assertValidJSON(str) {
   try {
     return JSON.stringify(JSON.parse(str.trim()));
   } catch {
-    throw Error('invalid json-ld');
+    throw new ConstraintsError('invalid json-ld');
   }
 }
 
+/**
+ * @param {string} str
+ * @param {number} [limit]
+ * @returns {string}
+ * @throws {ConstraintsError} when metadata size limit is exceeded
+ */
 function assertMetaSizeLimit(str, limit = 128_000) {
   if (str && str.length > limit) {
-    throw Error('metadata size limit exceeded');
+    throw new ConstraintsError('metadata size limit exceeded');
   }
   return str;
+}
+
+/**
+ * Check if meta name is allowed:
+ *  - non-reserved
+ *  - not starting with 'twitter:'
+ *    - except 'twitter:label' and 'twitter:data'
+ * @param {string} name
+ * @returns {boolean}
+ */
+function isAllowedMetaName(name) {
+  if (typeof name !== 'string') {
+    return false;
+  }
+  return !HELIX_META[name] && (
+    !name.startsWith('twitter:')
+    || name === 'twitter:card'
+    || name === 'twitter:image'
+    || name.startsWith('twitter:label')
+    || name.startsWith('twitter:data')
+  );
+}
+
+/**
+ * Check if meta property is allowed:
+ *  - non-reserved
+ *  - og:type
+ *  - product:*
+ * @param {string|undefined} property
+ * @returns {boolean}
+ */
+function isAllowedMetaProperty(property) {
+  if (typeof property !== 'string') {
+    return false;
+  }
+  return !HELIX_META[property] && (property.startsWith('product:')
+    || property === 'og:image'
+    || property === 'og:type');
 }
 
 function addMetadata(hast, mdast) {
@@ -100,12 +152,18 @@ function addMetadata(hast, mdast) {
     if (child.tagName === 'title') {
       meta.set(text('title'), text(assertMetaSizeLimit(toString(child))));
     } else if (child.tagName === 'meta') {
-      const { name, content } = child.properties;
-      if (name && !HELIX_META.has(name) && !name.startsWith('twitter:')) {
-        if (name === 'image') {
+      const { name, property, content } = child.properties;
+      if (isAllowedMetaName(name)) {
+        if (name === 'image' || name === 'twitter:image') {
           meta.set(text(name), image(assertMetaSizeLimit(content)));
         } else {
           meta.set(text(name), text(assertMetaSizeLimit(content)));
+        }
+      } else if (isAllowedMetaProperty(property)) {
+        if (property === 'og:image') {
+          meta.set(text(property), image(assertMetaSizeLimit(content)));
+        } else {
+          meta.set(text(property), text(assertMetaSizeLimit(content)));
         }
       }
     } else if (child.tagName === 'script' && child.properties.type === 'application/ld+json') {
@@ -264,8 +322,19 @@ function handleBlockAsGridTable(state, node) {
 function handleFormat(type) {
   return (state, node) => {
     const children = state.all(node);
-    return m(type, children);
+    // we wrap the special formats with 'strong' in order to let hast2mdast think it's flow content.
+    return m('strong', [m(type, children)], { virtual: true });
   };
+}
+
+function cleanupFormats(tree) {
+  visit(tree, (node, index, parent) => {
+    if (node.type === 'strong' && node.virtual) {
+      // eslint-disable-next-line no-param-reassign,prefer-destructuring
+      parent.children[index] = node.children[0];
+    }
+    return CONTINUE;
+  });
 }
 
 export async function html2md(html, opts) {
@@ -295,6 +364,7 @@ export async function html2md(html, opts) {
     },
   });
 
+  cleanupFormats(mdast);
   addMetadata(hast, mdast);
 
   await processImages(log, mdast, mediaHandler, url);

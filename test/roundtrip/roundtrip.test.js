@@ -26,6 +26,7 @@ const specs = [
   'all-sections',
   'microdata',
   'nested-lists',
+  'rowspan',
 ];
 
 describe('Roundtrip tests', () => {

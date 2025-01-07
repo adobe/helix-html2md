@@ -1,3 +1,172 @@
+## [2.11.13](https://github.com/adobe/[secure]-html2md/compare/v2.11.12...v2.11.13) (2025-01-07)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#623](https://github.com/adobe/[secure]-html2md/issues/623)) ([5f1358f](https://github.com/adobe/[secure]-html2md/commit/5f1358f33d2e449ef7887b959b07602b0749fd03))
+
+## [2.11.12](https://github.com/adobe/[secure]-html2md/compare/v2.11.11...v2.11.12) (2025-01-04)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#619](https://github.com/adobe/[secure]-html2md/issues/619)) ([0c6e587](https://github.com/adobe/[secure]-html2md/commit/0c6e587091e09a86b2c0c8d39e31e6cb5d9c0f37))
+
+## [2.11.11](https://github.com/adobe/[secure]-html2md/compare/v2.11.10...v2.11.11) (2024-12-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-mediahandler to v2.5.43 ([#617](https://github.com/adobe/[secure]-html2md/issues/617)) ([de79f2d](https://github.com/adobe/[secure]-html2md/commit/de79f2de03d01e5c0591b147714a8422d3c0fda2))
+
+## [2.11.10](https://github.com/adobe/[secure]-html2md/compare/v2.11.9...v2.11.10) (2024-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#615](https://github.com/adobe/[secure]-html2md/issues/615)) ([aeba6b9](https://github.com/adobe/[secure]-html2md/commit/aeba6b9855ca64c29b841b619409cf7927f672d1))
+
+## [2.11.9](https://github.com/adobe/[secure]-html2md/compare/v2.11.8...v2.11.9) (2024-12-19)
+
+
+### Bug Fixes
+
+* respect row- and colspan in inline table ([#613](https://github.com/adobe/[secure]-html2md/issues/613)) ([8360ffa](https://github.com/adobe/[secure]-html2md/commit/8360ffa73702c48a38c6bcff62bb65ff6d38f000)), closes [#610](https://github.com/adobe/[secure]-html2md/issues/610)
+
+## [2.11.8](https://github.com/adobe/[secure]-html2md/compare/v2.11.7...v2.11.8) (2024-12-15)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#612](https://github.com/adobe/[secure]-html2md/issues/612)) ([cc0055e](https://github.com/adobe/[secure]-html2md/commit/cc0055ecd56452c20c742b86dcb768772a09221a))
+
+## [2.11.7](https://github.com/adobe/[secure]-html2md/compare/v2.11.6...v2.11.7) (2024-12-08)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#609](https://github.com/adobe/[secure]-html2md/issues/609)) ([e8aa0b2](https://github.com/adobe/[secure]-html2md/commit/e8aa0b2fac0f01fdc8b6503783dfcaacfffcd8de))
+
+## [2.11.6](https://github.com/adobe/[secure]-html2md/compare/v2.11.5...v2.11.6) (2024-12-06)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#606](https://github.com/adobe/[secure]-html2md/issues/606)) ([167eebf](https://github.com/adobe/[secure]-html2md/commit/167eebf524a54f2b7fa88979f96e2eb0324503fd))
+
+## [2.11.5](https://github.com/adobe/[secure]-html2md/compare/v2.11.4...v2.11.5) (2024-12-04)
+
+
+### Bug Fixes
+
+* trigger a release ([90f7591](https://github.com/adobe/[secure]-html2md/commit/90f759139bc7de5678e0ddca43a86df38e4db6c8))
+
+## [2.11.4](https://github.com/adobe/[secure]-html2md/compare/v2.11.3...v2.11.4) (2024-12-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-mediahandler to v2.5.35 ([#603](https://github.com/adobe/[secure]-html2md/issues/603)) ([96540af](https://github.com/adobe/[secure]-html2md/commit/96540af8d9faeff049f5aeac8fe660a7b3586139))
+
+## [2.11.3](https://github.com/adobe/[secure]-html2md/compare/v2.11.2...v2.11.3) (2024-11-23)
+
+
+### Bug Fixes
+
+* **deps:** update external fixes ([#600](https://github.com/adobe/[secure]-html2md/issues/600)) ([680acfe](https://github.com/adobe/[secure]-html2md/commit/680acfe9c7af674b541703b22dc374746654e7ac))
+
+## [2.11.2](https://github.com/adobe/[secure]-html2md/compare/v2.11.1...v2.11.2) (2024-11-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-mediahandler to v2.5.33 ([#599](https://github.com/adobe/[secure]-html2md/issues/599)) ([81412ca](https://github.com/adobe/[secure]-html2md/commit/81412ca9d9eef0bea448bdff9f4e01c4625a6c22))
+
+## [2.11.1](https://github.com/adobe/[secure]-html2md/compare/v2.11.0...v2.11.1) (2024-11-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-mediahandler to v2.5.32 ([#598](https://github.com/adobe/[secure]-html2md/issues/598)) ([cb30893](https://github.com/adobe/[secure]-html2md/commit/cb3089385be4af8962a49d814351e07e1a5cf981))
+
+# [2.11.0](https://github.com/adobe/[secure]-html2md/compare/v2.10.16...v2.11.0) (2024-11-18)
+
+
+### Features
+
+* fix post deploy test ([#596](https://github.com/adobe/[secure]-html2md/issues/596)) ([1f034fd](https://github.com/adobe/[secure]-html2md/commit/1f034fd320cb416942651ff915523e7dbb3b356c))
+* Support og:image and twitter:image in page metadata  ([37ccd6a](https://github.com/adobe/[secure]-html2md/commit/37ccd6a48b3ea4e8f87db524ff15975a76f83f06)), closes [#590](https://github.com/adobe/[secure]-html2md/issues/590)
+
+## [2.10.16](https://github.com/adobe/[secure]-html2md/compare/v2.10.15...v2.10.16) (2024-11-14)
+
+
+### Bug Fixes
+
+* increase memory size to 1G ([faddb03](https://github.com/adobe/[secure]-html2md/commit/faddb033b8b56e9e03bc4a539bbf397576a43f11))
+
+## [2.10.15](https://github.com/adobe/[secure]-html2md/compare/v2.10.14...v2.10.15) (2024-11-12)
+
+
+### Bug Fixes
+
+* unmet constraints should return a 400 ([#589](https://github.com/adobe/[secure]-html2md/issues/589)) ([e953304](https://github.com/adobe/[secure]-html2md/commit/e9533046d96db9729a0f7cb2a9e0d60cc2cb98ea))
+
+## [2.10.14](https://github.com/adobe/[secure]-html2md/compare/v2.10.13...v2.10.14) (2024-11-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mdast-util-to-markdown to v2.1.2 ([#584](https://github.com/adobe/[secure]-html2md/issues/584)) ([1a39202](https://github.com/adobe/[secure]-html2md/commit/1a392026b411bc6aba641c30e877e5e81cd7facb))
+
+## [2.10.13](https://github.com/adobe/[secure]-html2md/compare/v2.10.12...v2.10.13) (2024-11-06)
+
+
+### Bug Fixes
+
+* log stack in debug level (AWS) ([#582](https://github.com/adobe/[secure]-html2md/issues/582)) ([e6cfb05](https://github.com/adobe/[secure]-html2md/commit/e6cfb053a2fc9252b4d8cdcf99012037c334cf99))
+
+## [2.10.12](https://github.com/adobe/[secure]-html2md/compare/v2.10.11...v2.10.12) (2024-11-03)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([0352499](https://github.com/adobe/[secure]-html2md/commit/0352499cf71b9d40a98ca632f2923315083ff22d))
+
+## [2.10.11](https://github.com/adobe/[secure]-html2md/compare/v2.10.10...v2.10.11) (2024-11-02)
+
+
+### Bug Fixes
+
+* **deps:** update external fixes ([c61bda2](https://github.com/adobe/[secure]-html2md/commit/c61bda2f40a7e07ccfb22b4ccd62ad14445b7ede))
+
+## [2.10.10](https://github.com/adobe/[secure]-html2md/compare/v2.10.9...v2.10.10) (2024-10-21)
+
+
+### Bug Fixes
+
+* allow more meta ([#565](https://github.com/adobe/[secure]-html2md/issues/565)) ([bee785a](https://github.com/adobe/[secure]-html2md/commit/bee785a34077e170d958fd933c228bc7c21737a1))
+
+## [2.10.9](https://github.com/adobe/[secure]-html2md/compare/v2.10.8...v2.10.9) (2024-10-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-html-pipeline to v6.15.3 ([#575](https://github.com/adobe/[secure]-html2md/issues/575)) ([1afb3f6](https://github.com/adobe/[secure]-html2md/commit/1afb3f6db887ade532fbeef4e0bc9c545ba34857))
+
+## [2.10.8](https://github.com/adobe/[secure]-html2md/compare/v2.10.7...v2.10.8) (2024-10-17)
+
+
+### Bug Fixes
+
+* properly handle sub/sup/u in divs without p ([#570](https://github.com/adobe/[secure]-html2md/issues/570)) ([97e6fba](https://github.com/adobe/[secure]-html2md/commit/97e6fbaac05fb3f14dad0b73128a632294f1fd78)), closes [#569](https://github.com/adobe/[secure]-html2md/issues/569)
+
+## [2.10.7](https://github.com/adobe/[secure]-html2md/compare/v2.10.6...v2.10.7) (2024-10-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hast-util-select to v6.0.3 ([#566](https://github.com/adobe/[secure]-html2md/issues/566)) ([641f4cd](https://github.com/adobe/[secure]-html2md/commit/641f4cdf04a50bf208cdec52b390ef207eceeb58))
+
 ## [2.10.6](https://github.com/adobe/[secure]-html2md/compare/v2.10.5...v2.10.6) (2024-09-28)
 
 

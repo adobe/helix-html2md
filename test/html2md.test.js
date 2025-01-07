@@ -107,6 +107,10 @@ describe('html2md Tests', () => {
   it('throws meaningful error when json-ld is too large', async () => {
     await assert.rejects(() => test('json-ld-too-large'), Error('metadata size limit exceeded'));
   });
+
+  it('convert a document with meta names and properties correctly', async () => {
+    await test('meta-tags');
+  });
 });
 
 describe('className to block type tests', () => {
