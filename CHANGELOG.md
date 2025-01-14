@@ -1,3 +1,10 @@
+## [2.11.14](https://github.com/adobe/[secure]-html2md/compare/v2.11.13...v2.11.14) (2025-01-14)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#625](https://github.com/adobe/[secure]-html2md/issues/625)) ([82d4dc7](https://github.com/adobe/[secure]-html2md/commit/82d4dc73cf146376aa9772c709f9bc9c777881d1))
+
 ## [2.11.13](https://github.com/adobe/[secure]-html2md/compare/v2.11.12...v2.11.13) (2025-01-07)
 
 
