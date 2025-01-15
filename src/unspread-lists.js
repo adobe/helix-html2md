@@ -16,12 +16,15 @@ import { visit, CONTINUE } from 'unist-util-visit';
  * @param {object} tree
  */
 export function unspreadLists(tree, url, log) {
+  let listsWithSpread = 0;
+  let listItemsWithMultipleParagraphs = 0;
+
   visit(tree, (node) => {
     if (node.type === 'list' || node.type === 'listItem') {
       // eslint-disable-next-line no-param-reassign
       // node.spread = false;
       if (node.spread) {
-        log.info(`Spread list seen in ${url}`);
+        listsWithSpread += 1;
       }
     }
     if (node.type === 'listItem' && node.children.length > 1) {
@@ -30,8 +33,12 @@ export function unspreadLists(tree, url, log) {
       // node.children.forEach((child) => children.push(...child.children));
       // eslint-disable-next-line no-param-reassign
       // node.children = children;
-      log.info(`listItem with multiple children seen in ${url}`);
+      listItemsWithMultipleParagraphs += 1;
     }
     return CONTINUE;
   });
+
+  if (listsWithSpread > 0 || listItemsWithMultipleParagraphs > 0) {
+    log.info(`Spread list seen in ${url}, listsWithSpread=${listsWithSpread}, listItemsWithMultipleParagraphs=${listItemsWithMultipleParagraphs}`);
+  }
 }
