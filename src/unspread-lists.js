@@ -15,11 +15,22 @@ import { visit, CONTINUE } from 'unist-util-visit';
  * Collapse (un-spread) all lists
  * @param {object} tree
  */
-export function unspreadLists(tree) {
+export function unspreadLists(tree, url, log) {
   visit(tree, (node) => {
     if (node.type === 'list' || node.type === 'listItem') {
       // eslint-disable-next-line no-param-reassign
-      node.spread = false;
+      // node.spread = false;
+      if (node.spread) {
+        log.info(`Spread list seen in ${url}`);
+      }
+    }
+    if (node.type === 'listItem' && node.children.length > 1) {
+      // unwrap paragraphs if multiple children
+      // const children = [];
+      // node.children.forEach((child) => children.push(...child.children));
+      // eslint-disable-next-line no-param-reassign
+      // node.children = children;
+      log.info(`listItem with multiple children seen in ${url}`);
     }
     return CONTINUE;
   });

@@ -27,6 +27,7 @@ const specs = [
   'microdata',
   'nested-lists',
   'rowspan',
+  'lists-with-pictures',
 ];
 
 describe('Roundtrip tests', () => {
@@ -34,7 +35,7 @@ describe('Roundtrip tests', () => {
     it(`converts '${spec}' HTML input to the expected output`, async () => {
       const input = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.input.html`), 'utf-8');
       const expected = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.output.html`), 'utf-8');
-      const markdown = await html2md(input, { log: console });
+      const markdown = await html2md(input, { log: console, url: spec });
       const output = await render(url, markdown);
       assert.strictEqual(output.body?.trim(), expected.trim());
     });

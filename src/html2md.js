@@ -371,7 +371,7 @@ export async function html2md(html, opts) {
   imageReferences(mdast);
   sanitizeHeading(mdast);
   sanitizeTextAndFormats(mdast);
-  unspreadLists(mdast);
+  unspreadLists(mdast, url, log);
 
   // noinspection JSVoidFunctionReturnValueUsed
   const md = unified()
