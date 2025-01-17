@@ -28,6 +28,7 @@ const specs = [
   'nested-lists',
   'rowspan',
   'lists-with-pictures',
+  'lists-with-code',
 ];
 
 describe('Roundtrip tests', () => {

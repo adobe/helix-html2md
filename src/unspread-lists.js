@@ -10,6 +10,7 @@
  * governing permissions and limitations under the License.
  */
 import { visit, CONTINUE } from 'unist-util-visit';
+import { find } from 'unist-util-find';
 
 /**
  * Collapse (un-spread) all lists
@@ -17,28 +18,34 @@ import { visit, CONTINUE } from 'unist-util-visit';
  */
 export function unspreadLists(tree, url, log) {
   let listsWithSpread = 0;
-  let listItemsWithMultipleParagraphs = 0;
+  let listItemWithPictures = 0;
 
   visit(tree, (node) => {
+    // lists are spread if the contain nested lists
+    // list items are spread if they contain multiple block elements (e.g. code, paragraph, code)
+    // list items are not spread if they contain one or more pictures
     if (node.type === 'list' || node.type === 'listItem') {
-      // eslint-disable-next-line no-param-reassign
-      // node.spread = false;
       if (node.spread) {
+        // eslint-disable-next-line no-param-reassign
+        // node.spread = false;
         listsWithSpread += 1;
       }
-    }
-    if (node.type === 'listItem' && node.children.length > 1) {
-      // unwrap paragraphs if multiple children
-      // const children = [];
-      // node.children.forEach((child) => children.push(...child.children));
-      // eslint-disable-next-line no-param-reassign
-      // node.children = children;
-      listItemsWithMultipleParagraphs += 1;
+      if (node.type === 'listItem') {
+        // if there is a picture in the list item, it is not spread but the children are all
+        // paragraphs which different from the markdown generated form a google doc or docx
+        if (find(node, { type: 'imageReference' })) {
+          // const children = [];
+          // node.children.forEach((child) => children.push(...child.children));
+          // eslint-disable-next-line no-param-reassign
+          // node.children = children;
+          listItemWithPictures += 1;
+        }
+      }
     }
     return CONTINUE;
   });
 
-  if (listsWithSpread > 0 || listItemsWithMultipleParagraphs > 0) {
-    log.info(`Spread list seen in ${url}, listsWithSpread=${listsWithSpread}, listItemsWithMultipleParagraphs=${listItemsWithMultipleParagraphs}`);
+  if (listsWithSpread > 0 || listItemWithPictures > 0) {
+    log.info(`Spread list seen in ${url}, listsWithSpread=${listsWithSpread}, listItemWithPictures=${listItemWithPictures}`);
   }
 }
