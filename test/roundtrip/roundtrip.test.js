@@ -53,7 +53,7 @@ describe('Roundtrip tests', () => {
     await test('lists-with-pictures');
   });
 
-  it.only('converts \'lists-with-code\' HTML input to the expected output', async () => {
+  it('converts \'lists-with-code\' HTML input to the expected output', async () => {
     await test('lists-with-code');
   });
 });
