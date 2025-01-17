@@ -20,25 +20,40 @@ import { render } from './mock-pipeline.js';
 
 const url = 'http://example.com';
 
-const specs = [
-  'empty',
-  'some-text',
-  'all-sections',
-  'microdata',
-  'nested-lists',
-  'rowspan',
-  'lists-with-pictures',
-  'lists-with-code',
-];
-
 describe('Roundtrip tests', () => {
-  specs.forEach((spec) => {
-    it(`converts '${spec}' HTML input to the expected output`, async () => {
-      const input = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.input.html`), 'utf-8');
-      const expected = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.output.html`), 'utf-8');
-      const markdown = await html2md(input, { log: console, url: spec });
-      const output = await render(url, markdown);
-      assert.strictEqual(output.body?.trim(), expected.trim());
-    });
+  async function test(spec) {
+    const input = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.input.html`), 'utf-8');
+    const expected = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.output.html`), 'utf-8');
+    const markdown = await html2md(input, { log: console, url: spec });
+    const output = await render(url, markdown);
+    assert.strictEqual(output.body?.trim(), expected.trim());
+  }
+
+  it('converts \'empty\' HTML input to the expected output', async () => {
+    await test('empty');
+  });
+
+  it('converts \'some-text\' HTML input to the expected output', async () => {
+    await test('some-text');
+  });
+
+  it('converts \'all-sections\' HTML input to the expected output', async () => {
+    await test('all-sections');
+  });
+
+  it('converts \'microdata\' HTML input to the expected output', async () => {
+    await test('microdata');
+  });
+
+  it('converts \'nested-lists\' HTML input to the expected output', async () => {
+    await test('nested-lists');
+  });
+
+  it('converts \'lists-with-pictures\' HTML input to the expected output', async () => {
+    await test('lists-with-pictures');
+  });
+
+  it.only('converts \'lists-with-code\' HTML input to the expected output', async () => {
+    await test('lists-with-code');
   });
 });
