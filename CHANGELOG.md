@@ -1,3 +1,10 @@
+## [2.12.2](https://github.com/adobe/[secure]-html2md/compare/v2.12.1...v2.12.2) (2025-01-21)
+
+
+### Bug Fixes
+
+* nicely format json-ld ([d916b3a](https://github.com/adobe/[secure]-html2md/commit/d916b3a3539afedb9cdc8efba355ba9d483a98a6))
+
 ## [2.12.1](https://github.com/adobe/[secure]-html2md/compare/v2.12.0...v2.12.1) (2025-01-21)
 
 
