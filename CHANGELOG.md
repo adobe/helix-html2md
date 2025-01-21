@@ -1,3 +1,10 @@
+# [2.12.0](https://github.com/adobe/[secure]-html2md/compare/v2.11.15...v2.12.0) (2025-01-21)
+
+
+### Features
+
+* list and listItem spread logging ([#626](https://github.com/adobe/[secure]-html2md/issues/626)) ([b83ea6c](https://github.com/adobe/[secure]-html2md/commit/b83ea6ce3614b7fda43692602fb2a5941e48eb10)), closes [#539](https://github.com/adobe/[secure]-html2md/issues/539) [#530](https://github.com/adobe/[secure]-html2md/issues/530)
+
 ## [2.11.15](https://github.com/adobe/[secure]-html2md/compare/v2.11.14...v2.11.15) (2025-01-21)
 
 
