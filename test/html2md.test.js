@@ -21,6 +21,7 @@ async function test(spec) {
   const html = await readFile(resolve(__testdir, 'fixtures', `${spec}.html`), 'utf-8');
   const actual = await html2md(html, {
     log: console,
+    url: spec,
   });
   const expected = await readFile(resolve(__testdir, 'fixtures', `${spec}.md`), 'utf-8');
   assert.strictEqual(actual.trim(), expected.trim());
