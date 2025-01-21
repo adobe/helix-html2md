@@ -286,7 +286,7 @@ describe('Index Tests', () => {
 
   it('returns 409 for too many different images', async () => {
     let html = '<html><body><main><div>';
-    for (let i = 0; i < 101; i += 1) {
+    for (let i = 0; i < 121; i += 1) {
       html += `<img src="/image-${i}.png">`;
     }
     html += '</div></main></body>';
@@ -301,7 +301,7 @@ describe('Index Tests', () => {
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'error fetching resource at https://www.example.com/: maximum number of images reached: 101 of 100 max.',
+      'x-error': 'error fetching resource at https://www.example.com/: maximum number of images reached: 121 of 120 max.',
     });
   });
 

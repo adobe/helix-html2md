@@ -1,3 +1,24 @@
+## [2.12.1](https://github.com/adobe/[secure]-html2md/compare/v2.12.0...v2.12.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* up byom image limit to 120 ([#628](https://github.com/adobe/[secure]-html2md/issues/628)) ([c07c697](https://github.com/adobe/[secure]-html2md/commit/c07c697cb86355020ee53c1a561dc8b9a5bb2ad8))
+
+# [2.12.0](https://github.com/adobe/[secure]-html2md/compare/v2.11.15...v2.12.0) (2025-01-21)
+
+
+### Features
+
+* list and listItem spread logging ([#626](https://github.com/adobe/[secure]-html2md/issues/626)) ([b83ea6c](https://github.com/adobe/[secure]-html2md/commit/b83ea6ce3614b7fda43692602fb2a5941e48eb10)), closes [#539](https://github.com/adobe/[secure]-html2md/issues/539) [#530](https://github.com/adobe/[secure]-html2md/issues/530)
+
+## [2.11.15](https://github.com/adobe/[secure]-html2md/compare/v2.11.14...v2.11.15) (2025-01-21)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#629](https://github.com/adobe/[secure]-html2md/issues/629)) ([1ab5ab6](https://github.com/adobe/[secure]-html2md/commit/1ab5ab6b3c1b5d43770c5ecc8e4e31c307f6a762))
+
 ## [2.11.14](https://github.com/adobe/[secure]-html2md/compare/v2.11.13...v2.11.14) (2025-01-14)
 
 
