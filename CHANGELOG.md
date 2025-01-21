@@ -1,3 +1,10 @@
+## [2.12.1](https://github.com/adobe/[secure]-html2md/compare/v2.12.0...v2.12.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* up byom image limit to 120 ([#628](https://github.com/adobe/[secure]-html2md/issues/628)) ([c07c697](https://github.com/adobe/[secure]-html2md/commit/c07c697cb86355020ee53c1a561dc8b9a5bb2ad8))
+
 # [2.12.0](https://github.com/adobe/[secure]-html2md/compare/v2.11.15...v2.12.0) (2025-01-21)
 
 
