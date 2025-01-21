@@ -50,8 +50,8 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
     return CONTINUE;
   });
 
-  if (images.size > 100) {
-    throw new TooManyImagesError(`maximum number of images reached: ${images.size} of 100 max.`);
+  if (images.size > 120) {
+    throw new TooManyImagesError(`maximum number of images reached: ${images.size} of 120 max.`);
   }
 
   // upload images
