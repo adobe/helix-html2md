@@ -16,7 +16,13 @@ import { find } from 'unist-util-find';
  * Collapse (un-spread) all lists
  * @param {object} tree
  */
-export function unspreadLists(tree, url, log) {
+export function unspreadLists(tree, opts) {
+  const {
+    url,
+    org,
+    site,
+    log,
+  } = opts;
   let listsWithSpread = 0;
   let listItemWithPictures = 0;
 
@@ -46,6 +52,6 @@ export function unspreadLists(tree, url, log) {
   });
 
   if (listsWithSpread > 0 || listItemWithPictures > 0) {
-    log.info(`Spread list seen in ${url}, listsWithSpread=${listsWithSpread}, listItemWithPictures=${listItemWithPictures}`);
+    log.info(`Spread list seen in ${org}/${site}, source=${url}, listsWithSpread=${listsWithSpread}, listItemWithPictures=${listItemWithPictures}`);
   }
 }
