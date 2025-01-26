@@ -1,3 +1,10 @@
+## [2.12.3](https://github.com/adobe/[secure]-html2md/compare/v2.12.2...v2.12.3) (2025-01-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/remark-gridtables to v3.0.9 ([#636](https://github.com/adobe/[secure]-html2md/issues/636)) ([f2749e2](https://github.com/adobe/[secure]-html2md/commit/f2749e25475d6ebd44a7f629dcafa6692b9be897))
+
 ## [2.12.2](https://github.com/adobe/[secure]-html2md/compare/v2.12.1...v2.12.2) (2025-01-21)
 
 
