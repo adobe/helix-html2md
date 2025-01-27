@@ -191,6 +191,8 @@ async function run(request, ctx) {
       mediaHandler,
       log,
       url: sourceUrl,
+      org,
+      site,
     });
 
     const headers = {
