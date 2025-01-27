@@ -1,3 +1,10 @@
+## [2.12.4](https://github.com/adobe/[secure]-html2md/compare/v2.12.3...v2.12.4) (2025-01-27)
+
+
+### Bug Fixes
+
+* include org/site in spread list logging ([#631](https://github.com/adobe/[secure]-html2md/issues/631)) ([d262671](https://github.com/adobe/[secure]-html2md/commit/d262671cfb01b9a211678c0733c6fde0e7b79eae)), closes [#539](https://github.com/adobe/[secure]-html2md/issues/539) [#530](https://github.com/adobe/[secure]-html2md/issues/530)
+
 ## [2.12.3](https://github.com/adobe/[secure]-html2md/compare/v2.12.2...v2.12.3) (2025-01-26)
 
 
