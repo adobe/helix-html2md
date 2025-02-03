@@ -75,7 +75,7 @@
     "@adobe/helix-universal-devserver": "1.1.81",
     "@adobe/semantic-release-coralogix": "1.1.34",
     "@semantic-release/changelog": "6.0.3",
-    "@semantic-release/exec": "6.0.3",
+    "@semantic-release/exec": "7.0.3",
     "@semantic-release/git": "10.0.1",
     "c8": "10.1.3",
     "dotenv": "16.4.7",
