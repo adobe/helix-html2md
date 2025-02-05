@@ -1,3 +1,10 @@
+# [2.13.0](https://github.com/adobe/[secure]-html2md/compare/v2.12.8...v2.13.0) (2025-02-05)
+
+
+### Features
+
+* log errors ([#647](https://github.com/adobe/[secure]-html2md/issues/647)) ([87ec755](https://github.com/adobe/[secure]-html2md/commit/87ec75557d164c8e6fd19f17ab99225a45390518))
+
 ## [2.12.8](https://github.com/adobe/[secure]-html2md/compare/v2.12.7...v2.12.8) (2025-02-05)
 
 
