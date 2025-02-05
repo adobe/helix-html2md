@@ -33,13 +33,18 @@ export const { fetch } = h1NoCache();
  * @param {number} status - error code.
  * @returns {Response} A response object.
  */
-export function error(message, status = 500, severity = null) {
+export function error(ctx, message, status = 500, severity = null) {
   const headers = {
     'Cache-Control': 'no-store, private, must-revalidate',
     'x-error': cleanupHeaderValue(message),
   };
   if (severity) {
     headers['x-severity'] = severity;
+  }
+  if (status >= 500) {
+    ctx.log.error(message);
+  } else {
+    ctx.log.warn(message);
   }
   return new Response('', { status, headers });
 }
@@ -101,7 +106,7 @@ async function run(request, ctx) {
 
   // resolve url via fstab
   if (!sourceUrl || !site || !org || !contentBusId) {
-    return error('sourceUrl, site, org and contentBusID parameters are required.', 400);
+    return error(ctx, 'sourceUrl, site, org and contentBusID parameters are required.', 400);
   }
 
   const reqHeaders = {};
@@ -132,24 +137,24 @@ async function run(request, ctx) {
           case 401:
           case 403:
           case 404:
-            return error(`resource not found: ${sourceUrl}`, status);
+            return error(ctx, `resource not found: ${sourceUrl}`, status);
           default:
-            return error(`error fetching resource at ${sourceUrl}`, status);
+            return error(ctx, `error fetching resource at ${sourceUrl}`, status);
         }
       } else {
         // propagate other errors as 502
-        return error(`error fetching resource at ${sourceUrl}: ${status}`, 502, 'warn');
+        return error(ctx, `error fetching resource at ${sourceUrl}: ${status}`, 502, 'warn');
       }
     }
     // limit response size of content provider to 1mb
     if (html.length > 1024 * 1024) {
-      return error(`error fetching resource at ${sourceUrl}: html source larger than 1mb`, 409);
+      return error(ctx, `error fetching resource at ${sourceUrl}: html source larger than 1mb`, 409);
     }
   } catch (e) {
     if (e instanceof AbortError) {
-      return error(`error fetching resource at ${sourceUrl}: timeout after 10s`, 504, 'warn');
+      return error(ctx, `error fetching resource at ${sourceUrl}: timeout after 10s`, 504, 'warn');
     }
-    return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 502, 'warn');
+    return error(ctx, `error fetching resource at ${sourceUrl}: ${e.message}`, 502, 'warn');
   } finally {
     signal.clear();
   }
@@ -213,14 +218,14 @@ async function run(request, ctx) {
     });
   } catch (e) {
     if (e instanceof TooManyImagesError) {
-      return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 409);
+      return error(ctx, `error fetching resource at ${sourceUrl}: ${e.message}`, 409);
     }
     if (e instanceof ConstraintsError) {
-      return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 400);
+      return error(ctx, `error fetching resource at ${sourceUrl}: ${e.message}`, 400);
     }
     /* c8 ignore next 3 */
     log.debug(e.stack);
-    return error(`error fetching resource at ${sourceUrl}: ${e.message}`, 500);
+    return error(ctx, `error fetching resource at ${sourceUrl}: ${e.message}`, 500);
   } finally {
     await mediaHandler?.fetchContext.reset();
   }
