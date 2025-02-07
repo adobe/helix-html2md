@@ -1,3 +1,10 @@
+## [2.13.3](https://github.com/adobe/[secure]-html2md/compare/v2.13.2...v2.13.3) (2025-02-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hast-util-to-mdast to v10.1.2 ([#642](https://github.com/adobe/[secure]-html2md/issues/642)) ([215190a](https://github.com/adobe/[secure]-html2md/commit/215190a21ec256800576b1701c9b10c0248579ea))
+
 ## [2.13.2](https://github.com/adobe/[secure]-html2md/compare/v2.13.1...v2.13.2) (2025-02-06)
 
 
