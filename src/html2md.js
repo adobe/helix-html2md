@@ -172,6 +172,11 @@ function addMetadata(hast, mdast) {
     }
   }
 
+  const html = select('html', hast);
+  if (html.properties?.lang) {
+    meta.set(text('html-lang'), text(html.properties.lang));
+  }
+
   if (meta.size) {
     mdast.children.push(toGridTable('Metadata', Array.from(meta.entries())));
   }
