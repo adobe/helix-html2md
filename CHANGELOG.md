@@ -1,3 +1,10 @@
+# [2.14.0](https://github.com/adobe/[secure]-html2md/compare/v2.13.8...v2.14.0) (2025-02-25)
+
+
+### Features
+
+* **metadata:** html lang attribute ([#659](https://github.com/adobe/[secure]-html2md/issues/659)) ([8c87c16](https://github.com/adobe/[secure]-html2md/commit/8c87c16f7064e4879eb994b626a231a02bab1098))
+
 ## [2.13.8](https://github.com/adobe/[secure]-html2md/compare/v2.13.7...v2.13.8) (2025-02-25)
 
 
