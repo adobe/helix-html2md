@@ -112,6 +112,10 @@ describe('html2md Tests', () => {
   it('convert a document with meta names and properties correctly', async () => {
     await test('meta-tags');
   });
+
+  it('convert a document with html lang correctly', async () => {
+    await test('meta-tags-htmllang');
+  });
 });
 
 describe('className to block type tests', () => {
