@@ -116,6 +116,10 @@ describe('html2md Tests', () => {
   it('convert a document with html lang correctly', async () => {
     await test('meta-tags-htmllang');
   });
+
+  it('convert nested tables', async () => {
+    await test('tables');
+  });
 });
 
 describe('className to block type tests', () => {
