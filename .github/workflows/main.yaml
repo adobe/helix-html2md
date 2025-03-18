@@ -20,7 +20,7 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '22.x'
       - run: npm install
       - run: npm test
       - uses: codecov/codecov-action@v5
@@ -37,7 +37,7 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '22.x'
       - run: npm install
 
       - name: Configure AWS Credentials
@@ -81,7 +81,7 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '22.x'
       - run: npm install
 
       - name: Configure AWS Credentials
