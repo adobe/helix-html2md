@@ -178,7 +178,6 @@ function addMetadata(hast, mdast) {
   }
 
   const links = selectAll('link', hast);
-  console.log('LINKS', links);
   links.forEach((link) => {
     const { hrefLang, href } = link.properties;
     if (hrefLang) {
