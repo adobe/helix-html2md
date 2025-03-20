@@ -15,7 +15,7 @@ import stringify from 'remark-stringify';
 import parse from 'rehype-parse';
 import { toMdast } from 'hast-util-to-mdast';
 import { toString } from 'hast-util-to-string';
-import { select } from 'hast-util-select';
+import { select, selectAll } from 'hast-util-select';
 import gfm from 'remark-gfm';
 
 import {
@@ -176,6 +176,14 @@ function addMetadata(hast, mdast) {
   if (html.properties?.lang) {
     meta.set(text('html-lang'), text(html.properties.lang));
   }
+
+  const links = selectAll('link', hast);
+  links.forEach((link) => {
+    const { hrefLang, href } = link.properties;
+    if (hrefLang) {
+      meta.set(text(`hreflang-${hrefLang}`), text(href));
+    }
+  });
 
   if (meta.size) {
     mdast.children.push(toGridTable('Metadata', Array.from(meta.entries())));

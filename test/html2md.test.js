@@ -117,6 +117,10 @@ describe('html2md Tests', () => {
     await test('meta-tags-htmllang');
   });
 
+  it('convert a document with hreflang links correctly', async () => {
+    await test('meta-tags-hreflang');
+  });
+
   it('convert nested tables', async () => {
     await test('tables');
   });
