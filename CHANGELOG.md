@@ -1,3 +1,10 @@
+# [2.15.0](https://github.com/adobe/[secure]-html2md/compare/v2.14.8...v2.15.0) (2025-03-20)
+
+
+### Features
+
+* **metadata:** hreflang links ([#684](https://github.com/adobe/[secure]-html2md/issues/684)) ([bbb9e90](https://github.com/adobe/[secure]-html2md/commit/bbb9e906443fae9290dfa47b10862a303fff1135))
+
 ## [2.14.8](https://github.com/adobe/[secure]-html2md/compare/v2.14.7...v2.14.8) (2025-03-18)
 
 
