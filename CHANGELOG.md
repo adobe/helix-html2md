@@ -1,3 +1,10 @@
+## [2.15.1](https://github.com/adobe/[secure]-html2md/compare/v2.15.0...v2.15.1) (2025-03-25)
+
+
+### Bug Fixes
+
+* improve 403 internal handling ([#688](https://github.com/adobe/[secure]-html2md/issues/688)) ([1b2ad36](https://github.com/adobe/[secure]-html2md/commit/1b2ad367e3eb099ed2ec1cb2b7cdce97b6d9d911))
+
 # [2.15.0](https://github.com/adobe/[secure]-html2md/compare/v2.14.8...v2.15.0) (2025-03-20)
 
 
