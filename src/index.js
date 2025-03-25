@@ -135,9 +135,10 @@ async function run(request, ctx) {
       if (status >= 400 && status < 500) {
         switch (status) {
           case 401:
+            return error(ctx, `resource not found: ${sourceUrl}`, status);
           case 403:
           case 404:
-            return error(ctx, `resource not found: ${sourceUrl}`, status);
+            return error(ctx, `resource not found: ${sourceUrl}`, 404);
           default:
             return error(ctx, `error fetching resource at ${sourceUrl}`, status);
         }
