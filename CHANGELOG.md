@@ -1,3 +1,10 @@
+## [2.15.2](https://github.com/adobe/[secure]-html2md/compare/v2.15.1...v2.15.2) (2025-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#686](https://github.com/adobe/[secure]-html2md/issues/686)) ([31b1141](https://github.com/adobe/[secure]-html2md/commit/31b114189333df6e24db709cf44e44501a9548fc))
+
 ## [2.15.1](https://github.com/adobe/[secure]-html2md/compare/v2.15.0...v2.15.1) (2025-03-25)
 
 
