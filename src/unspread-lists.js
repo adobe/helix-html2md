@@ -20,6 +20,14 @@ export function unspreadLists(tree) {
     if (node.type === 'list' || node.type === 'listItem') {
       // eslint-disable-next-line no-param-reassign
       node.spread = false;
+      // check if there is a child paragraph that wraps an image
+      for (let i = 0; i < node.children.length; i += 1) {
+        const child = node.children[i];
+        if (child.type === 'paragraph' && child.children.length === 1 && child.children[0].type === 'imageReference') {
+          // eslint-disable-next-line no-param-reassign,prefer-destructuring
+          node.children[i] = child.children[0];
+        }
+      }
     }
     return CONTINUE;
   });
