@@ -199,6 +199,7 @@ async function run(request, ctx) {
       url: sourceUrl,
       org,
       site,
+      unspreadLists: !!ctx.data.features?.unspreadLists,
     });
 
     const headers = {

@@ -256,6 +256,52 @@ describe('Index Tests', () => {
     });
   }
 
+  it('returns 200 for a simple html (with unspread feature)', async () => {
+    nock('https://www.example.com', {
+      reqheaders: {
+        authorization: 'Bearer 1234',
+        'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
+      },
+    })
+      .get('/')
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'unspread.html'), {
+        'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      });
+    const expected = await readFile(resolve(__testdir, 'fixtures', 'unspread.md'), 'utf-8');
+    const result = await main(
+      new Request('https://example.org/', {
+        method: 'POST',
+        headers: {
+          authorization: 'Bearer 1234',
+          'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          org: 'owner',
+          site: 'repo',
+          sourceUrl: 'https://www.example.com/',
+          contentBusId: 'foo-id',
+          features: {
+            unspreadLists: true,
+          },
+        }),
+      }),
+      {
+        log: console,
+        env: DUMMY_ENV,
+      },
+    );
+    assert.strictEqual(result.status, 200);
+    assert.strictEqual((await result.text()).trim(), expected.trim());
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-length': '406',
+      'content-type': 'text/markdown; charset=utf-8',
+      'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
+      'x-source-location': 'https://www.example.com/',
+    });
+  });
+
   it('returns 400 for bad json-ld', async () => {
     const html = `<html>
 <head>

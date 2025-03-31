@@ -21,10 +21,10 @@ import { render } from './mock-pipeline.js';
 const url = 'http://example.com';
 
 describe('Roundtrip tests', () => {
-  async function test(spec) {
+  async function test(spec, opts = {}) {
     const input = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.input.html`), 'utf-8');
     const expected = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.output.html`), 'utf-8');
-    const markdown = await html2md(input, { log: console, url: spec });
+    const markdown = await html2md(input, { log: console, url: spec, ...opts });
     const output = await render(url, markdown);
     assert.strictEqual(output.body?.trim(), expected.trim());
   }
@@ -47,6 +47,10 @@ describe('Roundtrip tests', () => {
 
   it('converts \'nested-lists\' HTML input to the expected output', async () => {
     await test('nested-lists');
+  });
+
+  it('converts \'nested-lists\' HTML input to the expected output (unspread)', async () => {
+    await test('nested-lists-unspread', { unspreadLists: true });
   });
 
   it('converts \'lists-with-pictures\' HTML input to the expected output', async () => {
