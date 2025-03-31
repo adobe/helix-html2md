@@ -232,22 +232,26 @@ describe('Index Tests', () => {
     });
   });
 
-  for (const status of [400, 401, 403, 404]) {
+  for (const status of [
+    { origin: 400, expected: 400 },
+    { origin: 401, expected: 401 },
+    { origin: 403, expected: 404 },
+    { origin: 404, expected: 404 },
+  ]) {
     // eslint-disable-next-line no-loop-func
-    it(`returns ${status} for a ${status} response`, async () => {
-      nock('https://www.example.com')
-        .get('/')
-        .reply(status);
+    it(`returns ${status.origin} for a ${status.expected} response`, async () => {
+      nock('https://www.example.com').get('/').reply(status.origin);
 
       const result = await main(reqUrl('/'), { log: console });
-      assert.strictEqual(result.status, status);
+      assert.strictEqual(result.status, status.expected);
       assert.strictEqual(await result.text(), '');
       assert.deepStrictEqual(result.headers.plain(), {
         'cache-control': 'no-store, private, must-revalidate',
         'content-type': 'text/plain; charset=utf-8',
-        'x-error': status === 400
-          ? 'error fetching resource at https://www.example.com/'
-          : 'resource not found: https://www.example.com/',
+        'x-error':
+          status.expected === 400
+            ? 'error fetching resource at https://www.example.com/'
+            : 'resource not found: https://www.example.com/',
       });
     });
   }
@@ -286,7 +290,7 @@ describe('Index Tests', () => {
 
   it('returns 409 for too many different images', async () => {
     let html = '<html><body><main><div>';
-    for (let i = 0; i < 101; i += 1) {
+    for (let i = 0; i < 201; i += 1) {
       html += `<img src="/image-${i}.png">`;
     }
     html += '</div></main></body>';
@@ -301,7 +305,7 @@ describe('Index Tests', () => {
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'error fetching resource at https://www.example.com/: maximum number of images reached: 101 of 100 max.',
+      'x-error': 'error fetching resource at https://www.example.com/: maximum number of images reached: 201 of 200 max.',
     });
   });
 

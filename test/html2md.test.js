@@ -21,6 +21,7 @@ async function test(spec) {
   const html = await readFile(resolve(__testdir, 'fixtures', `${spec}.html`), 'utf-8');
   const actual = await html2md(html, {
     log: console,
+    url: spec,
   });
   const expected = await readFile(resolve(__testdir, 'fixtures', `${spec}.md`), 'utf-8');
   assert.strictEqual(actual.trim(), expected.trim());
@@ -110,6 +111,18 @@ describe('html2md Tests', () => {
 
   it('convert a document with meta names and properties correctly', async () => {
     await test('meta-tags');
+  });
+
+  it('convert a document with html lang correctly', async () => {
+    await test('meta-tags-htmllang');
+  });
+
+  it('convert a document with hreflang links correctly', async () => {
+    await test('meta-tags-hreflang');
+  });
+
+  it('convert nested tables', async () => {
+    await test('tables');
   });
 });
 

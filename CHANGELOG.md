@@ -1,3 +1,227 @@
+## [2.15.2](https://github.com/adobe/[secure]-html2md/compare/v2.15.1...v2.15.2) (2025-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#686](https://github.com/adobe/[secure]-html2md/issues/686)) ([31b1141](https://github.com/adobe/[secure]-html2md/commit/31b114189333df6e24db709cf44e44501a9548fc))
+
+## [2.15.1](https://github.com/adobe/[secure]-html2md/compare/v2.15.0...v2.15.1) (2025-03-25)
+
+
+### Bug Fixes
+
+* improve 403 internal handling ([#688](https://github.com/adobe/[secure]-html2md/issues/688)) ([1b2ad36](https://github.com/adobe/[secure]-html2md/commit/1b2ad367e3eb099ed2ec1cb2b7cdce97b6d9d911))
+
+# [2.15.0](https://github.com/adobe/[secure]-html2md/compare/v2.14.8...v2.15.0) (2025-03-20)
+
+
+### Features
+
+* **metadata:** hreflang links ([#684](https://github.com/adobe/[secure]-html2md/issues/684)) ([bbb9e90](https://github.com/adobe/[secure]-html2md/commit/bbb9e906443fae9290dfa47b10862a303fff1135))
+
+## [2.14.8](https://github.com/adobe/[secure]-html2md/compare/v2.14.7...v2.14.8) (2025-03-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-mediahandler to v2.6.6 ([#680](https://github.com/adobe/[secure]-html2md/issues/680)) ([a8f39ff](https://github.com/adobe/[secure]-html2md/commit/a8f39ff992df038b5a97e7818cc450dc81fd1b62))
+
+## [2.14.7](https://github.com/adobe/[secure]-html2md/compare/v2.14.6...v2.14.7) (2025-03-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/remark-gridtables to v3.0.12 ([#676](https://github.com/adobe/[secure]-html2md/issues/676)) ([f397e8e](https://github.com/adobe/[secure]-html2md/commit/f397e8ee7adf14cf1db00c330995318fc851b66e))
+
+## [2.14.6](https://github.com/adobe/[secure]-html2md/compare/v2.14.5...v2.14.6) (2025-03-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/remark-gridtables to v3.0.11 ([#673](https://github.com/adobe/[secure]-html2md/issues/673)) ([d65b7cc](https://github.com/adobe/[secure]-html2md/commit/d65b7cc70122c21f86be2f27546172d3f06907cb))
+
+## [2.14.5](https://github.com/adobe/[secure]-html2md/compare/v2.14.4...v2.14.5) (2025-03-06)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#672](https://github.com/adobe/[secure]-html2md/issues/672)) ([7dcf6ed](https://github.com/adobe/[secure]-html2md/commit/7dcf6ed18d0a9f94b93dddcd98ff1f58c52a581e))
+
+## [2.14.4](https://github.com/adobe/[secure]-html2md/compare/v2.14.3...v2.14.4) (2025-03-06)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#670](https://github.com/adobe/[secure]-html2md/issues/670)) ([d3d7d4b](https://github.com/adobe/[secure]-html2md/commit/d3d7d4be148e025536fe67436229be95958e3d7b))
+
+## [2.14.3](https://github.com/adobe/[secure]-html2md/compare/v2.14.2...v2.14.3) (2025-03-04)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#668](https://github.com/adobe/[secure]-html2md/issues/668)) ([9f13253](https://github.com/adobe/[secure]-html2md/commit/9f13253468dab00341a2212b5b49b5192a67d9bf))
+
+## [2.14.2](https://github.com/adobe/[secure]-html2md/compare/v2.14.1...v2.14.2) (2025-03-04)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#667](https://github.com/adobe/[secure]-html2md/issues/667)) ([6f98625](https://github.com/adobe/[secure]-html2md/commit/6f986250ddfa19832a0f711073e00c39429eeacd))
+
+## [2.14.1](https://github.com/adobe/[secure]-html2md/compare/v2.14.0...v2.14.1) (2025-02-25)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#664](https://github.com/adobe/[secure]-html2md/issues/664)) ([7927b60](https://github.com/adobe/[secure]-html2md/commit/7927b601e3950c8bc01976adfe7d932875440945))
+
+# [2.14.0](https://github.com/adobe/[secure]-html2md/compare/v2.13.8...v2.14.0) (2025-02-25)
+
+
+### Features
+
+* **metadata:** html lang attribute ([#659](https://github.com/adobe/[secure]-html2md/issues/659)) ([8c87c16](https://github.com/adobe/[secure]-html2md/commit/8c87c16f7064e4879eb994b626a231a02bab1098))
+
+## [2.13.8](https://github.com/adobe/[secure]-html2md/compare/v2.13.7...v2.13.8) (2025-02-25)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#661](https://github.com/adobe/[secure]-html2md/issues/661)) ([6734937](https://github.com/adobe/[secure]-html2md/commit/67349375e2d0fcb274093959e88f7f03fedc1fbd))
+
+## [2.13.7](https://github.com/adobe/[secure]-html2md/compare/v2.13.6...v2.13.7) (2025-02-24)
+
+
+### Bug Fixes
+
+* **deps:** update external fixes ([#660](https://github.com/adobe/[secure]-html2md/issues/660)) ([085890c](https://github.com/adobe/[secure]-html2md/commit/085890c402715fcdd350ac980597f93f551c5d11))
+
+## [2.13.6](https://github.com/adobe/[secure]-html2md/compare/v2.13.5...v2.13.6) (2025-02-18)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#657](https://github.com/adobe/[secure]-html2md/issues/657)) ([531d43f](https://github.com/adobe/[secure]-html2md/commit/531d43f59c1e5361b95ef10c7f54ddf902415b55))
+
+## [2.13.5](https://github.com/adobe/[secure]-html2md/compare/v2.13.4...v2.13.5) (2025-02-11)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#653](https://github.com/adobe/[secure]-html2md/issues/653)) ([52ab553](https://github.com/adobe/[secure]-html2md/commit/52ab55306998ba72cb6878607897643558c4bac8))
+
+## [2.13.4](https://github.com/adobe/[secure]-html2md/compare/v2.13.3...v2.13.4) (2025-02-10)
+
+
+### Bug Fixes
+
+* **deps:** update external fixes ([#651](https://github.com/adobe/[secure]-html2md/issues/651)) ([9902881](https://github.com/adobe/[secure]-html2md/commit/9902881d071eb2d57bb2f7d94bb4b3f200a9aa9c))
+
+## [2.13.3](https://github.com/adobe/[secure]-html2md/compare/v2.13.2...v2.13.3) (2025-02-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hast-util-to-mdast to v10.1.2 ([#642](https://github.com/adobe/[secure]-html2md/issues/642)) ([215190a](https://github.com/adobe/[secure]-html2md/commit/215190a21ec256800576b1701c9b10c0248579ea))
+
+## [2.13.2](https://github.com/adobe/[secure]-html2md/compare/v2.13.1...v2.13.2) (2025-02-06)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#649](https://github.com/adobe/[secure]-html2md/issues/649)) ([bfa2dd5](https://github.com/adobe/[secure]-html2md/commit/bfa2dd597e17dca00f46de6e123794eb054c75bb))
+
+## [2.13.1](https://github.com/adobe/[secure]-html2md/compare/v2.13.0...v2.13.1) (2025-02-06)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#648](https://github.com/adobe/[secure]-html2md/issues/648)) ([c1874ba](https://github.com/adobe/[secure]-html2md/commit/c1874ba9bc5b846f9917ac58f635e1d699a75b4c))
+
+# [2.13.0](https://github.com/adobe/[secure]-html2md/compare/v2.12.8...v2.13.0) (2025-02-05)
+
+
+### Features
+
+* log errors ([#647](https://github.com/adobe/[secure]-html2md/issues/647)) ([87ec755](https://github.com/adobe/[secure]-html2md/commit/87ec75557d164c8e6fd19f17ab99225a45390518))
+
+## [2.12.8](https://github.com/adobe/[secure]-html2md/compare/v2.12.7...v2.12.8) (2025-02-05)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#645](https://github.com/adobe/[secure]-html2md/issues/645)) ([39861d3](https://github.com/adobe/[secure]-html2md/commit/39861d31eff97a49af3b28c4fdcd1284f4460665))
+
+## [2.12.7](https://github.com/adobe/[secure]-html2md/compare/v2.12.6...v2.12.7) (2025-02-04)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#643](https://github.com/adobe/[secure]-html2md/issues/643)) ([f46fdcb](https://github.com/adobe/[secure]-html2md/commit/f46fdcb30dc9508ded2057adbfba5c2b15a10f98))
+
+## [2.12.6](https://github.com/adobe/[secure]-html2md/compare/v2.12.5...v2.12.6) (2025-02-04)
+
+
+### Bug Fixes
+
+* up byom image limit to 200 ([882db32](https://github.com/adobe/[secure]-html2md/commit/882db32de4f5cb8dafce7da84a39478de857d298))
+
+## [2.12.5](https://github.com/adobe/[secure]-html2md/compare/v2.12.4...v2.12.5) (2025-01-28)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#640](https://github.com/adobe/[secure]-html2md/issues/640)) ([f103955](https://github.com/adobe/[secure]-html2md/commit/f103955b25dcd6e8f05567b78640cae56e0e89f0))
+
+## [2.12.4](https://github.com/adobe/[secure]-html2md/compare/v2.12.3...v2.12.4) (2025-01-27)
+
+
+### Bug Fixes
+
+* include org/site in spread list logging ([#631](https://github.com/adobe/[secure]-html2md/issues/631)) ([d262671](https://github.com/adobe/[secure]-html2md/commit/d262671cfb01b9a211678c0733c6fde0e7b79eae)), closes [#539](https://github.com/adobe/[secure]-html2md/issues/539) [#530](https://github.com/adobe/[secure]-html2md/issues/530)
+
+## [2.12.3](https://github.com/adobe/[secure]-html2md/compare/v2.12.2...v2.12.3) (2025-01-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/remark-gridtables to v3.0.9 ([#636](https://github.com/adobe/[secure]-html2md/issues/636)) ([f2749e2](https://github.com/adobe/[secure]-html2md/commit/f2749e25475d6ebd44a7f629dcafa6692b9be897))
+
+## [2.12.2](https://github.com/adobe/[secure]-html2md/compare/v2.12.1...v2.12.2) (2025-01-21)
+
+
+### Bug Fixes
+
+* nicely format json-ld ([d916b3a](https://github.com/adobe/[secure]-html2md/commit/d916b3a3539afedb9cdc8efba355ba9d483a98a6))
+
+## [2.12.1](https://github.com/adobe/[secure]-html2md/compare/v2.12.0...v2.12.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* up byom image limit to 120 ([#628](https://github.com/adobe/[secure]-html2md/issues/628)) ([c07c697](https://github.com/adobe/[secure]-html2md/commit/c07c697cb86355020ee53c1a561dc8b9a5bb2ad8))
+
+# [2.12.0](https://github.com/adobe/[secure]-html2md/compare/v2.11.15...v2.12.0) (2025-01-21)
+
+
+### Features
+
+* list and listItem spread logging ([#626](https://github.com/adobe/[secure]-html2md/issues/626)) ([b83ea6c](https://github.com/adobe/[secure]-html2md/commit/b83ea6ce3614b7fda43692602fb2a5941e48eb10)), closes [#539](https://github.com/adobe/[secure]-html2md/issues/539) [#530](https://github.com/adobe/[secure]-html2md/issues/530)
+
+## [2.11.15](https://github.com/adobe/[secure]-html2md/compare/v2.11.14...v2.11.15) (2025-01-21)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#629](https://github.com/adobe/[secure]-html2md/issues/629)) ([1ab5ab6](https://github.com/adobe/[secure]-html2md/commit/1ab5ab6b3c1b5d43770c5ecc8e4e31c307f6a762))
+
+## [2.11.14](https://github.com/adobe/[secure]-html2md/compare/v2.11.13...v2.11.14) (2025-01-14)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#625](https://github.com/adobe/[secure]-html2md/issues/625)) ([82d4dc7](https://github.com/adobe/[secure]-html2md/commit/82d4dc73cf146376aa9772c709f9bc9c777881d1))
+
 ## [2.11.13](https://github.com/adobe/[secure]-html2md/compare/v2.11.12...v2.11.13) (2025-01-07)
 
 
