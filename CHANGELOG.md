@@ -1,3 +1,10 @@
+# [2.16.0](https://github.com/adobe/[secure]-html2md/compare/v2.15.4...v2.16.0) (2025-04-02)
+
+
+### Features
+
+* unspread lists with feature flag ([bb39a68](https://github.com/adobe/[secure]-html2md/commit/bb39a68b0869e4a19749f93d57b237bc048b1874)), closes [#555](https://github.com/adobe/[secure]-html2md/issues/555) [#529](https://github.com/adobe/[secure]-html2md/issues/529)
+
 ## [2.15.4](https://github.com/adobe/[secure]-html2md/compare/v2.15.3...v2.15.4) (2025-04-01)
 
 
