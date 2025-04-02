@@ -10,48 +10,25 @@
  * governing permissions and limitations under the License.
  */
 import { visit, CONTINUE } from 'unist-util-visit';
-import { find } from 'unist-util-find';
 
 /**
  * Collapse (un-spread) all lists
  * @param {object} tree
  */
-export function unspreadLists(tree, opts) {
-  const {
-    url,
-    org,
-    site,
-    log,
-  } = opts;
-  let listsWithSpread = 0;
-  let listItemWithPictures = 0;
-
+export function unspreadLists(tree) {
   visit(tree, (node) => {
-    // lists are spread if the contain nested lists
-    // list items are spread if they contain multiple block elements (e.g. code, paragraph, code)
-    // list items are not spread if they contain one or more pictures
     if (node.type === 'list' || node.type === 'listItem') {
-      if (node.spread) {
-        // eslint-disable-next-line no-param-reassign
-        // node.spread = false;
-        listsWithSpread += 1;
-      }
-      if (node.type === 'listItem') {
-        // if there is a picture in the list item, it is not spread but the children are all
-        // paragraphs which different from the markdown generated form a google doc or docx
-        if (find(node, { type: 'imageReference' })) {
-          // const children = [];
-          // node.children.forEach((child) => children.push(...child.children));
-          // eslint-disable-next-line no-param-reassign
-          // node.children = children;
-          listItemWithPictures += 1;
+      // eslint-disable-next-line no-param-reassign
+      node.spread = false;
+      // check if there is a child paragraph that wraps an image
+      for (let i = 0; i < node.children.length; i += 1) {
+        const child = node.children[i];
+        if (child.type === 'paragraph' && child.children.length === 1 && child.children[0].type === 'imageReference') {
+          // eslint-disable-next-line no-param-reassign,prefer-destructuring
+          node.children[i] = child.children[0];
         }
       }
     }
     return CONTINUE;
   });
-
-  if (listsWithSpread > 0 || listItemWithPictures > 0) {
-    log.info(`Spread list seen in ${org}/${site}, source=${url}, listsWithSpread=${listsWithSpread}, listItemWithPictures=${listItemWithPictures}`);
-  }
 }

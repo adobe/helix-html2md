@@ -21,10 +21,15 @@ import { render } from './mock-pipeline.js';
 const url = 'http://example.com';
 
 describe('Roundtrip tests', () => {
-  async function test(spec) {
+  async function test(spec, opts = {}) {
     const input = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.input.html`), 'utf-8');
+    if (opts.unspreadLists) {
+      // eslint-disable-next-line no-param-reassign
+      spec += '-unspread';
+    }
     const expected = await readFile(resolve(__testdir, 'roundtrip/roundtrip-fixtures', `${spec}.output.html`), 'utf-8');
-    const markdown = await html2md(input, { log: console, url: spec });
+    const markdown = await html2md(input, { log: console, url: spec, ...opts });
+    console.log(markdown);
     const output = await render(url, markdown);
     assert.strictEqual(output.body?.trim(), expected.trim());
   }
@@ -49,11 +54,23 @@ describe('Roundtrip tests', () => {
     await test('nested-lists');
   });
 
+  it('converts \'nested-lists\' HTML input to the expected output (unspread)', async () => {
+    await test('nested-lists', { unspreadLists: true });
+  });
+
   it('converts \'lists-with-pictures\' HTML input to the expected output', async () => {
     await test('lists-with-pictures');
   });
 
+  it('converts \'lists-with-pictures\' HTML input to the expected output (unspread)', async () => {
+    await test('lists-with-pictures', { unspreadLists: true });
+  });
+
   it('converts \'lists-with-code\' HTML input to the expected output', async () => {
     await test('lists-with-code');
+  });
+
+  it('converts \'lists-with-code\' HTML input to the expected output (unspread)', async () => {
+    await test('lists-with-code', { unspreadLists: true });
   });
 });
