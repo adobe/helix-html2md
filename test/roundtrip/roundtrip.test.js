@@ -66,11 +66,11 @@ describe('Roundtrip tests', () => {
     await test('lists-with-pictures', { unspreadLists: true });
   });
 
-  it('converts \'lists-with-pictures\' HTML input to the expected output', async () => {
-    await test('lists-with-pictures');
-  });
-
   it('converts \'lists-with-code\' HTML input to the expected output', async () => {
     await test('lists-with-code');
+  });
+
+  it('converts \'lists-with-code\' HTML input to the expected output (unspread)', async () => {
+    await test('lists-with-code', { unspreadLists: true });
   });
 });
