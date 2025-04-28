@@ -20,6 +20,8 @@ const TEST_MD = `
 
 Content is: sharepoint-/main/index.docx
 
+\\>95%
+
 And more...newcontent
 
 +----------------------------------------------------------------+
