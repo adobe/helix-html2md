@@ -115,7 +115,7 @@ function addMetadata(hast, mdast) {
       meta.set(text('title'), text(assertMetaSizeLimit(toString(child))));
     } else if (child.tagName === 'meta') {
       const { name, property, content } = child.properties;
-      let key = name || property;
+      let key = name || property || '';
       key = key.includes(':') && !key.startsWith('twitter:') ? property : name;
       if (key && !HELIX_META[key]) {
         if (key === 'image' || key === 'twitter:image' || key === 'og:image' || key === 'og:image:secure_url') {
