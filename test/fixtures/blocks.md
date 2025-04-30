@@ -155,23 +155,39 @@ Helix lets frontend devs develop and deploy the design and functionality of thei
 | Style   | highlight |
 +---------+-----------+
 
-+------------------------------------------------------------------------+
-| Metadata                                                               |
-+---------------+--------------------------------------------------------+
-| title         | Project Helix by Adobe                                 |
-+---------------+--------------------------------------------------------+
-| description   | Frictionless experience management: Build blazing fast |
-|               | websites using tools content creators and developers   |
-|               | already know.                                          |
-+---------------+--------------------------------------------------------+
-| og:image      | ![][image8]                                            |
-+---------------+--------------------------------------------------------+
-| twitter:card  | summary\_large\_image                                  |
-+---------------+--------------------------------------------------------+
-| twitter:image | ![][image8]                                            |
-+---------------+--------------------------------------------------------+
-| robots        | noindex, nofollow                                      |
-+---------------+--------------------------------------------------------+
++-------------------------------------------------------------------------------+
+| Metadata                                                                      |
++----------------------+--------------------------------------------------------+
+| title                | Project Helix by Adobe                                 |
++----------------------+--------------------------------------------------------+
+| description          | Frictionless experience management: Build blazing fast |
+|                      | websites using tools content creators and developers   |
+|                      | already know.                                          |
++----------------------+--------------------------------------------------------+
+| og:title             | Project Helix by Adobe                                 |
++----------------------+--------------------------------------------------------+
+| og:description       | Frictionless experience management: Build blazing fast |
+|                      | websites using tools content creators and developers   |
+|                      | already know.                                          |
++----------------------+--------------------------------------------------------+
+| og:url               | https\://www\.hlx.live/home                            |
++----------------------+--------------------------------------------------------+
+| og:image             | ![][image8]                                            |
++----------------------+--------------------------------------------------------+
+| og:image:secure\_url | ![][image8]                                            |
++----------------------+--------------------------------------------------------+
+| twitter:card         | summary\_large\_image                                  |
++----------------------+--------------------------------------------------------+
+| twitter:title        | Project Helix by Adobe                                 |
++----------------------+--------------------------------------------------------+
+| twitter:description  | Frictionless experience management: Build blazing fast |
+|                      | websites using tools content creators and developers   |
+|                      | already know.                                          |
++----------------------+--------------------------------------------------------+
+| twitter:image        | ![][image8]                                            |
++----------------------+--------------------------------------------------------+
+| robots               | noindex, nofollow                                      |
++----------------------+--------------------------------------------------------+
 
 [image0]: ./media_11150c400cabf67c6baeb1d92d2adf99ab8941fb7.png?width=750&format=png&optimize=medium
 

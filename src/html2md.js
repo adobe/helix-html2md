@@ -106,44 +106,6 @@ function assertMetaSizeLimit(str, limit = 128_000) {
   return str;
 }
 
-/**
- * Check if meta name is allowed:
- *  - non-reserved
- *  - not starting with 'twitter:'
- *    - except 'twitter:label' and 'twitter:data'
- * @param {string} name
- * @returns {boolean}
- */
-function isAllowedMetaName(name) {
-  if (typeof name !== 'string') {
-    return false;
-  }
-  return !HELIX_META[name] && (
-    !name.startsWith('twitter:')
-    || name === 'twitter:card'
-    || name === 'twitter:image'
-    || name.startsWith('twitter:label')
-    || name.startsWith('twitter:data')
-  );
-}
-
-/**
- * Check if meta property is allowed:
- *  - non-reserved
- *  - og:type
- *  - product:*
- * @param {string|undefined} property
- * @returns {boolean}
- */
-function isAllowedMetaProperty(property) {
-  if (typeof property !== 'string') {
-    return false;
-  }
-  return !HELIX_META[property] && (property.startsWith('product:')
-    || property === 'og:image'
-    || property === 'og:type');
-}
-
 function addMetadata(hast, mdast) {
   const meta = new Map();
 
@@ -153,17 +115,13 @@ function addMetadata(hast, mdast) {
       meta.set(text('title'), text(assertMetaSizeLimit(toString(child))));
     } else if (child.tagName === 'meta') {
       const { name, property, content } = child.properties;
-      if (isAllowedMetaName(name)) {
-        if (name === 'image' || name === 'twitter:image') {
-          meta.set(text(name), image(assertMetaSizeLimit(content)));
+      let key = name || property || '';
+      key = key.includes(':') && !key.startsWith('twitter:') ? property : name;
+      if (key && !HELIX_META[key]) {
+        if (key === 'image' || key === 'twitter:image' || key === 'og:image' || key === 'og:image:secure_url') {
+          meta.set(text(key), image(assertMetaSizeLimit(content)));
         } else {
-          meta.set(text(name), text(assertMetaSizeLimit(content)));
-        }
-      } else if (isAllowedMetaProperty(property)) {
-        if (property === 'og:image') {
-          meta.set(text(property), image(assertMetaSizeLimit(content)));
-        } else {
-          meta.set(text(property), text(assertMetaSizeLimit(content)));
+          meta.set(text(key), text(assertMetaSizeLimit(content)));
         }
       }
     } else if (child.tagName === 'script' && child.properties.type === 'application/ld+json') {
