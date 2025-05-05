@@ -1,3 +1,10 @@
+## [2.16.4](https://github.com/adobe/[secure]-html2md/compare/v2.16.3...v2.16.4) (2025-05-05)
+
+
+### Bug Fixes
+
+* allowed metadata handling ([#711](https://github.com/adobe/[secure]-html2md/issues/711)) ([023efb7](https://github.com/adobe/[secure]-html2md/commit/023efb79230db435bfffdf5a57dd145c9c80ce95))
+
 ## [2.16.3](https://github.com/adobe/[secure]-html2md/compare/v2.16.2...v2.16.3) (2025-04-22)
 
 
