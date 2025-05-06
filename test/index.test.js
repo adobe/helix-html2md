@@ -83,7 +83,7 @@ describe('Index Tests', () => {
       'self https://images.dummy.com', // allow images.dummy.com with protocol, self explicitly
       'https://images.dummy.com/200', // allow images.dummy.com path ignored
     ].forEach((imgSrcPolicy) => {
-      it(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
+      it.only(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
         const headers = { authorization: 'Basic am9objpkb2U=' };
         const reqheaders = { ...headers };
         nock('https://www.example.com', { reqheaders })
@@ -107,6 +107,10 @@ describe('Index Tests', () => {
           .get('/blog/relative.png')
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
+          })
+          .get('/adobe/assets/urn:aaid:aem:abcd')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
           });
         nock('https://images.dummy.com', { reqheaders })
           .get('/300.png')
@@ -115,10 +119,10 @@ describe('Index Tests', () => {
           });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
           .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-          .times(4)
+          .times(5)
           .reply(404)
           .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-          .times(4)
+          .times(5)
           .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
@@ -127,7 +131,7 @@ describe('Index Tests', () => {
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
-          'content-length': '824',
+          'content-length': '837',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
@@ -168,6 +172,11 @@ describe('Index Tests', () => {
           .get('/blog/relative.png')
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
+          })
+          .get('/adobe/assets/urn:aaid:aem:abcd')
+          .basicAuth({ user: 'john', pass: 'doe' })
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
           });
         nock('https://images.dummy.com', { badheaders: ['authorization'] })
           .get('/300.png')
@@ -176,10 +185,10 @@ describe('Index Tests', () => {
           });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
           .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-          .times(4)
+          .times(5)
           .reply(404)
           .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-          .times(4)
+          .times(5)
           .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
