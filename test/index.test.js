@@ -83,7 +83,7 @@ describe('Index Tests', () => {
       'self https://images.dummy.com', // allow images.dummy.com with protocol, self explicitly
       'https://images.dummy.com/200', // allow images.dummy.com path ignored
     ].forEach((imgSrcPolicy) => {
-      it.only(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
+      it(`uploads images to media-bus with to img-src policy '${imgSrcPolicy}'`, async () => {
         const headers = { authorization: 'Basic am9objpkb2U=' };
         const reqheaders = { ...headers };
         nock('https://www.example.com', { reqheaders })
