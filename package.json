@@ -55,7 +55,7 @@
     "@adobe/helix-shared-utils": "3.0.2",
     "@adobe/helix-shared-wrap": "2.0.2",
     "@adobe/helix-status": "10.1.5",
-    "@adobe/remark-gridtables": "3.0.12",
+    "@adobe/remark-gridtables": "3.0.13",
     "hast-util-select": "6.0.4",
     "hast-util-to-mdast": "10.1.2",
     "hast-util-to-string": "3.0.1",
