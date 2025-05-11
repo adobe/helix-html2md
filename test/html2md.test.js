@@ -121,6 +121,10 @@ describe('html2md Tests', () => {
     await test('meta-tags-hreflang');
   });
 
+  it('convert a document with Adobe AEM assets correctly', async () => {
+    await test('aem-assets');
+  });
+
   it('convert nested tables', async () => {
     await test('tables');
   });

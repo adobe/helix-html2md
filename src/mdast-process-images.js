@@ -44,6 +44,20 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
         node.url = new URL(url, baseUrl).href;
         register(node);
       } else if (url.startsWith('https://')) {
+        // Special handling for Adobe asset URLs
+        if (url.includes('/adobe/assets/urn:aaid:aem:')) {
+          // Add custom class to the node for Adobe AEM assets
+          const data = node.data || {};
+          const hProperties = data.hProperties || {};
+          hProperties.className = 'adobe-aem-asset';
+          // eslint-disable-next-line no-param-reassign
+          node.data = { ...data, hProperties };
+
+          // eslint-disable-next-line no-param-reassign
+          node.data.aemAsset = true;
+
+          log.debug(`Marked Adobe AEM asset: ${url}`);
+        }
         register(node);
       }
     }
