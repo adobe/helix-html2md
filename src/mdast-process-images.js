@@ -28,17 +28,17 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
   }
   // gather all image nodes
   const images = new Map();
-  const aemAssetNodes = new Map();
+  const externalAssetNodes = new Map();
 
   const register = (node) => {
-    // Check if this is an AEM asset image
-    if (node.data?.aemAsset) {
-      if (aemAssetNodes.has(node.url)) {
-        aemAssetNodes.get(node.url).push(node);
+    // Check if this is an external asset image
+    if (node.data?.externalAsset) {
+      if (externalAssetNodes.has(node.url)) {
+        externalAssetNodes.get(node.url).push(node);
       } else {
-        aemAssetNodes.set(node.url, [node]);
+        externalAssetNodes.set(node.url, [node]);
       }
-      log.debug(`Skipping upload for AEM asset: ${node.url}`);
+      log.debug(`Skipping upload for external asset: ${node.url}`);
       return;
     }
 
@@ -58,19 +58,19 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
         node.url = new URL(url, baseUrl).href;
         register(node);
       } else if (url.startsWith('https://')) {
-        // Special handling for Adobe asset URLs
+        // Special handling for external asset URLs
         if (url.includes('/adobe/assets/urn:aaid:aem:')) {
-          // Add custom class to the node for Adobe AEM assets
+          // Add custom class to the node for external assets
           const data = node.data || {};
           const hProperties = data.hProperties || {};
-          hProperties.className = 'adobe-aem-asset';
+          hProperties.className = 'external-asset';
           // eslint-disable-next-line no-param-reassign
           node.data = { ...data, hProperties };
 
           // eslint-disable-next-line no-param-reassign
-          node.data.aemAsset = true;
+          node.data.externalAsset = true;
 
-          log.debug(`Marked Adobe AEM asset: ${url}`);
+          log.debug(`Marked external asset: ${url}`);
         }
         register(node);
       }
@@ -78,8 +78,8 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
     return CONTINUE;
   });
 
-  if (images.size + aemAssetNodes.size > 200) {
-    throw new TooManyImagesError(`maximum number of images reached: ${images.size + aemAssetNodes.size} of 200 max.`);
+  if (images.size + externalAssetNodes.size > 200) {
+    throw new TooManyImagesError(`maximum number of images reached: ${images.size + externalAssetNodes.size} of 200 max.`);
   }
 
   // upload regular images

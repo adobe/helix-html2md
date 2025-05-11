@@ -38,7 +38,7 @@ describe('mdast-process-images Tests', () => {
     processedUrls = [];
   });
 
-  it('handles Adobe AEM asset URLs', async () => {
+  it('handles external asset URLs', async () => {
     const tree = {
       type: 'root',
       children: [
@@ -48,7 +48,7 @@ describe('mdast-process-images Tests', () => {
             {
               type: 'image',
               url: 'https://example.com/adobe/assets/urn:aaid:aem:12345-abcde',
-              alt: 'AEM Asset',
+              alt: 'External Asset',
             },
           ],
         },
@@ -67,27 +67,27 @@ describe('mdast-process-images Tests', () => {
 
     await processImages(mockLog, tree, mockMediaHandler, baseUrl);
 
-    // Verify AEM asset is marked with className and metadata
-    const aemImageNode = tree.children[0].children[0];
-    assert.ok(aemImageNode.data, 'AEM image node should have data property');
-    assert.ok(aemImageNode.data.hProperties, 'AEM image should have hProperties');
-    assert.strictEqual(aemImageNode.data.hProperties.className, 'adobe-aem-asset', 'AEM image should have correct className');
-    assert.strictEqual(aemImageNode.data.aemAsset, true, 'AEM image should have aemAsset flag');
+    // Verify external asset is marked with className and metadata
+    const externalAssetNode = tree.children[0].children[0];
+    assert.ok(externalAssetNode.data, 'External asset node should have data property');
+    assert.ok(externalAssetNode.data.hProperties, 'External asset should have hProperties');
+    assert.strictEqual(externalAssetNode.data.hProperties.className, 'external-asset', 'External asset should have correct className');
+    assert.strictEqual(externalAssetNode.data.externalAsset, true, 'External asset should have externalAsset flag');
 
-    // Verify the AEM asset URL remains unchanged
-    assert.strictEqual(aemImageNode.url, 'https://example.com/adobe/assets/urn:aaid:aem:12345-abcde', 'AEM image URL should remain unchanged');
+    // Verify the external asset URL remains unchanged
+    assert.strictEqual(externalAssetNode.url, 'https://example.com/adobe/assets/urn:aaid:aem:12345-abcde', 'External asset URL should remain unchanged');
 
     // Verify regular image doesn't have the marking
     const regularImageNode = tree.children[1].children[0];
-    assert.ok(!regularImageNode.data || !regularImageNode.data.aemAsset, 'Regular image should not have aemAsset flag');
+    assert.ok(!regularImageNode.data || !regularImageNode.data.externalAsset, 'Regular image should not have externalAsset flag');
 
     // Verify only the regular image was processed by mediaHandler
     assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
     assert.strictEqual(processedUrls[0], 'https://regular-image.com/image.jpg', 'Regular image should be processed');
   });
 
-  it('handles duplicate Adobe AEM asset URLs', async () => {
-    const sameAemUrl = 'https://example.com/adobe/assets/urn:aaid:aem:same-id';
+  it('handles duplicate external asset URLs', async () => {
+    const sameExternalUrl = 'https://example.com/adobe/assets/urn:aaid:aem:same-id';
     const tree = {
       type: 'root',
       children: [
@@ -96,8 +96,8 @@ describe('mdast-process-images Tests', () => {
           children: [
             {
               type: 'image',
-              url: sameAemUrl,
-              alt: 'AEM Asset 1',
+              url: sameExternalUrl,
+              alt: 'External Asset 1',
             },
           ],
         },
@@ -106,8 +106,8 @@ describe('mdast-process-images Tests', () => {
           children: [
             {
               type: 'image',
-              url: sameAemUrl,
-              alt: 'AEM Asset 2',
+              url: sameExternalUrl,
+              alt: 'External Asset 2',
             },
           ],
         },
@@ -126,17 +126,17 @@ describe('mdast-process-images Tests', () => {
 
     await processImages(mockLog, tree, mockMediaHandler, baseUrl);
 
-    // Verify AEM asset nodes
-    const aemImageNode1 = tree.children[0].children[0];
-    const aemImageNode2 = tree.children[1].children[0];
+    // Verify external asset nodes
+    const externalAssetNode1 = tree.children[0].children[0];
+    const externalAssetNode2 = tree.children[1].children[0];
 
-    // Both AEM assets should be marked
-    assert.strictEqual(aemImageNode1.data.aemAsset, true, 'First AEM image should have aemAsset flag');
-    assert.strictEqual(aemImageNode2.data.aemAsset, true, 'Second AEM image should have aemAsset flag');
+    // Both external assets should be marked
+    assert.strictEqual(externalAssetNode1.data.externalAsset, true, 'First external asset should have externalAsset flag');
+    assert.strictEqual(externalAssetNode2.data.externalAsset, true, 'Second external asset should have externalAsset flag');
 
-    // Both AEM assets should keep their original URLs
-    assert.strictEqual(aemImageNode1.url, sameAemUrl, 'First AEM image URL should remain unchanged');
-    assert.strictEqual(aemImageNode2.url, sameAemUrl, 'Second AEM image URL should remain unchanged');
+    // Both external assets should keep their original URLs
+    assert.strictEqual(externalAssetNode1.url, sameExternalUrl, 'First external asset URL should remain unchanged');
+    assert.strictEqual(externalAssetNode2.url, sameExternalUrl, 'Second external asset URL should remain unchanged');
 
     // Only regular image should be processed
     assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
@@ -197,8 +197,8 @@ describe('mdast-process-images Tests', () => {
     assert.strictEqual(badImageNode.url, 'about:error');
   });
 
-  it('skips processing AEM asset images while counting them toward limit', async () => {
-    // Create 150 AEM assets and 50 regular images (should be under limit)
+  it('skips processing external asset images while counting them toward limit', async () => {
+    // Create 150 external assets and 50 regular images (should be under limit)
     const children = [];
     for (let i = 0; i < 150; i += 1) {
       children.push({
@@ -207,7 +207,7 @@ describe('mdast-process-images Tests', () => {
           {
             type: 'image',
             url: `https://example.com/adobe/assets/urn:aaid:aem:${i}`,
-            alt: `AEM Asset ${i}`,
+            alt: `External Asset ${i}`,
           },
         ],
       });
@@ -236,7 +236,7 @@ describe('mdast-process-images Tests', () => {
     // Verify only regular images were processed
     assert.strictEqual(processedUrls.length, 50, 'Only regular images should be processed');
 
-    // Check that we'd hit the limit with 151 AEM assets and 50 regular images
+    // Check that we'd hit the limit with 151 external assets and 50 regular images
     const childrenOverLimit = [...children];
     childrenOverLimit.push({
       type: 'paragraph',
@@ -244,7 +244,7 @@ describe('mdast-process-images Tests', () => {
         {
           type: 'image',
           url: 'https://example.com/adobe/assets/urn:aaid:aem:extra',
-          alt: 'Extra AEM Asset',
+          alt: 'Extra External Asset',
         },
       ],
     });
