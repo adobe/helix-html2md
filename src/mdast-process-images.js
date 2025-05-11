@@ -28,7 +28,21 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
   }
   // gather all image nodes
   const images = new Map();
+  const aemAssetNodes = new Map();
+
   const register = (node) => {
+    // Check if this is an AEM asset image
+    if (node.data?.aemAsset) {
+      if (aemAssetNodes.has(node.url)) {
+        aemAssetNodes.get(node.url).push(node);
+      } else {
+        aemAssetNodes.set(node.url, [node]);
+      }
+      log.debug(`Skipping upload for AEM asset: ${node.url}`);
+      return;
+    }
+
+    // Regular image processing
     if (images.has(node.url)) {
       images.get(node.url).push(node);
     } else {
@@ -64,11 +78,11 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
     return CONTINUE;
   });
 
-  if (images.size > 200) {
-    throw new TooManyImagesError(`maximum number of images reached: ${images.size} of 200 max.`);
+  if (images.size + aemAssetNodes.size > 200) {
+    throw new TooManyImagesError(`maximum number of images reached: ${images.size + aemAssetNodes.size} of 200 max.`);
   }
 
-  // upload images
+  // upload regular images
   await processQueue(images.entries(), async ([url, nodes]) => {
     try {
       const blob = await mediaHandler.getBlob(url, baseUrl);
