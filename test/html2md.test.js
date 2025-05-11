@@ -24,6 +24,7 @@ async function test(spec) {
     url: spec,
   });
   const expected = await readFile(resolve(__testdir, 'fixtures', `${spec}.md`), 'utf-8');
+
   assert.strictEqual(actual.trim(), expected.trim());
 }
 
@@ -121,8 +122,8 @@ describe('html2md Tests', () => {
     await test('meta-tags-hreflang');
   });
 
-  it('convert a document with Adobe AEM assets correctly', async () => {
-    await test('aem-assets');
+  it('convert a document with external assets correctly', async () => {
+    await test('external-assets');
   });
 
   it('convert nested tables', async () => {
