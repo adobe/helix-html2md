@@ -1,3 +1,10 @@
+## [2.16.9](https://github.com/adobe/[secure]-html2md/compare/v2.16.8...v2.16.9) (2025-05-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-mediahandler to v2.7.5 ([#728](https://github.com/adobe/[secure]-html2md/issues/728)) ([2ab6ec4](https://github.com/adobe/[secure]-html2md/commit/2ab6ec4b77a79759fd911e90630736bfdb4b0ee3))
+
 ## [2.16.8](https://github.com/adobe/[secure]-html2md/compare/v2.16.7...v2.16.8) (2025-05-11)
 
 
