@@ -24,7 +24,6 @@ async function test(spec) {
     url: spec,
   });
   const expected = await readFile(resolve(__testdir, 'fixtures', `${spec}.md`), 'utf-8');
-
   assert.strictEqual(actual.trim(), expected.trim());
 }
 
