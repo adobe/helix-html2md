@@ -15,30 +15,36 @@ import processQueue from '@adobe/helix-shared-process-queue';
 export class TooManyImagesError extends Error {
 }
 
+function isExternalImage(url, externalImages) {
+  const patterns = externalImages.map((pattern) => new RegExp(pattern));
+  return patterns.some((pattern) => pattern.test(url));
+}
+
 /**
  * Process images
  * @param {Console} log
  * @param {object} tree
  * @param {MediaHandler} mediaHandler
  * @param {string} baseUrl
+ * @param {Array<string>} externalImages - Array of url patterns to detect external images
  */
-export async function processImages(log, tree, mediaHandler, baseUrl) {
+export async function processImages(log, tree, mediaHandler, baseUrl, externalImages = []) {
   if (!mediaHandler) {
     return;
   }
   // gather all image nodes
   const images = new Map();
-  const externalAssetNodes = new Map();
+  const externalImageNodes = new Map();
 
   const register = (node) => {
-    // Check if this is an external asset image
-    if (node.data?.externalAsset) {
-      if (externalAssetNodes.has(node.url)) {
-        externalAssetNodes.get(node.url).push(node);
+    // Check if this is an external image
+    if (node.data?.externalImage) {
+      if (externalImageNodes.has(node.url)) {
+        externalImageNodes.get(node.url).push(node);
       } else {
-        externalAssetNodes.set(node.url, [node]);
+        externalImageNodes.set(node.url, [node]);
       }
-      log.debug(`Skipping upload for external asset: ${node.url}`);
+      log.debug(`Skipping upload for external image: ${node.url}`);
       return;
     }
 
@@ -58,28 +64,28 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
         node.url = new URL(url, baseUrl).href;
         register(node);
       } else if (url.startsWith('https://')) {
-        // Special handling for external asset URLs
-        if (url.includes('/adobe/assets/urn:aaid:aem:')) {
-          // Add custom class to the node for external assets
+        if (isExternalImage(url, externalImages)) {
+          // Add custom class to the node for external images
           const data = node.data || {};
           const hProperties = data.hProperties || {};
-          hProperties.className = 'external-asset';
+          hProperties.className = 'external-image';
           // eslint-disable-next-line no-param-reassign
           node.data = { ...data, hProperties };
 
           // eslint-disable-next-line no-param-reassign
-          node.data.externalAsset = true;
+          node.data.externalImage = true;
 
-          log.debug(`Marked external asset: ${url}`);
+          log.debug(`Marked external image: ${url}`);
         }
+
         register(node);
       }
     }
     return CONTINUE;
   });
 
-  if (images.size + externalAssetNodes.size > 200) {
-    throw new TooManyImagesError(`maximum number of images reached: ${images.size + externalAssetNodes.size} of 200 max.`);
+  if (images.size + externalImageNodes.size > 200) {
+    throw new TooManyImagesError(`maximum number of images reached: ${images.size + externalImageNodes.size} of 200 max.`);
   }
 
   // upload regular images
