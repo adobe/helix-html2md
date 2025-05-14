@@ -1,3 +1,24 @@
+## [2.16.10](https://github.com/adobe/[secure]-html2md/compare/v2.16.9...v2.16.10) (2025-05-13)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#729](https://github.com/adobe/[secure]-html2md/issues/729)) ([b3dd701](https://github.com/adobe/[secure]-html2md/commit/b3dd7016c565a54dc2ea8bee1059928d6af40824))
+
+## [2.16.9](https://github.com/adobe/[secure]-html2md/compare/v2.16.8...v2.16.9) (2025-05-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-mediahandler to v2.7.5 ([#728](https://github.com/adobe/[secure]-html2md/issues/728)) ([2ab6ec4](https://github.com/adobe/[secure]-html2md/commit/2ab6ec4b77a79759fd911e90630736bfdb4b0ee3))
+
+## [2.16.8](https://github.com/adobe/[secure]-html2md/compare/v2.16.7...v2.16.8) (2025-05-11)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#722](https://github.com/adobe/[secure]-html2md/issues/722)) ([378fefd](https://github.com/adobe/[secure]-html2md/commit/378fefdc0b66f8dfb19f36deab77a2ec9fd27842))
+
 ## [2.16.7](https://github.com/adobe/[secure]-html2md/compare/v2.16.6...v2.16.7) (2025-05-08)
 
 
