@@ -338,7 +338,7 @@ export async function html2md(html, opts) {
   cleanupFormats(mdast);
   addMetadata(hast, mdast);
 
-  await processImages(log, mdast, mediaHandler, url, opts.externalImages);
+  await processImages(log, mdast, mediaHandler, url, opts.externalImagesUrlPrefixes);
   imageReferences(mdast);
   sanitizeHeading(mdast);
   sanitizeTextAndFormats(mdast);
