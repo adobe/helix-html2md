@@ -505,4 +505,56 @@ describe('mdast-process-images Tests', () => {
     // Verify all images are processed
     assert.strictEqual(processedUrls.length, 4, 'All 4 images should be processed with undefined patterns');
   });
+
+  it('correctly identifies AEM cloud delivery URLs with the right prefix', async () => {
+    const aemCloudUrl = 'https://delivery-p66302-e574366.adobeaemcloud.com/adobe/assets/urn:aaid:aem:e698e0b0-0fd4-46b3-845f-9b8c84dfa804/original/as/2017-9-1215_38_40-3.jpg';
+    const tree = {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: aemCloudUrl,
+              alt: 'AEM Cloud Image',
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://example.com/regular-image.jpg',
+              alt: 'Regular Image',
+            },
+          ],
+        },
+      ],
+    };
+
+    // Use the prefix that exactly matches the AEM cloud delivery pattern
+    const aemCloudPrefix = 'https://delivery-p66302-e574366.adobeaemcloud.com/adobe/assets/urn:aaid:aem:';
+
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl, [aemCloudPrefix]);
+
+    // Verify the AEM cloud URL remained unchanged
+    const aemCloudNode = tree.children[0].children[0];
+    assert.strictEqual(aemCloudNode.url, aemCloudUrl, 'AEM cloud URL should remain unchanged');
+
+    // Verify only the regular image was processed
+    assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
+    assert.strictEqual(processedUrls[0], 'https://example.com/regular-image.jpg', 'Regular image should be processed');
+
+    // Create a variant with a slightly different domain but same pattern
+    const slightlyDifferentPrefix = 'https://delivery-p12345-e67890.adobeaemcloud.com/adobe/assets/urn:aaid:aem:';
+    processedUrls = [];
+
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl, [slightlyDifferentPrefix]);
+
+    // Verify the AEM cloud URL was processed this time since the prefix is different
+    assert.strictEqual(processedUrls.length, 2, 'Both images should be processed with non-matching prefix');
+    assert.ok(processedUrls.includes(aemCloudUrl), 'AEM Cloud image should be processed with non-matching prefix');
+  });
 });
