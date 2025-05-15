@@ -660,4 +660,120 @@ describe('mdast-process-images Tests', () => {
     assert.strictEqual(processedUrls.length, 2, 'Both images should be processed with non-matching prefix');
     assert.ok(processedUrls.includes(scene7Url), 'Scene7 image should be processed with non-matching prefix');
   });
+
+  it('handles non-array externalImagesUrlPrefixes by converting it to an array', async () => {
+    const tree = {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://example.com/adobe/assets/urn:aaid:aem:12345',
+              alt: 'External Asset',
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://regular-image.com/image.jpg',
+              alt: 'Regular Image',
+            },
+          ],
+        },
+      ],
+    };
+
+    // Pass a string instead of an array for externalImagesUrlPrefixes
+    const stringPrefix = 'https://example.com/adobe/assets/urn:aaid:aem:';
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl, stringPrefix);
+
+    // Verify the external asset node is not processed and URL is preserved
+    const externalAssetNode = tree.children[0].children[0];
+    assert.strictEqual(externalAssetNode.url, 'https://example.com/adobe/assets/urn:aaid:aem:12345', 'External asset URL should remain unchanged when prefix is a string');
+
+    // Verify only the regular image was processed
+    assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
+    assert.strictEqual(processedUrls[0], 'https://regular-image.com/image.jpg', 'Regular image should be processed');
+  });
+
+  it('handles empty string in externalImagesUrlPrefixes without errors', async () => {
+    const tree = {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://example.com/adobe/assets/urn:aaid:aem:12345',
+              alt: 'External Asset',
+            },
+          ],
+        },
+      ],
+    };
+
+    // Pass an empty string for externalImagesUrlPrefixes
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl, '');
+
+    // An empty string will be converted to an array with an empty string
+    // Images with URLs that start with an empty string (all URLs do) will be considered external
+    // So no images should be processed
+    assert.strictEqual(processedUrls.length, 0, 'No images should be processed with empty string prefix');
+  });
+
+  it('handles null or undefined externalImagesUrlPrefixes correctly', async () => {
+    const tree = {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://example.com/image1.jpg',
+              alt: 'Image 1',
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://example.com/image2.jpg',
+              alt: 'Image 2',
+            },
+          ],
+        },
+      ],
+    };
+
+    // Reset processedUrls
+    processedUrls = [];
+
+    // Pass null for externalImagesUrlPrefixes
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl, null);
+
+    // All images should be processed when null is passed
+    assert.strictEqual(processedUrls.length, 2, 'All images should be processed with null prefix');
+    assert.ok(processedUrls.includes('https://example.com/image1.jpg'), 'First image should be processed');
+    assert.ok(processedUrls.includes('https://example.com/image2.jpg'), 'Second image should be processed');
+
+    // Reset processedUrls for undefined test
+    processedUrls = [];
+
+    // Pass undefined for externalImagesUrlPrefixes (by not passing the parameter)
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl);
+
+    // All images should be processed when undefined is passed
+    assert.strictEqual(processedUrls.length, 2, 'All images should be processed with undefined prefix');
+    assert.ok(processedUrls.includes('https://example.com/image1.jpg'), 'First image should be processed');
+    assert.ok(processedUrls.includes('https://example.com/image2.jpg'), 'Second image should be processed');
+  });
 });

@@ -36,6 +36,11 @@ export async function processImages(
   // gather all image nodes
   const images = new Map();
   const externalImageNodes = new Map();
+  // Convert externalImagesUrlPrefixes to an array if not already
+  if (!Array.isArray(externalImagesUrlPrefixes)) {
+    // eslint-disable-next-line no-param-reassign
+    externalImagesUrlPrefixes = [externalImagesUrlPrefixes];
+  }
 
   const register = (node) => {
     // Check if this is an external image
