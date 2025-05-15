@@ -47,10 +47,6 @@ export async function processImages(
     const { url = '' } = node;
     const isExternalImage = externalImagesUrlPrefixes
       .some((externalImageUrlPrefix) => url.startsWith(externalImageUrlPrefix));
-    // TODO: Verbose logging for debugging. Remove before merging.
-    log.debug(`externalImagesUrlPrefixes: ${externalImagesUrlPrefixes}`);
-    log.debug(`url: ${url}`);
-    log.debug(`isExternalImage: ${isExternalImage}`);
     if (isExternalImage) {
       if (externalImageNodes.has(url)) {
         externalImageNodes.get(url).push(node);
@@ -83,8 +79,6 @@ export async function processImages(
     return CONTINUE;
   });
 
-  // TODO: Verbose logging for debugging. Remove before merging.
-  log.debug(`externalImageNodes: ${externalImageNodes}`);
   if (images.size > 200) {
     throw new TooManyImagesError(`maximum number of images reached: ${images.size} of 200 max.`);
   }
