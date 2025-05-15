@@ -21,7 +21,7 @@ export class TooManyImagesError extends Error {
  * @param {object} tree
  * @param {MediaHandler} mediaHandler
  * @param {string} baseUrl
- * @param {Array<string>} externalImages - Array of url patterns to detect external images
+ * @param {Array<string>} externalImagesUrlPrefixes Array of url prefixes to detect external images
  */
 export async function processImages(
   log,
