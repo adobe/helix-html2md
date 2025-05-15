@@ -557,4 +557,107 @@ describe('mdast-process-images Tests', () => {
     assert.strictEqual(processedUrls.length, 2, 'Both images should be processed with non-matching prefix');
     assert.ok(processedUrls.includes(aemCloudUrl), 'AEM Cloud image should be processed with non-matching prefix');
   });
+
+  it('handles scene7 external asset URL patterns', async () => {
+    const tree = {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://example.com/is/image/mycompany/product123',
+              alt: 'Image Server Asset',
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://example.com/is/content/mycompany/product456.jpg',
+              alt: 'Content Server Asset',
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://regular-image.com/image.jpg',
+              alt: 'Regular Image',
+            },
+          ],
+        },
+      ],
+    };
+
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl, ['https://example.com/is/image/', 'https://example.com/is/content/']);
+
+    // Verify external asset nodes are not processed and URLs are preserved
+    const imageNode = tree.children[0].children[0];
+    const contentNode = tree.children[1].children[0];
+
+    assert.strictEqual(imageNode.url, 'https://example.com/is/image/mycompany/product123', 'Image URL should remain unchanged');
+    assert.strictEqual(contentNode.url, 'https://example.com/is/content/mycompany/product456.jpg', 'Content URL should remain unchanged');
+
+    // Verify only the regular image was processed by mediaHandler
+    assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
+    assert.strictEqual(processedUrls[0], 'https://regular-image.com/image.jpg', 'Regular image should be processed');
+  });
+
+  it('correctly identifies Scene7 delivery URLs with the right prefix', async () => {
+    const scene7Url = 'https://s7ap1.scene7.com/is/image/mycompany/product123?$product-large$';
+    const tree = {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: scene7Url,
+              alt: 'Scene7 Image',
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'image',
+              url: 'https://example.com/regular-image.jpg',
+              alt: 'Regular Image',
+            },
+          ],
+        },
+      ],
+    };
+
+    // Use the prefix that exactly matches the Scene7 delivery pattern
+    const scene7Prefix = 'https://s7ap1.scene7.com/is/image/';
+
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl, [scene7Prefix]);
+
+    // Verify the Scene7 URL remained unchanged
+    const scene7Node = tree.children[0].children[0];
+    assert.strictEqual(scene7Node.url, scene7Url, 'Scene7 URL should remain unchanged');
+
+    // Verify only the regular image was processed
+    assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
+    assert.strictEqual(processedUrls[0], 'https://example.com/regular-image.jpg', 'Regular image should be processed');
+
+    // Create a variant with a slightly different domain but same pattern
+    const slightlyDifferentPrefix = 'https://s7d1.scene7.com/is/image/';
+    processedUrls = [];
+
+    await processImages(mockLog, tree, mockMediaHandler, baseUrl, [slightlyDifferentPrefix]);
+
+    // Verify the Scene7 URL was processed this time since the prefix is different
+    assert.strictEqual(processedUrls.length, 2, 'Both images should be processed with non-matching prefix');
+    assert.ok(processedUrls.includes(scene7Url), 'Scene7 image should be processed with non-matching prefix');
+  });
 });
