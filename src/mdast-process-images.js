@@ -21,38 +21,32 @@ export class TooManyImagesError extends Error {
  * @param {object} tree
  * @param {MediaHandler} mediaHandler
  * @param {string} baseUrl
- * @param {Array<string>} externalImagesUrlPrefixes Array of url prefixes to detect external images
+ * @param {Array<string>} externalImageUrlPrefixes Array of url prefixes to detect external images
  */
 export async function processImages(
   log,
   tree,
   mediaHandler,
   baseUrl,
-  externalImagesUrlPrefixes = [],
+  externalImageUrlPrefixes = [],
 ) {
   if (!mediaHandler) {
     return;
   }
   // gather all image nodes
   const images = new Map();
-  const externalImageNodes = new Map();
-  // Convert externalImagesUrlPrefixes to an array if not already
-  if (!Array.isArray(externalImagesUrlPrefixes)) {
+  // Convert externalImageUrlPrefixes to an array if not already
+  if (!Array.isArray(externalImageUrlPrefixes)) {
     // eslint-disable-next-line no-param-reassign
-    externalImagesUrlPrefixes = [externalImagesUrlPrefixes];
+    externalImageUrlPrefixes = [externalImageUrlPrefixes];
   }
 
   const register = (node) => {
     // Check if this is an external image
     const { url = '' } = node;
-    const isExternalImage = externalImagesUrlPrefixes
+    const isExternalImage = externalImageUrlPrefixes
       .some((externalImageUrlPrefix) => url.startsWith(externalImageUrlPrefix));
     if (isExternalImage) {
-      if (externalImageNodes.has(url)) {
-        externalImageNodes.get(url).push(node);
-      } else {
-        externalImageNodes.set(url, [node]);
-      }
       log.debug(`Skipping upload for external image: ${url}`);
       return;
     }

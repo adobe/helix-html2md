@@ -661,7 +661,7 @@ describe('mdast-process-images Tests', () => {
     assert.ok(processedUrls.includes(scene7Url), 'Scene7 image should be processed with non-matching prefix');
   });
 
-  it('handles non-array externalImagesUrlPrefixes by converting it to an array', async () => {
+  it('handles non-array externalImageUrlPrefixes by converting it to an array', async () => {
     const tree = {
       type: 'root',
       children: [
@@ -688,7 +688,7 @@ describe('mdast-process-images Tests', () => {
       ],
     };
 
-    // Pass a string instead of an array for externalImagesUrlPrefixes
+    // Pass a string instead of an array for externalImageUrlPrefixes
     const stringPrefix = 'https://example.com/adobe/assets/urn:aaid:aem:';
     await processImages(mockLog, tree, mockMediaHandler, baseUrl, stringPrefix);
 
@@ -701,7 +701,7 @@ describe('mdast-process-images Tests', () => {
     assert.strictEqual(processedUrls[0], 'https://regular-image.com/image.jpg', 'Regular image should be processed');
   });
 
-  it('handles empty string in externalImagesUrlPrefixes without errors', async () => {
+  it('handles empty string in externalImageUrlPrefixes without errors', async () => {
     const tree = {
       type: 'root',
       children: [
@@ -718,7 +718,7 @@ describe('mdast-process-images Tests', () => {
       ],
     };
 
-    // Pass an empty string for externalImagesUrlPrefixes
+    // Pass an empty string for externalImageUrlPrefixes
     await processImages(mockLog, tree, mockMediaHandler, baseUrl, '');
 
     // An empty string will be converted to an array with an empty string
@@ -727,7 +727,7 @@ describe('mdast-process-images Tests', () => {
     assert.strictEqual(processedUrls.length, 0, 'No images should be processed with empty string prefix');
   });
 
-  it('handles null or undefined externalImagesUrlPrefixes correctly', async () => {
+  it('handles null or undefined externalImageUrlPrefixes correctly', async () => {
     const tree = {
       type: 'root',
       children: [
@@ -757,7 +757,7 @@ describe('mdast-process-images Tests', () => {
     // Reset processedUrls
     processedUrls = [];
 
-    // Pass null for externalImagesUrlPrefixes
+    // Pass null for externalImageUrlPrefixes
     await processImages(mockLog, tree, mockMediaHandler, baseUrl, null);
 
     // All images should be processed when null is passed
@@ -768,7 +768,7 @@ describe('mdast-process-images Tests', () => {
     // Reset processedUrls for undefined test
     processedUrls = [];
 
-    // Pass undefined for externalImagesUrlPrefixes (by not passing the parameter)
+    // Pass undefined for externalImageUrlPrefixes (by not passing the parameter)
     await processImages(mockLog, tree, mockMediaHandler, baseUrl);
 
     // All images should be processed when undefined is passed
