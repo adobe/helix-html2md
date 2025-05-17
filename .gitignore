@@ -5,3 +5,4 @@ junit
 dist
 tmp
 .idea/
+.vscode/

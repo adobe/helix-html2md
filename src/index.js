@@ -200,6 +200,7 @@ async function run(request, ctx) {
       org,
       site,
       unspreadLists: !!ctx.data.features?.unspreadLists,
+      externalImageUrlPrefixes: ctx.data.features?.externalImageUrlPrefixes,
     });
 
     const headers = {

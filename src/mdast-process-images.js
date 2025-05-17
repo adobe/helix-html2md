@@ -21,14 +21,37 @@ export class TooManyImagesError extends Error {
  * @param {object} tree
  * @param {MediaHandler} mediaHandler
  * @param {string} baseUrl
+ * @param {Array<string>} externalImageUrlPrefixes Array of url prefixes to detect external images
  */
-export async function processImages(log, tree, mediaHandler, baseUrl) {
+export async function processImages(
+  log,
+  tree,
+  mediaHandler,
+  baseUrl,
+  externalImageUrlPrefixes = [],
+) {
   if (!mediaHandler) {
     return;
   }
   // gather all image nodes
   const images = new Map();
+  // Convert externalImageUrlPrefixes to an array if not already
+  if (!Array.isArray(externalImageUrlPrefixes)) {
+    // eslint-disable-next-line no-param-reassign
+    externalImageUrlPrefixes = [externalImageUrlPrefixes];
+  }
+
   const register = (node) => {
+    // Check if this is an external image
+    const { url = '' } = node;
+    const isExternalImage = externalImageUrlPrefixes
+      .some((externalImageUrlPrefix) => url.startsWith(externalImageUrlPrefix));
+    if (isExternalImage) {
+      log.debug(`Skipping upload for external image: ${url}`);
+      return;
+    }
+
+    // Regular image processing
     if (images.has(node.url)) {
       images.get(node.url).push(node);
     } else {
@@ -54,7 +77,7 @@ export async function processImages(log, tree, mediaHandler, baseUrl) {
     throw new TooManyImagesError(`maximum number of images reached: ${images.size} of 200 max.`);
   }
 
-  // upload images
+  // upload regular images
   await processQueue(images.entries(), async ([url, nodes]) => {
     try {
       const blob = await mediaHandler.getBlob(url, baseUrl);

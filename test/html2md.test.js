@@ -121,6 +121,10 @@ describe('html2md Tests', () => {
     await test('meta-tags-hreflang');
   });
 
+  it('convert a document with external assets correctly', async () => {
+    await test('external-assets');
+  });
+
   it('convert nested tables', async () => {
     await test('tables');
   });
