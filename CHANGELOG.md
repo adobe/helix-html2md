@@ -1,3 +1,10 @@
+# [2.17.0](https://github.com/adobe/[secure]-html2md/compare/v2.16.10...v2.17.0) (2025-05-19)
+
+
+### Features
+
+* **external images:** augment image processing to optionally skip uploads for external images  ([#725](https://github.com/adobe/[secure]-html2md/issues/725)) ([bdcebb5](https://github.com/adobe/[secure]-html2md/commit/bdcebb5b14d11be2fae79d1eb269368a020af45f))
+
 ## [2.16.10](https://github.com/adobe/[secure]-html2md/compare/v2.16.9...v2.16.10) (2025-05-13)
 
 
