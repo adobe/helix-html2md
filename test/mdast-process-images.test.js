@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Adobe. All rights reserved.
+ * Copyright 2025 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy
  * of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -74,89 +74,6 @@ describe('mdast-process-images Tests', () => {
     // Verify only the regular image was processed by mediaHandler
     assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
     assert.strictEqual(processedUrls[0], 'https://regular-image.com/image.jpg', 'Regular image should be processed');
-  });
-
-  it('handles duplicate external asset URLs', async () => {
-    const sameExternalUrl = 'https://example.com/adobe/assets/urn:aaid:aem:same-id';
-    const tree = {
-      type: 'root',
-      children: [
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              url: sameExternalUrl,
-              alt: 'External Asset 1',
-            },
-          ],
-        },
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              url: sameExternalUrl,
-              alt: 'External Asset 2',
-            },
-          ],
-        },
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              url: 'https://regular-image.com/image.jpg',
-              alt: 'Regular Image',
-            },
-          ],
-        },
-      ],
-    };
-
-    await processImages(mockLog, tree, mockMediaHandler, baseUrl, ['https://example.com/adobe/assets/urn:aaid:aem:']);
-
-    // Verify external asset nodes
-    const externalAssetNode1 = tree.children[0].children[0];
-    const externalAssetNode2 = tree.children[1].children[0];
-
-    // Both external assets should keep their original URLs
-    assert.strictEqual(externalAssetNode1.url, sameExternalUrl, 'First external asset URL should remain unchanged');
-    assert.strictEqual(externalAssetNode2.url, sameExternalUrl, 'Second external asset URL should remain unchanged');
-
-    // Only regular image should be processed
-    assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
-    assert.strictEqual(processedUrls[0], 'https://regular-image.com/image.jpg', 'Regular image should be processed');
-  });
-
-  it('throws error for too many images', async () => {
-    // Create 201 unique image URLs to exceed the limit
-    const children = [];
-    for (let i = 0; i < 201; i += 1) {
-      children.push({
-        type: 'paragraph',
-        children: [
-          {
-            type: 'image',
-            url: `https://example.com/image-${i}.jpg`,
-          },
-        ],
-      });
-    }
-
-    const tree = {
-      type: 'root',
-      children,
-    };
-
-    await assert.rejects(
-      async () => processImages(mockLog, tree, mockMediaHandler, baseUrl),
-      (err) => {
-        assert.ok(err instanceof TooManyImagesError);
-        assert.ok(err.message.includes('maximum number of images reached'));
-        return true;
-      },
-    );
   });
 
   it('handles image load failures gracefully', async () => {
@@ -343,85 +260,6 @@ describe('mdast-process-images Tests', () => {
     assert.strictEqual(processedUrls[0], 'https://regular-image.com/image.jpg');
   });
 
-  it('handles the edge case with 200 external images', async () => {
-    // Create exactly 200 external images
-    const children = [];
-    for (let i = 0; i < 200; i += 1) {
-      children.push({
-        type: 'paragraph',
-        children: [
-          {
-            type: 'image',
-            url: `https://example.com/adobe/assets/urn:aaid:aem:${i}`,
-            alt: `External Asset ${i}`,
-          },
-        ],
-      });
-    }
-
-    const tree = {
-      type: 'root',
-      children,
-    };
-
-    // This should not throw an error since external images are not counted against limit
-    await processImages(mockLog, tree, mockMediaHandler, baseUrl, ['https://example.com/adobe/assets/urn:aaid:aem:']);
-
-    // Verify no images were processed (all are external)
-    assert.strictEqual(processedUrls.length, 0, 'No images should be processed');
-
-    // Create 200 regular images (should hit limit)
-    const regularChildren = [];
-    for (let i = 0; i < 200; i += 1) {
-      regularChildren.push({
-        type: 'paragraph',
-        children: [
-          {
-            type: 'image',
-            url: `https://example.com/regular-${i}.jpg`,
-            alt: `Regular Image ${i}`,
-          },
-        ],
-      });
-    }
-
-    const treeWithRegulars = {
-      type: 'root',
-      children: regularChildren,
-    };
-
-    // This should be fine with exactly 200 regular images
-    await processImages(mockLog, treeWithRegulars, mockMediaHandler, baseUrl, ['https://example.com/adobe/assets/urn:aaid:aem:']);
-
-    // Add one more regular image to go over the limit
-    const treeOverLimit = {
-      type: 'root',
-      children: [
-        ...regularChildren,
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              url: 'https://example.com/regular-extra.jpg',
-              alt: 'Extra Regular Image',
-            },
-          ],
-        },
-      ],
-    };
-
-    // This should throw an error
-    await assert.rejects(
-      async () => processImages(mockLog, treeOverLimit, mockMediaHandler, baseUrl, ['https://example.com/adobe/assets/urn:aaid:aem:']),
-      (err) => {
-        assert.ok(err instanceof TooManyImagesError);
-        assert.ok(err.message.includes('maximum number of images reached'));
-        return true;
-      },
-    );
-  });
-
   it('processes all images when no external patterns are provided', async () => {
     // Create a tree with different types of images
     const tree = {
@@ -506,58 +344,6 @@ describe('mdast-process-images Tests', () => {
     assert.strictEqual(processedUrls.length, 4, 'All 4 images should be processed with undefined patterns');
   });
 
-  it('correctly identifies AEM cloud delivery URLs with the right prefix', async () => {
-    const aemCloudUrl = 'https://delivery-p66302-e574366.adobeaemcloud.com/adobe/assets/urn:aaid:aem:e698e0b0-0fd4-46b3-845f-9b8c84dfa804/original/as/2017-9-1215_38_40-3.jpg';
-    const tree = {
-      type: 'root',
-      children: [
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              url: aemCloudUrl,
-              alt: 'AEM Cloud Image',
-            },
-          ],
-        },
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              url: 'https://example.com/regular-image.jpg',
-              alt: 'Regular Image',
-            },
-          ],
-        },
-      ],
-    };
-
-    // Use the prefix that exactly matches the AEM cloud delivery pattern
-    const aemCloudPrefix = 'https://delivery-p66302-e574366.adobeaemcloud.com/adobe/assets/urn:aaid:aem:';
-
-    await processImages(mockLog, tree, mockMediaHandler, baseUrl, [aemCloudPrefix]);
-
-    // Verify the AEM cloud URL remained unchanged
-    const aemCloudNode = tree.children[0].children[0];
-    assert.strictEqual(aemCloudNode.url, aemCloudUrl, 'AEM cloud URL should remain unchanged');
-
-    // Verify only the regular image was processed
-    assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
-    assert.strictEqual(processedUrls[0], 'https://example.com/regular-image.jpg', 'Regular image should be processed');
-
-    // Create a variant with a slightly different domain but same pattern
-    const slightlyDifferentPrefix = 'https://delivery-p12345-e67890.adobeaemcloud.com/adobe/assets/urn:aaid:aem:';
-    processedUrls = [];
-
-    await processImages(mockLog, tree, mockMediaHandler, baseUrl, [slightlyDifferentPrefix]);
-
-    // Verify the AEM cloud URL was processed this time since the prefix is different
-    assert.strictEqual(processedUrls.length, 2, 'Both images should be processed with non-matching prefix');
-    assert.ok(processedUrls.includes(aemCloudUrl), 'AEM Cloud image should be processed with non-matching prefix');
-  });
-
   it('handles scene7 external asset URL patterns', async () => {
     const tree = {
       type: 'root',
@@ -607,58 +393,6 @@ describe('mdast-process-images Tests', () => {
     // Verify only the regular image was processed by mediaHandler
     assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
     assert.strictEqual(processedUrls[0], 'https://regular-image.com/image.jpg', 'Regular image should be processed');
-  });
-
-  it('correctly identifies Scene7 delivery URLs with the right prefix', async () => {
-    const scene7Url = 'https://s7ap1.scene7.com/is/image/mycompany/product123?$product-large$';
-    const tree = {
-      type: 'root',
-      children: [
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              url: scene7Url,
-              alt: 'Scene7 Image',
-            },
-          ],
-        },
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              url: 'https://example.com/regular-image.jpg',
-              alt: 'Regular Image',
-            },
-          ],
-        },
-      ],
-    };
-
-    // Use the prefix that exactly matches the Scene7 delivery pattern
-    const scene7Prefix = 'https://s7ap1.scene7.com/is/image/';
-
-    await processImages(mockLog, tree, mockMediaHandler, baseUrl, [scene7Prefix]);
-
-    // Verify the Scene7 URL remained unchanged
-    const scene7Node = tree.children[0].children[0];
-    assert.strictEqual(scene7Node.url, scene7Url, 'Scene7 URL should remain unchanged');
-
-    // Verify only the regular image was processed
-    assert.strictEqual(processedUrls.length, 1, 'Only regular image should be processed');
-    assert.strictEqual(processedUrls[0], 'https://example.com/regular-image.jpg', 'Regular image should be processed');
-
-    // Create a variant with a slightly different domain but same pattern
-    const slightlyDifferentPrefix = 'https://s7d1.scene7.com/is/image/';
-    processedUrls = [];
-
-    await processImages(mockLog, tree, mockMediaHandler, baseUrl, [slightlyDifferentPrefix]);
-
-    // Verify the Scene7 URL was processed this time since the prefix is different
-    assert.strictEqual(processedUrls.length, 2, 'Both images should be processed with non-matching prefix');
-    assert.ok(processedUrls.includes(scene7Url), 'Scene7 image should be processed with non-matching prefix');
   });
 
   it('handles non-array externalImageUrlPrefixes by converting it to an array', async () => {

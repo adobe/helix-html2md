@@ -52,10 +52,10 @@ export async function processImages(
     }
 
     // Regular image processing
-    if (images.has(node.url)) {
-      images.get(node.url).push(node);
+    if (images.has(url)) {
+      images.get(url).push(node);
     } else {
-      images.set(node.url, [node]);
+      images.set(url, [node]);
     }
   };
 
