@@ -1,3 +1,10 @@
+## [2.17.2](https://github.com/adobe/[secure]-html2md/compare/v2.17.1...v2.17.2) (2025-05-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-shared-body-data to v2.1.11 ([#736](https://github.com/adobe/[secure]-html2md/issues/736)) ([9105c93](https://github.com/adobe/[secure]-html2md/commit/9105c937ada10f93e8750aa5863dacd3cb975677))
+
 ## [2.17.1](https://github.com/adobe/[secure]-html2md/compare/v2.17.0...v2.17.1) (2025-05-19)
 
 
