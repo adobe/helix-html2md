@@ -30,12 +30,6 @@ export default defineConfig([
     },
     extends: [recommended],
   },
-  {
-    ...source,
-    files: [...source.files, 'secrets/**.js'],
-  },
-  {
-    ...test,
-    files: [...test.files, 'test/**.cjs'],
-  }
+  source,
+  test,
 ]);
