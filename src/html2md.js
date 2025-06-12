@@ -33,6 +33,7 @@ import {
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
 import { unspreadLists } from './unspread-lists.js';
+import {inspect} from "unist-util-inspect";
 
 export class ConstraintsError extends Error {}
 
@@ -315,6 +316,7 @@ export async function html2md(html, opts) {
     .use(parse)
     .parse(html);
 
+  // console.log(inspect(hast, 'hast', { depth: 5, colors: true }));
   const main = select('main', hast);
   if (!main) {
     log.info(`${url} contains no <main>`);
@@ -345,6 +347,9 @@ export async function html2md(html, opts) {
   if (opts.unspreadLists) {
     unspreadLists(mdast);
   }
+
+  console.log(inspect(mdast, 'mdast', { colors: true }));
+
 
   // noinspection JSVoidFunctionReturnValueUsed
   const md = unified()
