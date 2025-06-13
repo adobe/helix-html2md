@@ -1,12 +1,6 @@
 # External Assets Test
 
-![][image0]
-
-![][image1]
-
-![][image2]
-
-![][image3]
+![][image0] ![][image1] ![][image2] ![][image3]
 
 +-------------------------------------------+
 | Metadata                                  |
