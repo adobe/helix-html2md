@@ -33,7 +33,7 @@ import {
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
 import { unspreadLists } from './unspread-lists.js';
-import {inspect} from "unist-util-inspect";
+import { hastUnwrapPictures } from './hast-unwrap-pictures.js';
 
 export class ConstraintsError extends Error {}
 
@@ -326,6 +326,7 @@ export async function html2md(html, opts) {
   processIcons(main);
   createSections(main);
   createBlocks(main);
+  hastUnwrapPictures(main);
 
   const mdast = toMdast(main, {
     handlers: {
@@ -347,9 +348,6 @@ export async function html2md(html, opts) {
   if (opts.unspreadLists) {
     unspreadLists(mdast);
   }
-
-  console.log(inspect(mdast, 'mdast', { colors: true }));
-
 
   // noinspection JSVoidFunctionReturnValueUsed
   const md = unified()
