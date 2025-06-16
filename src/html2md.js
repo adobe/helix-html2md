@@ -326,7 +326,7 @@ export async function html2md(html, opts) {
   processIcons(main);
   createSections(main);
   createBlocks(main);
-  hastUnwrapPictures(main);
+  hastUnwrapPictures(main, !opts.unspreadLists);
 
   const mdast = toMdast(main, {
     handlers: {

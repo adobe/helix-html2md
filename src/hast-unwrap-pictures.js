@@ -13,10 +13,11 @@
 import { CONTINUE, visit } from 'unist-util-visit';
 
 /**
- * Unwrap picture elements and just keep the img child.
+ * Unwrap picture elements and just keep the img child. Importing picture elements will create a
+ * mdast paragraph, so we try to collect non block siblings in the same paragraph
  * @param {object} tree
  */
-export function hastUnwrapPictures(tree) {
+export function hastUnwrapPictures(tree, createParagraph) {
   visit(tree, 'element', (node, index, parent) => {
     if (node.tagName === 'picture') {
       let img = null;
@@ -27,7 +28,22 @@ export function hastUnwrapPictures(tree) {
         }
       }
       if (img) {
-        parent.children.splice(index, 1, img);
+        if (createParagraph) {
+          // convert picture to `p`
+          node.tagName = 'p';
+          node.children = [img];
+          for (let i = index + 1; i < parent.children.length; i += 1) {
+            const sibling = parent.children[i];
+            const flow = ['p', 'picture', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table', 'div'];
+            if (flow.includes(sibling.tagName)) {
+              break;
+            }
+            node.children.push(parent.children.splice(i, 1)[0]);
+            i -= 1;
+          }
+        } else {
+          parent.children.splice(index, 1, img);
+        }
         return index;
       } else {
         parent.children.splice(index, 1);

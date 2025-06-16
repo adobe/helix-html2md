@@ -127,7 +127,7 @@ describe('Index Tests', () => {
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
-          'content-length': '817',
+          'content-length': '824',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
@@ -188,7 +188,7 @@ describe('Index Tests', () => {
         assert.strictEqual((await result.text()).trim(), expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
-          'content-length': '817',
+          'content-length': '824',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
