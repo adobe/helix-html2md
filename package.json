@@ -68,7 +68,7 @@
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
-    "@adobe/eslint-config-helix": "3.0.3",
+    "@adobe/eslint-config-helix": "3.0.4",
     "@adobe/helix-deploy": "13.0.7",
     "@adobe/helix-html-pipeline": "^6.0.0",
     "@adobe/helix-universal": "5.2.2",
