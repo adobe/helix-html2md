@@ -1,3 +1,10 @@
+## [2.17.9](https://github.com/adobe/[secure]-html2md/compare/v2.17.8...v2.17.9) (2025-06-23)
+
+
+### Bug Fixes
+
+* Revert "fix: handle br in picture tag" ([#756](https://github.com/adobe/[secure]-html2md/issues/756)) ([fffcb9a](https://github.com/adobe/[secure]-html2md/commit/fffcb9a4c6e8d502f419583cf05391c1baf6f60c))
+
 ## [2.17.8](https://github.com/adobe/[secure]-html2md/compare/v2.17.7...v2.17.8) (2025-06-23)
 
 
