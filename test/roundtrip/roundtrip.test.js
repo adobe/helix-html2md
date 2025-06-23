@@ -70,6 +70,10 @@ describe('Roundtrip tests', () => {
     await test('lists-with-code');
   });
 
+  it('converts images with breaks', async () => {
+    await test('image-with-breaks');
+  });
+
   it('converts \'lists-with-code\' HTML input to the expected output (unspread)', async () => {
     await test('lists-with-code', { unspreadLists: true });
   });
