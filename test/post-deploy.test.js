@@ -64,7 +64,7 @@ createTargets({ _version: 'ci' }).forEach((target) => {
 
     it('converts html from the helix site', async () => {
       const url = new URL(`${target.host()}${target.urlPath()}`);
-      url.searchParams.append('sourceUrl', 'https://main--helix-test-content-onedrive--adobe.hlx.page');
+      url.searchParams.append('sourceUrl', 'https://main--helix-test-content-onedrive--adobe.aem.page');
       url.searchParams.append('org', 'tripodsan');
       url.searchParams.append('site', 'helix-test-content-html');
       url.searchParams.append('contentBusId', '9fec4a532ea34cd9cd4900e9a7955b502ad83b3cc4b5f123ea7711b5305');
