@@ -355,6 +355,64 @@ describe('Index Tests', () => {
     });
   });
 
+  it('honors maxImages limit', async () => {
+    nock('https://www.example.com')
+      .get(/\/image-\d+\.png/)
+      .times(250)
+      .reply(200, 'fake image content', {
+        'Content-Type': 'image/png',
+      });
+
+    nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
+      .head('/foo-id/19b205f65615ee32dee7156d4a9aeee0571ade397')
+      .times(250)
+      .reply(404)
+      .put('/foo-id/19b205f65615ee32dee7156d4a9aeee0571ade397?x-id=PutObject')
+      .times(250)
+      .reply(201);
+
+    let html = '<html><body><main><div>';
+    for (let i = 0; i < 250; i += 1) {
+      html += `<img src="/image-${i}.png">`;
+    }
+    html += '</div></main></body>';
+
+    nock('https://www.example.com')
+      .get('/')
+      .reply(200, html);
+
+    const result = await main(
+      new Request('https://www.example.com/', {
+        method: 'POST',
+        headers: {
+          authorization: 'Bearer 1234',
+          'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          org: 'owner',
+          site: 'repo',
+          sourceUrl: 'https://www.example.com/',
+          contentBusId: 'foo-id',
+          limits: {
+            maxImages: 250,
+          },
+        }),
+      }),
+      {
+        log: console,
+        env: DUMMY_ENV,
+      },
+    );
+    assert.strictEqual(result.status, 200);
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-length': '2849',
+      'content-type': 'text/markdown; charset=utf-8',
+      'x-source-location': 'https://www.example.com/',
+    });
+  });
+
   it('returns 409 for a large html', async () => {
     nock('https://www.example.com')
       .get('/')

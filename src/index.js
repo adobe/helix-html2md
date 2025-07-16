@@ -201,6 +201,7 @@ async function run(request, ctx) {
       site,
       unspreadLists: !!ctx.data.features?.unspreadLists,
       externalImageUrlPrefixes: ctx.data.features?.externalImageUrlPrefixes,
+      maxImages: ctx.data.limits?.maxImages,
     });
 
     const headers = {

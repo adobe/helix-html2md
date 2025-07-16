@@ -29,6 +29,7 @@ export async function processImages(
   mediaHandler,
   baseUrl,
   externalImageUrlPrefixes = [],
+  maxImages = 200,
 ) {
   if (!mediaHandler) {
     return;
@@ -73,8 +74,8 @@ export async function processImages(
     return CONTINUE;
   });
 
-  if (images.size > 200) {
-    throw new TooManyImagesError(`maximum number of images reached: ${images.size} of 200 max.`);
+  if (images.size > maxImages) {
+    throw new TooManyImagesError(`maximum number of images reached: ${images.size} of ${maxImages} max.`);
   }
 
   // upload regular images
