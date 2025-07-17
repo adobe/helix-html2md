@@ -1,3 +1,10 @@
+## [2.17.14](https://github.com/adobe/[secure]-html2md/compare/v2.17.13...v2.17.14) (2025-07-17)
+
+
+### Bug Fixes
+
+* support maxImages in limit ([388644a](https://github.com/adobe/[secure]-html2md/commit/388644a7e74e42c362dbe3052619a99288b5aa90))
+
 ## [2.17.13](https://github.com/adobe/[secure]-html2md/compare/v2.17.12...v2.17.13) (2025-07-16)
 
 
