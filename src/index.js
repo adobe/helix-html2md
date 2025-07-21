@@ -9,6 +9,8 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import zlib from 'zlib';
+import { promisify } from 'util';
 import wrap from '@adobe/helix-shared-wrap';
 import { helixStatus } from '@adobe/helix-status';
 import bodyData from '@adobe/helix-shared-body-data';
@@ -26,6 +28,8 @@ import { TooManyImagesError } from './mdast-process-images.js';
 
 /* c8 ignore next 7 */
 export const { fetch } = h1NoCache();
+
+const gzip = promisify(zlib.gzip);
 
 /**
  * Generates an error response
@@ -204,11 +208,13 @@ async function run(request, ctx) {
       maxImages: ctx.data.limits?.maxImages,
     });
 
+    const zipped = await gzip(md);
     const headers = {
       'content-type': 'text/markdown; charset=utf-8',
       'content-length': md.length,
       'cache-control': 'no-store, private, must-revalidate',
       'x-source-location': cleanupHeaderValue(sourceUrl),
+      'content-encoding': 'gzip',
     };
 
     const lastMod = res.headers.get('last-modified');
@@ -216,7 +222,7 @@ async function run(request, ctx) {
       headers['last-modified'] = lastMod;
     }
 
-    return new Response(md, {
+    return new Response(zipped, {
       status: 200,
       headers,
     });
