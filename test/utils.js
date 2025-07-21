@@ -10,6 +10,7 @@
  * governing permissions and limitations under the License.
  */
 import assert from 'assert';
+import { gunzipSync } from 'zlib';
 import nock from 'nock';
 import { Scope } from 'nock/lib/scope.js';
 
@@ -84,4 +85,9 @@ export function Nock() {
     }
   };
   return nocker;
+}
+
+export async function uncompress(response) {
+  const uncompressed = gunzipSync(await response.arrayBuffer());
+  return uncompressed.toString().trim();
 }

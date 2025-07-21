@@ -16,7 +16,7 @@ import assert from 'assert';
 import { resolve } from 'path';
 import { Request } from '@adobe/fetch';
 import { main } from '../src/index.js';
-import { Nock } from './utils.js';
+import { Nock, uncompress } from './utils.js';
 
 function reqUrl(path = '/', init = {}) {
   const url = new URL('https://localhost');
@@ -124,9 +124,12 @@ describe('Index Tests', () => {
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
         const result = await main(reqUrl('/blog/article', { headers }), { log: console, env: DUMMY_ENV });
         assert.strictEqual(result.status, 200);
-        assert.strictEqual((await result.text()).trim(), expected.trim());
+
+        const uncompressed = await uncompress(result);
+        assert.strictEqual(uncompressed, expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
+          'content-encoding': 'gzip',
           'content-length': '824',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -185,9 +188,12 @@ describe('Index Tests', () => {
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
         const result = await main(reqUrl('/blog/article', { headers }), { log: console, env: DUMMY_ENV });
         assert.strictEqual(result.status, 200);
-        assert.strictEqual((await result.text()).trim(), expected.trim());
+
+        const uncompressed = await uncompress(result);
+        assert.strictEqual(uncompressed, expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
+          'content-encoding': 'gzip',
           'content-length': '824',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -222,9 +228,12 @@ describe('Index Tests', () => {
       },
     );
     assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
+
+    const uncompressed = await uncompress(result);
+    assert.strictEqual(uncompressed, expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
+      'content-encoding': 'gzip',
       'content-length': '157',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -292,9 +301,12 @@ describe('Index Tests', () => {
       },
     );
     assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
+
+    const uncompressed = await uncompress(result);
+    assert.strictEqual(uncompressed, expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
+      'content-encoding': 'gzip',
       'content-length': '406',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -407,6 +419,7 @@ describe('Index Tests', () => {
     assert.strictEqual(result.status, 200);
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
+      'content-encoding': 'gzip',
       'content-length': '2849',
       'content-type': 'text/markdown; charset=utf-8',
       'x-source-location': 'https://www.example.com/',
