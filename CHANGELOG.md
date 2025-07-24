@@ -1,3 +1,12 @@
+## [2.17.17](https://github.com/adobe/[secure]-html2md/compare/v2.17.16...v2.17.17) (2025-07-24)
+
+
+### Bug Fixes
+
+* gzip response ([4e1ef06](https://github.com/adobe/[secure]-html2md/commit/4e1ef0631f7140e1bead996d0550f676e63b93df))
+* tests ([dc0c745](https://github.com/adobe/[secure]-html2md/commit/dc0c745282b6662ea7576a915a05620ef9281c3f))
+* use async version in tests ([31db7b1](https://github.com/adobe/[secure]-html2md/commit/31db7b139a6e9608c8e1bdc919359db8ca14f6a3))
+
 ## [2.17.16](https://github.com/adobe/[secure]-html2md/compare/v2.17.15...v2.17.16) (2025-07-24)
 
 
