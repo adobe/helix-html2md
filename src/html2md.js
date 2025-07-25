@@ -29,7 +29,11 @@ import { CONTINUE, visit } from 'unist-util-visit';
 import { processImages } from './mdast-process-images.js';
 import { processIcons } from './hast-process-icons.js';
 import {
-  TYPE_GRID_TABLE, TYPE_GT_BODY, TYPE_GT_CELL, TYPE_GT_ROW, handleTableAsGridTable,
+  TYPE_GRID_TABLE,
+  TYPE_GT_BODY,
+  TYPE_GT_CELL,
+  TYPE_GT_ROW,
+  handleTableAsGridTable,
 } from './mdast-table-handler.js';
 import formatPlugin from './markdownFormatPlugin.js';
 import { unspreadLists } from './unspread-lists.js';
