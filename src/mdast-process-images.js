@@ -63,7 +63,7 @@ export async function processImages(
   visit(tree, (node) => {
     if (node.type === 'image') {
       const { url = '' } = node;
-      if (url.indexOf(':') < 0) {
+      if (url.indexOf(':') < 0 || url.startsWith('/')) {
         // eslint-disable-next-line no-param-reassign
         node.url = new URL(url, baseUrl).href;
         register(node);

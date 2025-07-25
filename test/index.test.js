@@ -107,6 +107,10 @@ describe('Index Tests', () => {
           .get('/blog/relative.png')
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
+          })
+          .get('/adobe/assets/urn:aaid:aem:abcd')
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
           });
         nock('https://images.dummy.com', { reqheaders })
           .get('/300.png')
@@ -115,10 +119,10 @@ describe('Index Tests', () => {
           });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
           .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-          .times(4)
+          .times(5)
           .reply(404)
           .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-          .times(4)
+          .times(5)
           .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
@@ -130,7 +134,7 @@ describe('Index Tests', () => {
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
           'content-encoding': 'gzip',
-          'content-length': '824',
+          'content-length': '837',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
@@ -171,6 +175,11 @@ describe('Index Tests', () => {
           .get('/blog/relative.png')
           .replyWithFile(200, testImagePath, {
             'content-type': 'image/png',
+          })
+          .get('/adobe/assets/urn:aaid:aem:abcd')
+          .basicAuth({ user: 'john', pass: 'doe' })
+          .replyWithFile(200, testImagePath, {
+            'content-type': 'image/png',
           });
         nock('https://images.dummy.com', { badheaders: ['authorization'] })
           .get('/300.png')
@@ -179,10 +188,10 @@ describe('Index Tests', () => {
           });
         nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
           .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
-          .times(4)
+          .times(5)
           .reply(404)
           .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
-          .times(4)
+          .times(5)
           .reply(201);
 
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
@@ -194,7 +203,7 @@ describe('Index Tests', () => {
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
           'content-encoding': 'gzip',
-          'content-length': '824',
+          'content-length': '837',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
           'x-source-location': 'https://www.example.com/blog/article',
@@ -371,15 +380,15 @@ describe('Index Tests', () => {
     nock('https://www.example.com')
       .get(/\/image-\d+\.png/)
       .times(250)
-      .reply(200, 'fake image content', {
-        'Content-Type': 'image/png',
+      .replyWithFile(200, resolve(__testdir, 'fixtures', '300.png'), {
+        'content-type': 'image/png',
       });
 
     nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
-      .head('/foo-id/19b205f65615ee32dee7156d4a9aeee0571ade397')
+      .head('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227')
       .times(250)
       .reply(404)
-      .put('/foo-id/19b205f65615ee32dee7156d4a9aeee0571ade397?x-id=PutObject')
+      .put('/foo-id/1c2e2c6c049ccf4b583431e14919687f3a39cc227?x-id=PutObject')
       .times(250)
       .reply(201);
 
@@ -420,7 +429,7 @@ describe('Index Tests', () => {
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
       'content-encoding': 'gzip',
-      'content-length': '2849',
+      'content-length': '2870',
       'content-type': 'text/markdown; charset=utf-8',
       'x-source-location': 'https://www.example.com/',
     });
