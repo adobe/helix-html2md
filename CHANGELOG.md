@@ -1,3 +1,10 @@
+## [2.17.18](https://github.com/adobe/[secure]-html2md/compare/v2.17.17...v2.17.18) (2025-07-25)
+
+
+### Bug Fixes
+
+* support relativ images with `:` ([ba195ee](https://github.com/adobe/[secure]-html2md/commit/ba195ee5aa9eb1e683e549eaf30cfe1ae090416f))
+
 ## [2.17.17](https://github.com/adobe/[secure]-html2md/compare/v2.17.16...v2.17.17) (2025-07-24)
 
 
