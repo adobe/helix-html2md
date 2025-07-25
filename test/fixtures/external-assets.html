@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Document with External Assets</title>
+    <meta name="image" content="https://example.com/adobe/assets/urn:aaid:aem:12345-abcde">
+    <meta name="image-alt" content="External Asset Meta Image">
+</head>
+<body>
+<main>
+    <div>
+        <h1>External Assets Test</h1>
+        <picture>
+            <img src="https://example.com/adobe/assets/urn:aaid:aem:12345-abcde-regular">
+        </picture>
+        <picture>
+            <img src="https://example.com/normal/image.png">
+        </picture>
+        <picture>
+            <img src="https://example.com/adobe/assets/urn:aaid:aem:67890-fghij">
+        </picture>
+        <picture>
+            <img src="/relative/path/image.jpg">
+        </picture>
+    </div>
+</main>
+</body>
+</html>

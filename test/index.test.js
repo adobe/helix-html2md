@@ -16,7 +16,7 @@ import assert from 'assert';
 import { resolve } from 'path';
 import { Request } from '@adobe/fetch';
 import { main } from '../src/index.js';
-import { Nock } from './utils.js';
+import { Nock, uncompress } from './utils.js';
 
 function reqUrl(path = '/', init = {}) {
   const url = new URL('https://localhost');
@@ -128,9 +128,12 @@ describe('Index Tests', () => {
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
         const result = await main(reqUrl('/blog/article', { headers }), { log: console, env: DUMMY_ENV });
         assert.strictEqual(result.status, 200);
-        assert.strictEqual((await result.text()).trim(), expected.trim());
+
+        const uncompressed = await uncompress(result);
+        assert.strictEqual(uncompressed, expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
+          'content-encoding': 'gzip',
           'content-length': '837',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -194,9 +197,12 @@ describe('Index Tests', () => {
         const expected = await readFile(resolve(__testdir, 'fixtures', 'images.md'), 'utf-8');
         const result = await main(reqUrl('/blog/article', { headers }), { log: console, env: DUMMY_ENV });
         assert.strictEqual(result.status, 200);
-        assert.strictEqual((await result.text()).trim(), expected.trim());
+
+        const uncompressed = await uncompress(result);
+        assert.strictEqual(uncompressed, expected.trim());
         assert.deepStrictEqual(result.headers.plain(), {
           'cache-control': 'no-store, private, must-revalidate',
+          'content-encoding': 'gzip',
           'content-length': '837',
           'content-type': 'text/markdown; charset=utf-8',
           'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -231,9 +237,12 @@ describe('Index Tests', () => {
       },
     );
     assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
+
+    const uncompressed = await uncompress(result);
+    assert.strictEqual(uncompressed, expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
+      'content-encoding': 'gzip',
       'content-length': '157',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -301,9 +310,12 @@ describe('Index Tests', () => {
       },
     );
     assert.strictEqual(result.status, 200);
-    assert.strictEqual((await result.text()).trim(), expected.trim());
+
+    const uncompressed = await uncompress(result);
+    assert.strictEqual(uncompressed, expected.trim());
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
+      'content-encoding': 'gzip',
       'content-length': '406',
       'content-type': 'text/markdown; charset=utf-8',
       'last-modified': 'Sat, 22 Feb 2031 15:28:00 GMT',
@@ -361,6 +373,65 @@ describe('Index Tests', () => {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
       'x-error': 'error fetching resource at https://www.example.com/: maximum number of images reached: 201 of 200 max.',
+    });
+  });
+
+  it('honors maxImages limit', async () => {
+    nock('https://www.example.com')
+      .get(/\/image-\d+\.png/)
+      .times(250)
+      .reply(200, 'fake image content', {
+        'Content-Type': 'image/png',
+      });
+
+    nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
+      .head('/foo-id/19b205f65615ee32dee7156d4a9aeee0571ade397')
+      .times(250)
+      .reply(404)
+      .put('/foo-id/19b205f65615ee32dee7156d4a9aeee0571ade397?x-id=PutObject')
+      .times(250)
+      .reply(201);
+
+    let html = '<html><body><main><div>';
+    for (let i = 0; i < 250; i += 1) {
+      html += `<img src="/image-${i}.png">`;
+    }
+    html += '</div></main></body>';
+
+    nock('https://www.example.com')
+      .get('/')
+      .reply(200, html);
+
+    const result = await main(
+      new Request('https://www.example.com/', {
+        method: 'POST',
+        headers: {
+          authorization: 'Bearer 1234',
+          'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          org: 'owner',
+          site: 'repo',
+          sourceUrl: 'https://www.example.com/',
+          contentBusId: 'foo-id',
+          limits: {
+            maxImages: 250,
+          },
+        }),
+      }),
+      {
+        log: console,
+        env: DUMMY_ENV,
+      },
+    );
+    assert.strictEqual(result.status, 200);
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-encoding': 'gzip',
+      'content-length': '2849',
+      'content-type': 'text/markdown; charset=utf-8',
+      'x-source-location': 'https://www.example.com/',
     });
   });
 
