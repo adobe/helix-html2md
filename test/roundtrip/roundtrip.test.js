@@ -73,4 +73,8 @@ describe('Roundtrip tests', () => {
   it('converts \'lists-with-code\' HTML input to the expected output (unspread)', async () => {
     await test('lists-with-code', { unspreadLists: true });
   });
+
+  it('converts \'tables\' HTML input to expected output', async () => {
+    await test('tables');
+  });
 });
