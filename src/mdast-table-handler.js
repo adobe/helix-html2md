@@ -9,18 +9,25 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import {
+  TYPE_TABLE,
+  TYPE_HEADER,
+  TYPE_BODY,
+  TYPE_ROW,
+  TYPE_CELL,
+  TYPE_FOOTER,
+} from '@adobe/micromark-extension-gridtables';
 
-export const TYPE_GRID_TABLE = 'gridTable';
-export const TYPE_GT_HEADER = 'gtHeader';
-export const TYPE_GT_BODY = 'gtBody';
-export const TYPE_GT_ROW = 'gtRow';
-export const TYPE_GT_CELL = 'gtCell';
+export const TYPE_GRID_TABLE = TYPE_TABLE;
+export const TYPE_GT_BODY = TYPE_BODY;
+export const TYPE_GT_ROW = TYPE_ROW;
+export const TYPE_GT_CELL = TYPE_CELL;
 
 function toGridCell(cell, state) {
   const node = {
     ...cell,
     children: state.all(cell),
-    type: TYPE_GT_CELL,
+    type: TYPE_CELL,
   };
   if ('rowSpan' in node.properties) {
     node.rowSpan = parseInt(node.properties.rowSpan, 10);
@@ -35,7 +42,7 @@ function toGridRow(row, state) {
   return {
     ...row,
     children: row.children.map((cell) => toGridCell(cell, state)),
-    type: TYPE_GT_ROW,
+    type: TYPE_ROW,
   };
 }
 
@@ -46,16 +53,19 @@ function toGridRows(rows, state) {
 const tableToGridTable = (table, state) => {
   for (const child of table.children) {
     if (child.tagName === 'thead') {
-      child.type = TYPE_GT_HEADER;
+      child.type = TYPE_HEADER;
       child.children = toGridRows(child.children, state);
     } else if (child.tagName === 'tbody') {
-      child.type = TYPE_GT_BODY;
+      child.type = TYPE_BODY;
+      child.children = toGridRows(child.children, state);
+    } else if (child.tagName === 'tfoot') {
+      child.type = TYPE_FOOTER;
       child.children = toGridRows(child.children, state);
     }
   }
   return {
     ...table,
-    type: TYPE_GRID_TABLE,
+    type: TYPE_TABLE,
   };
 };
 
