@@ -49,7 +49,7 @@
   "dependencies": {
     "@adobe/fetch": "4.2.2",
     "@adobe/helix-markdown-support": "7.1.12",
-    "@adobe/helix-mediahandler": "2.7.21",
+    "@adobe/helix-mediahandler": "2.7.22",
     "@adobe/helix-shared-body-data": "2.2.0",
     "@adobe/helix-shared-process-queue": "3.1.3",
     "@adobe/helix-shared-utils": "3.0.2",
@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "3.0.8",
-    "@adobe/helix-deploy": "13.1.6",
+    "@adobe/helix-deploy": "13.1.7",
     "@adobe/helix-html-pipeline": "^6.0.0",
     "@adobe/helix-universal": "5.2.2",
     "@adobe/helix-universal-devserver": "1.1.132",
