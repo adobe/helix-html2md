@@ -73,7 +73,7 @@
     "@adobe/helix-deploy": "13.1.9",
     "@adobe/helix-html-pipeline": "^6.0.0",
     "@adobe/helix-universal": "5.2.2",
-    "@adobe/helix-universal-devserver": "1.1.135",
+    "@adobe/helix-universal-devserver": "1.1.136",
     "@adobe/semantic-release-coralogix": "1.1.38",
     "@eslint/config-helpers": "0.3.1",
     "@semantic-release/changelog": "6.0.3",
