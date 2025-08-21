@@ -1,3 +1,10 @@
+## [2.17.24](https://github.com/adobe/[secure]-html2md/compare/v2.17.23...v2.17.24) (2025-08-21)
+
+
+### Bug Fixes
+
+* enforce image size limit of 10mb ([#798](https://github.com/adobe/[secure]-html2md/issues/798)) ([9711b7e](https://github.com/adobe/[secure]-html2md/commit/9711b7e4fc375d68d4abb3b0fe83cb632e0d3b81))
+
 ## [2.17.23](https://github.com/adobe/[secure]-html2md/compare/v2.17.22...v2.17.23) (2025-08-19)
 
 
