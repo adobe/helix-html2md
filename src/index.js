@@ -31,6 +31,8 @@ export const { fetch } = h1NoCache();
 
 const gzip = promisify(zlib.gzip);
 
+const DEFAULT_MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10mb
+
 /**
  * Generates an error response
  * @param {string} message - error message
@@ -193,6 +195,9 @@ async function run(request, ctx) {
       noCache,
       fetchTimeout: 5000, // limit image fetches to 5s
       forceHttp1: true,
+      maxSize: ctx.data.limits?.maxImageSize
+        ? parseInt(ctx.data.limits.maxImageSize, 10)
+        : DEFAULT_MAX_IMAGE_SIZE,
     });
   }
 
