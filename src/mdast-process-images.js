@@ -85,7 +85,7 @@ export async function processImages(
       const blob = await mediaHandler.getBlob(url, baseUrl);
       // eslint-disable-next-line no-param-reassign
       url = blob?.uri || 'about:error';
-      /* c8 ignore next 6 */
+      /* c8 ignore next 9 */
     } catch (e) {
       if (e instanceof SizeTooLargeException) {
         return e;
