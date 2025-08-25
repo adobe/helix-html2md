@@ -80,8 +80,7 @@ export async function processImages(
   }
 
   // upload regular images
-  let criticalError = null;
-  await processQueue(images.entries(), async ([url, nodes]) => {
+  const errors = await processQueue(images.entries(), async ([url, nodes]) => {
     try {
       const blob = await mediaHandler.getBlob(url, baseUrl);
       // eslint-disable-next-line no-param-reassign
@@ -89,7 +88,7 @@ export async function processImages(
       /* c8 ignore next 6 */
     } catch (e) {
       if (e instanceof SizeTooLargeException) {
-        criticalError = e;
+        return e;
       }
       // in case of invalid urls, or other errors
       log.warn(`Failed to fetch image for url '${url}': ${e.message}`);
@@ -99,8 +98,10 @@ export async function processImages(
     for (const node of nodes) {
       node.url = url;
     }
+    return null;
   }, 8);
 
+  const criticalError = errors.find((e) => !!e);
   if (criticalError) {
     throw criticalError;
   }
