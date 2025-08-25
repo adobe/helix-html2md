@@ -21,7 +21,7 @@ import {
   AbortError,
 } from '@adobe/fetch';
 import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
-import { MediaHandler } from '@adobe/helix-mediahandler';
+import { MediaHandler, SizeTooLargeException } from '@adobe/helix-mediahandler';
 import pkgJson from './package.cjs';
 import { ConstraintsError, html2md } from './html2md.js';
 import { TooManyImagesError } from './mdast-process-images.js';
@@ -237,6 +237,9 @@ async function run(request, ctx) {
     }
     if (e instanceof ConstraintsError) {
       return error(ctx, `error fetching resource at ${sourceUrl}: ${e.message}`, 400);
+    }
+    if (e instanceof SizeTooLargeException) {
+      return error(ctx, `error fetching resource at ${sourceUrl}: ${e.message}`, 409);
     }
     /* c8 ignore next 3 */
     log.debug(e.stack);
