@@ -1,3 +1,10 @@
+## [2.17.26](https://github.com/adobe/[secure]-html2md/compare/v2.17.25...v2.17.26) (2025-08-28)
+
+
+### Bug Fixes
+
+* reject entire conversion if image is too big ([#799](https://github.com/adobe/[secure]-html2md/issues/799)) ([1dd97c8](https://github.com/adobe/[secure]-html2md/commit/1dd97c8ed1581f87bdafb99e0920adf84c1e7153))
+
 ## [2.17.25](https://github.com/adobe/[secure]-html2md/compare/v2.17.24...v2.17.25) (2025-08-25)
 
 
