@@ -1,3 +1,10 @@
+# [2.18.0](https://github.com/adobe/[secure]-html2md/compare/v2.17.26...v2.18.0) (2025-09-01)
+
+
+### Features
+
+* add better image size error ([#802](https://github.com/adobe/[secure]-html2md/issues/802)) ([c557090](https://github.com/adobe/[secure]-html2md/commit/c557090f263eeba9872fbadba839fa8c9436e4c9))
+
 ## [2.17.26](https://github.com/adobe/[secure]-html2md/compare/v2.17.25...v2.17.26) (2025-08-28)
 
 
