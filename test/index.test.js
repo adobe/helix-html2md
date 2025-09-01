@@ -469,7 +469,50 @@ describe('Index Tests', () => {
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'error fetching resource at https://www.example.com/: Resource size exceeds allowed limit: 15744000 > 10485760',
+      'x-error': 'error fetching resource at https://www.example.com/: Image 1 exceeds allowed limit of 10.00MB',
+    });
+  });
+
+  it('return 409 for several large images', async () => {
+    nock('https://www.example.com')
+      .get('/')
+      .replyWithFile(200, resolve(__testdir, 'fixtures', 'images-large.html'), {})
+      .get('/large.png')
+      .reply(200, Buffer.alloc(15 * 1025 * 1024), {
+        'content-type': 'image/png',
+        'content-length': 15 * 1024 * 1240,
+      })
+      .get('/large1.png')
+      .reply(200, Buffer.alloc(14 * 1025 * 1024), {
+        'content-type': 'image/png',
+        'content-length': 15 * 1024 * 1240,
+      });
+
+    const result = await main(
+      new Request('https://www.example.com/', {
+        method: 'POST',
+        headers: {
+          authorization: 'Bearer 1234',
+          'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          org: 'owner',
+          site: 'repo',
+          sourceUrl: 'https://www.example.com/',
+          contentBusId: 'foo-id',
+        }),
+      }),
+      {
+        log: console,
+        env: DUMMY_ENV,
+      },
+    );
+    assert.strictEqual(result.status, 409);
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-type': 'text/plain; charset=utf-8',
+      'x-error': 'error fetching resource at https://www.example.com/: Images 1 and 2 exceed allowed limit of 10.00MB',
     });
   });
 

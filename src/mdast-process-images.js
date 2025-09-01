@@ -16,6 +16,18 @@ import { SizeTooLargeException } from '@adobe/helix-mediahandler';
 export class TooManyImagesError extends Error {
 }
 
+export function toSISize(bytes, precision = 2) {
+  if (bytes === 0) {
+    return '0B';
+  }
+  const mags = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
+  const LOG_1024 = Math.log(1024);
+
+  const magnitude = Math.floor(Math.log(Math.abs(bytes)) / LOG_1024);
+  const result = bytes / (1024 ** magnitude);
+  return `${result.toFixed(magnitude === 0 ? 0 : precision)}${mags[magnitude]}`;
+}
+
 /**
  * Process images
  * @param {Console} log
@@ -61,9 +73,13 @@ export async function processImages(
     }
   };
 
+  let imageIdx = 1;
   visit(tree, (node) => {
     if (node.type === 'image') {
       const { url = '' } = node;
+      // eslint-disable-next-line no-param-reassign
+      node.imageIdx = imageIdx;
+      imageIdx += 1;
       if (url.indexOf(':') < 0 || url.startsWith('/')) {
         // eslint-disable-next-line no-param-reassign
         node.url = new URL(url, baseUrl).href;
@@ -80,7 +96,8 @@ export async function processImages(
   }
 
   // upload regular images
-  const errors = await processQueue(images.entries(), async ([url, nodes]) => {
+  const errorImages = [];
+  await processQueue(images.entries(), async ([url, nodes]) => {
     try {
       const blob = await mediaHandler.getBlob(url, baseUrl);
       // eslint-disable-next-line no-param-reassign
@@ -88,7 +105,8 @@ export async function processImages(
       /* c8 ignore next 9 */
     } catch (e) {
       if (e instanceof SizeTooLargeException) {
-        return e;
+        // only report the first large image
+        errorImages.push(nodes[0].imageIdx);
       }
       // in case of invalid urls, or other errors
       log.warn(`Failed to fetch image for url '${url}': ${e.message}`);
@@ -98,11 +116,17 @@ export async function processImages(
     for (const node of nodes) {
       node.url = url;
     }
-    return null;
   }, 8);
 
-  const criticalError = errors.find((e) => !!e);
-  if (criticalError) {
-    throw criticalError;
+  if (errorImages.length > 0) {
+    let msg;
+    if (errorImages.length > 1) {
+      // eslint-disable-next-line no-underscore-dangle
+      msg = `Images ${errorImages.slice(0, -1).join(', ')} and ${errorImages.at(-1)} exceed allowed limit of ${toSISize(mediaHandler._maxSize)}`;
+    } else {
+      // eslint-disable-next-line no-underscore-dangle
+      msg = `Image ${errorImages[0]} exceeds allowed limit of ${toSISize(mediaHandler._maxSize)}`;
+    }
+    throw new SizeTooLargeException(msg);
   }
 }
