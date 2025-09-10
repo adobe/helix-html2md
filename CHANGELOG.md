@@ -1,3 +1,10 @@
+## [2.18.4](https://github.com/adobe/[secure]-html2md/compare/v2.18.3...v2.18.4) (2025-09-10)
+
+
+### Bug Fixes
+
+* raise default image limit ([#812](https://github.com/adobe/[secure]-html2md/issues/812)) ([0a9b01d](https://github.com/adobe/[secure]-html2md/commit/0a9b01d731fea3a40542413729dcda9c4ef8e516))
+
 ## [2.18.3](https://github.com/adobe/[secure]-html2md/compare/v2.18.2...v2.18.3) (2025-09-09)
 
 
