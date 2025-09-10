@@ -440,9 +440,9 @@ describe('Index Tests', () => {
       .get('/')
       .replyWithFile(200, resolve(__testdir, 'fixtures', 'image-large.html'), {})
       .get('/large.png')
-      .reply(200, Buffer.alloc(15 * 1025 * 1024), {
+      .reply(200, Buffer.alloc(21 * 1025 * 1024), {
         'content-type': 'image/png',
-        'content-length': 15 * 1024 * 1240,
+        'content-length': 21 * 1024 * 1240,
       });
 
     const result = await main(
@@ -469,7 +469,7 @@ describe('Index Tests', () => {
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'error fetching resource at https://www.example.com/: Image 1 exceeds allowed limit of 10.00MB',
+      'x-error': 'error fetching resource at https://www.example.com/: Image 1 exceeds allowed limit of 20.00MB',
     });
   });
 
@@ -478,14 +478,14 @@ describe('Index Tests', () => {
       .get('/')
       .replyWithFile(200, resolve(__testdir, 'fixtures', 'images-large.html'), {})
       .get('/large.png')
-      .reply(200, Buffer.alloc(15 * 1025 * 1024), {
+      .reply(200, Buffer.alloc(25 * 1025 * 1024), {
         'content-type': 'image/png',
-        'content-length': 15 * 1024 * 1240,
+        'content-length': 25 * 1024 * 1240,
       })
       .get('/large1.png')
-      .reply(200, Buffer.alloc(14 * 1025 * 1024), {
+      .reply(200, Buffer.alloc(24 * 1025 * 1024), {
         'content-type': 'image/png',
-        'content-length': 15 * 1024 * 1240,
+        'content-length': 24 * 1024 * 1240,
       });
 
     const result = await main(
@@ -512,7 +512,7 @@ describe('Index Tests', () => {
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'error fetching resource at https://www.example.com/: Images 1 and 2 exceed allowed limit of 10.00MB',
+      'x-error': 'error fetching resource at https://www.example.com/: Images 1 and 2 exceed allowed limit of 20.00MB',
     });
   });
 

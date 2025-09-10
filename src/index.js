@@ -31,7 +31,7 @@ export const { fetch } = h1NoCache();
 
 const gzip = promisify(zlib.gzip);
 
-const DEFAULT_MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10mb
+const DEFAULT_MAX_IMAGE_SIZE = 20 * 1024 * 1024; // 20mb
 
 /**
  * Generates an error response
