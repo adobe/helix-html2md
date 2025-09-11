@@ -1,3 +1,10 @@
+## [2.18.5](https://github.com/adobe/[secure]-html2md/compare/v2.18.4...v2.18.5) (2025-09-11)
+
+
+### Bug Fixes
+
+* force deploy ([c10c784](https://github.com/adobe/[secure]-html2md/commit/c10c784d5221234fca4055db3ecb464f200773ef))
+
 ## [2.18.4](https://github.com/adobe/[secure]-html2md/compare/v2.18.3...v2.18.4) (2025-09-10)
 
 
