@@ -518,18 +518,18 @@ describe('Index Tests', () => {
 
   it('honors maxImageSize limit', async () => {
     nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
-      .head('/foo-id/1c662877ed0645d24800fad6eb5c1223895753d90')
+      .head('/foo-id/120b6669c77e35fb2ad9563a4a048701b43948bd3')
       .reply(404)
-      .post('/foo-id/1c662877ed0645d24800fad6eb5c1223895753d90?uploads=')
+      .post('/foo-id/120b6669c77e35fb2ad9563a4a048701b43948bd3?uploads=')
       .reply(201);
 
     nock('https://www.example.com')
       .get('/')
       .replyWithFile(200, resolve(__testdir, 'fixtures', 'image-large.html'), {})
       .get('/large.png')
-      .reply(200, Buffer.alloc(15 * 1025 * 1024), {
+      .reply(200, Buffer.alloc(25 * 1024 * 1024), {
         'content-type': 'image/png',
-        'content-length': 15 * 1024 * 1240,
+        'content-length': 25 * 1024 * 1240,
       });
 
     const result = await main(
@@ -546,7 +546,7 @@ describe('Index Tests', () => {
           sourceUrl: 'https://www.example.com/',
           contentBusId: 'foo-id',
           limits: {
-            maxImageSize: 20 * 1024 * 1024, // 20mb
+            maxImageSize: 30 * 1024 * 1024, // 30mb
           },
         }),
       }),
@@ -580,6 +580,45 @@ describe('Index Tests', () => {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
       'x-error': 'error fetching resource at https://www.example.com/: html source larger than 1mb',
+    });
+  });
+
+  it('honors max html limit large html', async () => {
+    nock('https://www.example.com')
+      .get('/')
+      .reply(200, 'x'.repeat(1024 ** 2 + 1));
+
+    const result = await main(
+      new Request('https://www.example.com/', {
+        method: 'POST',
+        headers: {
+          authorization: 'Bearer 1234',
+          'x-content-source-location': '/content/some-path/index?sig=signature&exp=2024-03-03T10:00:00.000Z',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          org: 'owner',
+          site: 'repo',
+          sourceUrl: 'https://www.example.com/',
+          contentBusId: 'foo-id',
+          limits: {
+            maxHTMLSize: 2 * 1024 * 1024, // 2mb
+          },
+        }),
+      }),
+      {
+        log: console,
+        env: DUMMY_ENV,
+      },
+    );
+
+    assert.strictEqual(result.status, 200);
+    assert.deepStrictEqual(result.headers.plain(), {
+      'cache-control': 'no-store, private, must-revalidate',
+      'content-encoding': 'gzip',
+      'content-length': '0',
+      'content-type': 'text/markdown; charset=utf-8',
+      'x-source-location': 'https://www.example.com/',
     });
   });
 

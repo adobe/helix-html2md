@@ -8,4 +8,4 @@
 | title | Simple Document with Images |
 +-------+-----------------------------+
 
-[image0]: https://main--repo--owner.aem.page/media_1c662877ed0645d24800fad6eb5c1223895753d90.png#width=0&height=0
+[image0]: https://main--repo--owner.aem.page/media_120b6669c77e35fb2ad9563a4a048701b43948bd3.png#width=0&height=0

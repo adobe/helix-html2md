@@ -33,6 +33,8 @@ const gzip = promisify(zlib.gzip);
 
 const DEFAULT_MAX_IMAGE_SIZE = 20 * 1024 * 1024; // 20mb
 
+const DEFAULT_MAX_HTML_SIZE = 1024 * 1024; // 1mb
+
 /**
  * Generates an error response
  * @param {string} message - error message
@@ -153,8 +155,12 @@ async function run(request, ctx) {
         return error(ctx, `error fetching resource at ${sourceUrl}: ${status}`, 502, 'warn');
       }
     }
+    const maxHTMLSize = ctx.data.limits?.maxHTMLSize
+      ? parseInt(ctx.data.limits.maxHTMLSize, 10)
+      : DEFAULT_MAX_HTML_SIZE;
+
     // limit response size of content provider to 1mb
-    if (html.length > 1024 * 1024) {
+    if (html.length > maxHTMLSize) {
       return error(ctx, `error fetching resource at ${sourceUrl}: html source larger than 1mb`, 409);
     }
   } catch (e) {
