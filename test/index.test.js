@@ -579,7 +579,7 @@ describe('Index Tests', () => {
     assert.deepStrictEqual(result.headers.plain(), {
       'cache-control': 'no-store, private, must-revalidate',
       'content-type': 'text/plain; charset=utf-8',
-      'x-error': 'error fetching resource at https://www.example.com/: html source larger than 1mb',
+      'x-error': 'error fetching resource at https://www.example.com/: html source larger than 1MB',
     });
   });
 

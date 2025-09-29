@@ -24,7 +24,7 @@ import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
 import { MediaHandler, SizeTooLargeException } from '@adobe/helix-mediahandler';
 import pkgJson from './package.cjs';
 import { ConstraintsError, html2md } from './html2md.js';
-import { TooManyImagesError } from './mdast-process-images.js';
+import { TooManyImagesError, toSISize } from './mdast-process-images.js';
 
 /* c8 ignore next 7 */
 export const { fetch } = h1NoCache();
@@ -161,7 +161,7 @@ async function run(request, ctx) {
 
     // limit response size of content provider to 1mb
     if (html.length > maxHTMLSize) {
-      return error(ctx, `error fetching resource at ${sourceUrl}: html source larger than 1mb`, 409);
+      return error(ctx, `error fetching resource at ${sourceUrl}: html source larger than ${toSISize(maxHTMLSize, 0)}`, 409);
     }
   } catch (e) {
     if (e instanceof AbortError) {
