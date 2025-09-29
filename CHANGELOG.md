@@ -1,3 +1,10 @@
+## [2.18.7](https://github.com/adobe/[secure]-html2md/compare/v2.18.6...v2.18.7) (2025-09-29)
+
+
+### Bug Fixes
+
+* respect maxHTMLSize limit ([88cdbad](https://github.com/adobe/[secure]-html2md/commit/88cdbad6394b814f9041d521568e4726b2bd870f))
+
 ## [2.18.6](https://github.com/adobe/[secure]-html2md/compare/v2.18.5...v2.18.6) (2025-09-16)
 
 
