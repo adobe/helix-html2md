@@ -29,7 +29,8 @@ function reqUrl(path = '/', init = {}) {
 
 const DUMMY_ENV = {
   MEDIAHANDLER_NOCACHHE: true,
-  AWS_REGION: 'dummy',
+  AWS_PROFILE: 'dummy',
+  AWS_REGION: 'us-easy-1',
   AWS_ACCESS_KEY_ID: 'dummy',
   AWS_SECRET_ACCESS_KEY: 'dummy',
   CLOUDFLARE_ACCOUNT_ID: 'dummy',
@@ -41,6 +42,7 @@ describe('Index Tests', () => {
   let nock;
   beforeEach(() => {
     nock = new Nock().env();
+    delete process.env.AWS_PROFILE;
     Object.assign(process.env, {
       AWS_S3_REGION: 'us-east-1',
       AWS_S3_ACCESS_KEY_ID: 'dummy',

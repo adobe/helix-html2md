@@ -1,11 +1,11 @@
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Columns (bleed)                                                                                                                                                                                                    |
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
-| _Helix is a new and exciting feature of Adobe Experience Manager_                                                                                                                                    | ![][image0] |
+| *Helix is a new and exciting feature of Adobe Experience Manager*                                                                                                                                    | ![][image0] |
 |                                                                                                                                                                                                      |             |
 | # Faster. Better. Period.                                                                                                                                                                            |             |
 |                                                                                                                                                                                                      |             |
-| AEM Helix is the fastest way to **_launch_** new sites and deliver the **_fastest pages_** on the web, as a bonus it is also the most intuitive and fastest way to **_create and publish_** content. |             |
+| AEM Helix is the fastest way to ***launch*** new sites and deliver the ***fastest pages*** on the web, as a bonus it is also the most intuitive and fastest way to ***create and publish*** content. |             |
 |                                                                                                                                                                                                      |             |
 | [Seriously? Yes.](#but-how-fast)                                                                                                                                                                     |             |
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+
@@ -131,7 +131,7 @@
 
 ---
 
-### What _is_ Helix? (if you like tech jargon)
+### What *is* Helix? (if you like tech jargon)
 
 Helix lets business users ingest and publish markdown documents and spreadsheets from Microsoft Office or Google Docs and Sheets into a scalable, distributed content repository and dynamically renders HTML (and JSON, webp, etc.) to produce fast websites and actively manages cache consistency with your existing CDN infrastructure.
 

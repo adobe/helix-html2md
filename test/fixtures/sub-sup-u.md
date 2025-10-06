@@ -8,7 +8,7 @@ this is <u>underlined</u>
 
 this is **<sub>bold subscript</sub>**
 
-this is _<u>italic underlined</u>_
+this is *<u>italic underlined</u>*
 
 this is [a link with <sub>subscript</sub> inside](#).
 

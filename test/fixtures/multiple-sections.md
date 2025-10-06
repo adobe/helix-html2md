@@ -24,7 +24,7 @@ Adjust the `fstab.yaml` to point to a folder either in your sharepoint or your g
 +--------------------------------+----------------------------------+
 | ![Yellow Double Helix][image2] | Or you can just view the preview |
 |                                |                                  |
-|                                | _[Preview](/)_                   |
+|                                | *[Preview](/)*                   |
 +--------------------------------+----------------------------------+
 
 ---
