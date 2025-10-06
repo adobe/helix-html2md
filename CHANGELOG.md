@@ -1,3 +1,10 @@
+## [2.18.9](https://github.com/adobe/[secure]-html2md/compare/v2.18.8...v2.18.9) (2025-10-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/[secure]-markdown-support to v7.1.13 ([#825](https://github.com/adobe/[secure]-html2md/issues/825)) ([08b4509](https://github.com/adobe/[secure]-html2md/commit/08b4509001e448d72344bc9fca6a9446f81f18ae))
+
 ## [2.18.8](https://github.com/adobe/[secure]-html2md/compare/v2.18.7...v2.18.8) (2025-10-06)
 
 
