@@ -1,3 +1,10 @@
+## [2.18.8](https://github.com/adobe/[secure]-html2md/compare/v2.18.7...v2.18.8) (2025-10-06)
+
+
+### Bug Fixes
+
+* use * for emphasis ([#823](https://github.com/adobe/[secure]-html2md/issues/823)) ([86babf5](https://github.com/adobe/[secure]-html2md/commit/86babf5f1c77e057e49a502a54e525e473997eac)), closes [#822](https://github.com/adobe/[secure]-html2md/issues/822)
+
 ## [2.18.7](https://github.com/adobe/[secure]-html2md/compare/v2.18.6...v2.18.7) (2025-09-29)
 
 
