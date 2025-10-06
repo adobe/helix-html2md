@@ -354,7 +354,7 @@ export async function html2md(html, opts) {
   const md = unified()
     .use(stringify, {
       strong: '*',
-      emphasis: '_',
+      emphasis: '*',
       bullet: '-',
       fence: '`',
       fences: true,
