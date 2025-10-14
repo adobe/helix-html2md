@@ -1,3 +1,10 @@
+# [2.19.0](https://github.com/adobe/[secure]-html2md/compare/v2.18.10...v2.19.0) (2025-10-14)
+
+
+### Features
+
+* use media bucket parameter ([#833](https://github.com/adobe/[secure]-html2md/issues/833)) ([a932852](https://github.com/adobe/[secure]-html2md/commit/a93285221f715761d115dfee3bdb749421a54804))
+
 ## [2.18.10](https://github.com/adobe/[secure]-html2md/compare/v2.18.9...v2.18.10) (2025-10-10)
 
 
