@@ -519,7 +519,7 @@ describe('Index Tests', () => {
   });
 
   it('honors maxImageSize limit', async () => {
-    nock('https://helix-media-bus.s3.us-east-1.amazonaws.com')
+    nock('https://my-media-bus.s3.us-east-1.amazonaws.com')
       .head('/foo-id/120b6669c77e35fb2ad9563a4a048701b43948bd3')
       .reply(404)
       .post('/foo-id/120b6669c77e35fb2ad9563a4a048701b43948bd3?uploads=')
@@ -550,6 +550,7 @@ describe('Index Tests', () => {
           limits: {
             maxImageSize: 30 * 1024 * 1024, // 30mb
           },
+          mediaBucket: 'my-media-bus',
         }),
       }),
       {

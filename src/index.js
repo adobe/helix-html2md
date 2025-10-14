@@ -109,6 +109,7 @@ async function run(request, ctx) {
   const { log } = ctx;
   const {
     sourceUrl, site, org, contentBusId,
+    mediaBucket,
   } = ctx.data;
   ctx.attributes = {};
 
@@ -190,6 +191,7 @@ async function run(request, ctx) {
       r2AccountId,
       r2AccessKeyId,
       r2SecretAccessKey,
+      bucketId: mediaBucket,
       owner: org,
       repo: site,
       ref: 'main',
