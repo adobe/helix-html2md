@@ -69,12 +69,12 @@
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
-    "@adobe/eslint-config-helix": "3.0.11",
+    "@adobe/eslint-config-helix": "3.0.12",
     "@adobe/helix-deploy": "13.1.17",
     "@adobe/helix-html-pipeline": "^6.0.0",
     "@adobe/helix-universal": "5.2.3",
     "@adobe/helix-universal-devserver": "1.1.141",
-    "@adobe/semantic-release-coralogix": "1.1.39",
+    "@adobe/semantic-release-coralogix": "1.1.40",
     "@eslint/config-helpers": "0.4.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "7.1.0",
