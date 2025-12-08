@@ -21,7 +21,7 @@ export class OpenwhiskTarget {
     Object.assign(this, {
       namespace: 'helix',
       package: 'helix3',
-      name: packjson.name.replace('@adobe/helix-', ''),
+      name: 'html2md',
       version: String(packjson.version),
     }, opts);
     if (process.env.CI && process.env.CI_BUILD_NUM && process.env.CI_BRANCH !== 'main' && !opts.version) {
