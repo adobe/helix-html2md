@@ -1,8 +1,8 @@
 {
-  "name": "@adobe/helix-html2md",
+  "name": "@adobe/helix-html2md-service",
   "version": "2.19.5",
   "private": true,
-  "description": "Helix Html2MD",
+  "description": "Helix Html2MD Service",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -39,13 +39,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/adobe/helix-html2md"
+    "url": "https://github.com/adobe/helix-html2md-service"
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/adobe/helix-html2md/issues"
+    "url": "https://github.com/adobe/helix-html2md-service/issues"
   },
-  "homepage": "https://github.com/adobe/helix-html2md#readme",
+  "homepage": "https://github.com/adobe/helix-html2md-service#readme",
   "dependencies": {
     "@adobe/fetch": "4.2.3",
     "@adobe/helix-markdown-support": "7.1.16",
