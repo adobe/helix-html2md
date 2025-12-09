@@ -14,6 +14,8 @@ import { promisify } from 'util';
 import wrap from '@adobe/helix-shared-wrap';
 import { helixStatus } from '@adobe/helix-status';
 import bodyData from '@adobe/helix-shared-body-data';
+import { toSISize } from '@adobe/helix-shared-string';
+import { ConstraintsError, TooManyImagesError, html2md } from '@adobe/helix-html2md';
 import {
   Response,
   h1NoCache,
@@ -23,8 +25,6 @@ import {
 import { cleanupHeaderValue } from '@adobe/helix-shared-utils';
 import { MediaHandler, SizeTooLargeException } from '@adobe/helix-mediahandler';
 import pkgJson from './package.cjs';
-import { ConstraintsError, html2md } from './html2md.js';
-import { TooManyImagesError, toSISize } from './mdast-process-images.js';
 
 /* c8 ignore next 7 */
 export const { fetch } = h1NoCache();
