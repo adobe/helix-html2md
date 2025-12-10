@@ -20,7 +20,11 @@ module.exports = {
       assets: ['package.json', 'package-lock.json', 'CHANGELOG.md'],
       message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}'
     }],
-    '@semantic-release/github',
+    ['@semantic-release/github', {
+      assets: [
+        { path: 'dist/**/*.zip', label: 'Helix HTML2MD Bundle' }
+      ]
+    }],
   ],
   branches: ['main'],
 };
