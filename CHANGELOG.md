@@ -1,3 +1,10 @@
+# [2.20.0](https://github.com/adobe/[secure]-html2md-service/compare/v2.19.5...v2.20.0) (2025-12-10)
+
+
+### Features
+
+* use htm2md library ([#868](https://github.com/adobe/[secure]-html2md-service/issues/868)) ([7e54139](https://github.com/adobe/[secure]-html2md-service/commit/7e5413933c3dd6eb001aad2afb25a6d4b7707e33))
+
 ## [2.19.5](https://github.com/adobe/[secure]-html2md/compare/v2.19.4...v2.19.5) (2025-12-02)
 
 
